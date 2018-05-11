@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.entoss.pomfret.actnow.daas.BusinessUnitMapper">
+	<resultMap type="BusinessUnit" id="BusinessUnitResult">
+		<id property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="uniqueId" column="unique_id" />
+		<result property="costCentre" column="cost_centre" />
+	</resultMap>
+
+	<select id="getAllBusinessUnits" resultMap="BusinessUnitResult">
+		SELECT * FROM BUSINESS_UNIT
+	</select>
+
+	<select id="getBusinessUnitById" parameterType="int"
+		resultMap="BusinessUnitResult">
+		SELECT ID, NAME, COST_CENTRE
+		FROM BUSINESS_UNIT
+		WHERE ID = #{id}
+	</select>
+
+	<select id="getBusineessUnitByUniqueId" parameterType="java.lang.String"
+		resultMap="BusinessUnitResult">
+
+		SELECT B.ID,B.NAME,B.COST_CENTRE
+		FROM BUSINESS_UNIT B,COMPANY C WHERE B.UNIQUE_ID=C.UNIQUE_ID AND
+		B.UNIQUE_ID=#{uniqueId}
+	</select>
+
+	<insert id="insertBusinessUnit" parameterType="BusinessUnit">
+		INSERT INTO BUSINESS_UNIT(NAME,UNIQUE_ID,COST_CENTRE)
+		VALUES(#{name},#{uniqueId},#{costCentre})
+	</insert>
+
+	<update id="updateBusinessUnit" parameterType="BusinessUnit">
+		UPDATE BUSINESS_UNIT
+		SET
+		NAME = #{name},
+		COST_CENTRE = #{costCentre}
+		WHERE ID = #{id}
+	</update>
+
+	<!-- <delete id="deleteBusinessUnit" parameterType="int">
+		DELETE FROM BUSINESS_UNIT WHERE ID = #{id}
+	</delete> -->
+	
+	<delete id="deleteBusinessUnit" parameterType="int">
+	WITH TEMP AS (SELECT BU_ID FROM EMPLOYEE WHERE BU_ID=#{id}),
+    UPD AS (UPDATE EMPLOYEE SET BU_ID=NULL WHERE BU_ID IN (SELECT BU_ID FROM TEMP)) DELETE FROM DEPARTMENT WHERE ID=#{id}
+	</delete>
+
+</mapper>

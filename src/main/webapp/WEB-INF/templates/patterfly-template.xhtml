@@ -1,0 +1,779 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	class="layout-pf layout-pf-fixed" xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+	<title>Pomfret ActNow</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<h:outputStylesheet
+		name="node_modules/patternfly/dist/css/patternfly.css"></h:outputStylesheet>
+	<h:outputStylesheet
+		name="node_modules/patternfly/dist/css/patternfly-additions.min.css"></h:outputStylesheet>
+	<h:outputStylesheet
+		name="node_modules/patternfly/dist/css/patternfly.min.css"></h:outputStylesheet>
+
+	<!-- jQuery -->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/jquery/dist/jquery.min.js" />
+
+	<!-- Bootstrap JS -->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/bootstrap/dist/js/bootstrap.min.js" />
+
+	<!-- C3, D3 - Charting Libraries -->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/c3/c3.min.js" />
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/d3/d3.min.js" />
+
+	<!-- Datatables, jQuery Grid Component -->
+	<!-- Note: jquery.dataTables.js must occur in the html source before patternfly*.js.-->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/datatables/media/js/jquery.dataTables.min.js" />
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/drmonty-datatables-colvis/js/dataTables.colVis.js" />
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/datatables.net-colreorder/js/dataTables.colReorder.js" />
+
+	<!-- PatternFly Custom Componets -  Sidebar, Popovers and Datatables Customizations -->
+	<!-- Note: jquery.dataTables.js must occur in the html source before patternfly*.js.-->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/patternfly/dist/js/patternfly.min.js" />
+
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/jquery-match-height/dist/jquery.matchHeight-min.js" />
+
+	<!-- Bootstrap Combobox -->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/patternfly-bootstrap-combobox/js/bootstrap-combobox.js" />
+
+	<!-- Bootstrap Date Picker -->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js" />
+
+	<!-- Moment - required by Bootstrap Date Time Picker -->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/moment/min/moment.min.js" />
+
+	<!-- Bootstrap Date Time Picker - requires Moment -->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js" />
+
+	<!-- Bootstrap Select -->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/bootstrap-select/dist/js/bootstrap-select.min.js" />
+
+	<!-- Bootstrap Switch -->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/bootstrap-switch/dist/js/bootstrap-switch.min.js" />
+
+	<!-- Bootstrap Touchspin -->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js" />
+
+	<!-- Bootstrap Tree View -->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/patternfly-bootstrap-treeview/dist/bootstrap-treeview.min.js" />
+
+	<!-- Google Code Prettify - Syntax highlighting of code snippets -->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/google-code-prettify/bin/prettify.min.js" />
+	<link rel="stylesheet" type="text/css" href="styles.css"></link>
+	<link rel="stylesheet" type="text/css" href="sevice_stylesheet.css"></link>
+
+	<!-- <script
+		src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
+	<script type="text/javascript" src="script.js"></script>
+	<script src="dashUrl.js"></script>
+
+
+
+	<style>
+.sidenav {
+	transition: 0.0s;
+	padding-top: 0px
+}
+
+.sidenav a {
+	padding: 8px 8px 8px 32px;
+	text-decoration: none;
+	font-size: 25px;
+	color: #818181;
+	display: block;
+	transition: 0.1s;
+}
+
+.sidenav a:hover {
+	color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+	position: absolute;
+	top: 0;
+	right: 25px;
+	font-size: 36px;
+	margin-left: 50px;
+}
+
+#main {
+	transition: /* margin-left */ 0.0s;
+	padding: 16px;
+}
+</style>
+</h:head>
+
+<h:body class="cards-pf">
+
+
+	<style>
+.main-nav2 {
+	list-style-type: none;
+	height: 100%;
+	width: auto;
+	z-index: 999;
+	min-width:164px;
+	background: #292e34;
+	margin-left: 60px;
+	margin-top: 0px;
+	position: fixed;
+padding-top:2px;	
+	 display: none; 
+}
+.main-nav3 {
+	list-style-type: none;
+	height: 100%;
+	width: auto;
+	z-index: 999;
+	min-width:164px;
+	background: #292e34;
+	margin-left: 90px;
+	margin-top: 0px;
+	position: fixed;
+padding-top:20px;	
+	 display: none; 
+}
+.sub-menu2 ,.sub-menu1,.sub-menu3,.sub-menu4,.sub-menu5,.sub-menu6,.sub-menu7{
+padding:0px;
+ background: #292e34; 
+
+
+margin:0px;
+line-height:60px;
+border-bottom:1px solid rgba(220,220,220,0.3);
+}
+
+.sub-menu2,.sub-menu7{
+margin-left:3px;
+line-height:30px;
+background:rgb(69, 70, 71);
+
+display:none}
+.sub-menu2 li {border-bottom:1px solid rgba(220,220,220,0.3);}
+.sub-menu2 li a:hover{color:red}
+
+#clear{
+clear:both;}
+</style>
+
+<iframe id="myiframe" src="/pomfret-dashboard" onload="go()" style="display:none"></iframe>
+
+ <script>
+
+ function go(){
+	 var iframe = document.getElementById('fram');
+     var doc = iframe.contentDocument || iframe.contentWindow.document;
+     var elem = document.getElementById('username');
+     doc.getElementsByName('j_username')[0].value = "user";
+     doc.getElementsByName('j_password')[0].value = "user";
+     doc.getElementsByTagName('form')[0].submit();
+	 }
+        
+    </script>
+<div class="main-nav3">
+<ul>
+<li>
+<button type="button" class="close clo "  style="color: #ffff;margin-right: 5px;margin-bottom:10px ;font-size:35px " >&times;</button>
+</li>
+</ul>
+</div>
+	<div id="vict" class="  main-nav2 " >
+	
+	
+	<ul class="sub-menu3  mytask text-center" style="display: none">
+					
+						<li onclick="requestTask()" data-toggle="tooltip" data-placement="auto" class="tooltipMytask" >
+							<script>function requestTask(){
+				var link="mytask.html?sessionId="+sessionId+"";
+				$("#fram").attr("src",link);
+				$("#vict").hide();
+				$(".main-nav3").hide();
+			}</script>
+			<a  id="process" style="font-size: 14px;font-weight: 600;color: #d1d1d1;text-decoration: none;"
+			 target="iframe_a">My Task</a>
+		</li>
+					</ul>
+					
+					
+					
+
+	<ul  class="sub-menu1 process text-center" style="display: none">
+						<li>
+			<a  id="process" style="font-size: 14px;font-weight: 600;color: #d1d1d1;text-decoration: none;">Process</a>
+		</li>
+					</ul>
+				
+				
+				
+					
+	<ul class="sub-menu2 text-center" >
+		
+		<!-- <li>
+			<a   
+			style="font-size: 14px;font-weight: 600;color: #d1d1d1;text-decoration: none;"
+			href="/actnow-claims-1.0.0/forms/submit-claim.html?sessionId="+sessionId+"" target="iframe_a">Submit Claims</a>
+		</li> -->
+		
+		<li onclick="requestclaims()">
+			<script>function requestclaims(){
+				var link="/actnow-claims-1.0.0/forms/submit-claim.html?sessionId="+sessionId+"";
+				$("#fram").attr("src",link);
+				$("#vict").hide();
+				$(".main-nav3").hide();
+			}</script>
+			<a   
+			style="font-size: 14px;font-weight: 600;color: #d1d1d1;text-decoration: none;" 
+			>Submit Claim</a>
+		</li>
+		
+		<li onclick="request()">
+			<script>function request(){
+				var link="/actnow-claims-1.0.0/forms/antr/submit-travel-claim.html?sessionId="+sessionId+"";
+				$("#fram").attr("src",link);
+				$("#vict").hide();
+				$(".main-nav3").hide();
+			}</script>
+			<a   
+			style="font-size: 14px;font-weight: 600;color: #d1d1d1;text-decoration: none;" 
+			>Submit Travel Request</a>
+		</li>
+		</ul>
+
+					
+					<ul class="sub-menu4 myclaim text-center" style="display: none">
+
+
+						<li onclick="requestmyclaim()">
+			<script>function requestmyclaim(){
+				var link="myclaim.html?sessionId="+sessionId+"";
+				$("#fram").attr("src",link);
+				$("#vict").hide();
+				$(".main-nav3").hide();
+			}</script>
+			<a  id="process" style="font-size: 14px;font-weight: 600;color: #d1d1d1;text-decoration: none;"
+			>My Claim</a>
+				</li>
+
+					<!-- 
+						<li>
+			<a  id="process" style="font-size: 14px;font-weight: 600;color: #d1d1d1;text-decoration: none;"
+			href="claims.xhtml" target="iframe_a">My Claim</a>
+		</li> -->
+					</ul>
+					
+					
+
+		<ul class="sub-menu5 dashboard text-center" style="display: none">
+						<script src="dashUrl.js"></script>
+					<li onclick="requesdash()">
+			<script>function requesdash(){
+				//var link="/actnow-claims-1.0.0/entry/employee.html?sessionId="+sessionId+"";
+				var tempUrl="/pomfret-dashboard";
+				var dbool=false;
+				try {
+   if(tempUrl==dashUrl)
+				{
+				  $("#fram").attr("src",dashUrl);
+				  dbool=true;
+				}
+}
+catch(err) {
+    console.log( err.message);
+}
+				
+				if(!dbool){
+				$("#fram").attr("src","/actnow-claims-1.0.0/security/authorization.xhtml");
+				}
+				$("#vict").hide();
+				$(".main-nav3").hide();
+				
+				}
+				
+			</script>
+			<a   
+			style="font-size: 14px;font-weight: 600;color: #d1d1d1;text-decoration: none;" 
+			>DashBoard</a>
+				</li>
+					</ul>
+
+
+
+
+
+	<ul  class="sub-menu6 admin text-center" style="display: none">
+						<li>
+			<a  id="process" style="font-size: 14px;font-weight: 600;color: #d1d1d1;text-decoration: none;">Manage</a>
+		</li>
+					</ul>
+				
+
+					
+					<ul class="sub-menu7  text-center">
+					
+						<li onclick="requestemp()">
+			<script>function requestemp(){
+				var link="/actnow-claims-1.0.0/entry/employeelist.html?sessionId="+sessionId+"";
+				$("#fram").attr("src",link);
+				$("#vict").hide();
+				$(".main-nav3").hide();
+			}</script>
+			<a   
+			style="font-size: 14px;font-weight: 600;color: #d1d1d1;text-decoration: none;" 
+			>Employee List</a>
+				</li>
+
+
+				<li onclick="requestcom()">
+			<script>function requestcom(){
+				var link="/actnow-claims-1.0.0/entry/companylist.html?sessionId="+sessionId+"";
+				$("#fram").attr("src",link);
+				$("#vict").hide();
+				$(".main-nav3").hide();
+			}</script>
+			<a   
+			style="font-size: 14px;font-weight: 600;color: #d1d1d1;text-decoration: none;" 
+			>Company List</a>
+				</li>
+
+
+		
+					</ul>
+					
+					<div id="clear"></div>
+				
+		
+		
+		
+
+
+	</div>
+<!-- 	<ul class=" " >
+			<li style="margin-left: -3px;"><a
+				href="/actnow-claims-1.0.0/forms/submit-claim.html"
+				target="iframe_a"
+				style="background-color: #292e34">Submit Claim</a></li>
+					<li></li>
+
+		</ul>
+ -->
+	<!--Menu toggle ends here  -->
+
+
+<script>
+$(".sub-menu1").hover(function(){
+	$(".sub-menu2").show();
+	
+})
+
+$(".sub-menu6").hover(function(){
+	$(".sub-menu7").show();
+	
+})
+
+
+$(".clo").click(function(){
+	$("#vict").css("display","none");
+	$(".main-nav3").css("display","none");
+	side_move();
+});
+
+
+$(".main-nav3").mouseout(function(){
+	$(this).hide();
+	$("#vict").hide();
+	
+})
+
+$(".sideNav").mouseout(function(){
+	
+	$("#vict").hide();
+	$(".main-nav3").hide();
+	
+})
+</script>
+
+
+
+
+	<!--  Vertial bar menu -->
+	<nav class="navbar navbar-pf-vertical"
+		style="margin-top: -43px;    background-color: #ffff;
+		-webkit-box-shadow: 2px 2px 24px -5px rgba(0,0,0,0.75);
+-moz-box-shadow: 2px 2px 24px -5px rgba(0,0,0,0.75);
+box-shadow: 2px 2px 24px -5px rgba(0,0,0,0.75);
+		" id="topNavBar" > <nav
+		class="collapse navbar-collapse">
+	<ul class="nav navbar-nav navbar-right navbar-iconic">
+
+
+		<div class="collapse navbar-collapse navbar-collapse-1">
+		
+			<ul class="nav navbar-nav navbar-utility">
+		<style>.goog-te-gadget-simple{line-height:1}
+		.goog-te-banner-frame.skiptranslate {
+    display: none !important;
+    } 
+body {
+    top: 0px !important; 
+    }</style>
+
+    <li></li>
+		<!-- <li class="dropdown "><a class="nav-item-iconic"
+					id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="true"><div id="google_translate_element"></div><script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+}
+</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</a></li> -->
+
+
+				<li class="dropdown "><a class="nav-item-iconic"
+					id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="true"> <span title="Help"></span> <span style="color: black;display:none" id="sessionValue" > <h:outputText value="#{helloWorld.getSession()}"></h:outputText></span>  <img
+							src="images/profile.png"  style="width: 35px;height:40px"  class="helpdownicon"></img>
+					
+				</a>
+					<ul class="dropdown-menu">
+						
+						<li class="text-center"><a >Hi &nbsp;<span style="color: black"> <h:outputText value="#{helloWorld.getSession()}"></h:outputText></span></a></li>
+						<li>
+						 <h:form id="homeForm">
+            				<h:commandLink value="Logout" action="#{login.logout}" style="text-decoration:none"/>
+   					 </h:form></li>
+
+
+					</ul>
+					</li>
+					
+			</ul>
+		</div>
+	</ul>
+	</nav> <!--Vertical bar ends here  --> 
+	
+	
+	
+	<!--  Menu toggle-->
+	
+		
+	
+ <!-- <img src="images/pomfret_logo.jpg"  style="border:1px solid black" id="logo" /> -->
+
+	<div class="container-fluid" style="margin-top: -15px">
+		<img src="images/pomfret_logo.jpg"  style="border:0px solid black" id="logo" />
+		<span style="" id="logoAlis">ActNow</span>
+	</div>
+
+		
+	<style >
+	#logo{
+	width:170px;
+	border:0px solid black;	
+	height:55px;
+	padding-top:0px;
+	padding-bottom:0px;
+	margin-left: 5px
+	
+	
+	}
+	#logoAlis{
+
+		color: black;
+		font-family: "Comic Sans MS", cursive, sans-serif;
+		border: 0px solid black;
+		margin-top: -30px;display: block;margin-left: 175px;
+		font-size: 12px;
+		
+	}
+	</style>
+	<!--  <nav id="menu" class="main-nav">
+		<ul>
+		<li data-toggle="collapse" data-target="#service1" class="collapsed">
+			<a href="#">Process</a>
+		</li>
+		<ul class="sub-menu collapse" id="service1"
+			style="margin-bottom: -60px; padding-left: 0px;">
+			<li style="margin-left: -3px;"><a
+				href="/actnow-claims-1.0.0/forms/submit-claim.html"
+				target="iframe_a"
+				style="background-color: #292e34; margin-top: -4px; height: 61px;">Submit
+					Claim</a></li>
+		</ul>
+		<li><a href="mytask.xhtml">MyTask</a></li>
+		<li><a href="#">Admin</a></li>
+		<li><a href="#">Dashboard</a></li>
+
+	</ul>
+	</nav> --> <!--Menu toggle ends here  -->
+		<script>
+	/* 	$("body").click(function(e) {
+			if (!$(e.target).is('.list-group') || !$(e.target).is('#vict')) {
+		    	alert("got")   ;
+		    }
+		}); */
+
+	
+		var isOpen = 0;
+		function side_move(){
+			/* if (isOpen == 1) { */
+				/* alert("close"); */
+				/* isOpen = 0;
+				document.getElementById("mySidenav").style.width = "0";
+				document.getElementById("content").style.marginLeft = "0";
+			} */
+
+			/* else { */
+				/* alert("open"); */
+				/* isOpen = 1;
+				document.getElementById("mySidenav").style.width = "120px";
+				document.getElementById("content").style.marginLeft = "142px";
+			} */
+			
+			}
+		function openNav() {
+			 $(".main-nav2").show();
+			 $(".main-nav3").show();
+			 $(".sub-menu3").css("visibility","visible");
+			 $(".sub-menu1").css("visibility","visible");
+			 $(".sub-menu4").css("visibility","visible");
+			 $(".sub-menu5").css("visibility","visible");
+			 $(".sub-menu6").css("visibility","visible");
+			 
+side_move();
+			
+		}
+	</script>
+
+
+
+
+
+
+
+
+
+	<div id="-secondary" class="nav-pf-secondary-nav">
+		<div class="nav-item-pf-header">
+			<a class="secondary-collapse-toggle-pf"
+				data-toggle="collapse-secondary-nav"></a>
+		</div>
+	</div>
+<!-- 	<li
+		class="list-group-item secondary-nav-item-pf mobile-nav-item-pf visible-xs-block"
+		data-target="#amet-secondary"><a> <span
+			class="pficon pficon-user" data-toggle="tooltip" title=""
+			data-original-title="User"></span> <span
+			class="list-group-item-value">User</span>
+	</a>
+		<div id="user-secondary" class="nav-pf-secondary-nav">
+			<div class="nav-item-pf-header">
+				<a class="secondary-collapse-toggle-pf"
+					data-toggle="collapse-secondary-nav"></a> <span>User</span>
+			</div>
+
+			<ul class="list-group">
+				<li class="list-group-item"><a> <span
+						class="list-group-item-value">Preferences</span>
+				</a></li>
+
+				<li class="list-group-item"><a> <span
+						class="list-group-item-value">Logout</span>
+				</a></li>
+			</ul>
+		</div></li>
+	<li
+		class="list-group-item secondary-nav-item-pf mobile-nav-item-pf visible-xs-block"
+		data-target="#amet-secondary"><a> <span
+			class="pficon pficon-help" data-toggle="tooltip" title=""
+			data-original-title="Amet"></span> <span
+			class="list-group-item-value">Help</span>
+	</a>
+		<div id="help-secondary" class="nav-pf-secondary-nav">
+			<div class="nav-item-pf-header">
+				<a class="secondary-collapse-toggle-pf"
+					data-toggle="collapse-secondary-nav"></a> <span>Help</span>
+			</div>
+			<ul class="list-group">
+				<li class="list-group-item"><a> <span
+						class="list-group-item-value">Help</span>
+				</a></li>
+				<li class="list-group-item"><a> <span
+						class="list-group-item-value">About</span>
+				</a></li>
+			</ul>
+		</div></li> -->
+	</nav>
+	<!-- content to add here -->
+
+	<div id="content">
+		<ui:insert name="content">
+
+		</ui:insert>
+	</div>
+
+	<div
+		class="nav-pf-vertical nav-pf-vertical-with-sub-menus nav-pf-persistent-secondary collapsed sideNav"
+		style="z-index: 1500 ;margin-top:-50px;" id="sideNavBar">
+		<ul class="list-group ">
+
+			<div id="mySidenav" class="sidenav">
+			
+			<li class="list-group-item"><a  onmouseover="openNav()"> <img
+						src="images/menu.png" height="25px" width="25px"
+						style="margin-left: -8px;"></img> <span
+						class="list-group-item-value">menu</span>
+
+				</a></li>
+			
+					
+			
+
+				
+						<script> 
+						 var isOpen = 0;
+						function openNAv1(){
+						
+						  $(".main-nav2").show();
+						  $(".main-nav3").show();
+						  $(".sub-menu1").css("visibility","visible");
+						  $(".sub-menu3").css("visibility","hidden");
+						  $(".sub-menu4").css("visibility","hidden");
+						  $(".sub-menu5").css("visibility","hidden");
+						  $(".sub-menu6").css("visibility","hidden");
+						 // $(".sub-menu2").css("display","block");
+						 $(".sub-menu7").css("display","none");
+							side_move();
+						}
+						function openNAv3(){
+							
+							  $(".main-nav2").show();
+							  $(".main-nav3").show();
+							  $(".sub-menu3").css("visibility","visible");
+							  $(".sub-menu1").css("visibility","hidden");
+							  $(".sub-menu4").css("visibility","hidden");
+							  $(".sub-menu5").css("visibility","hidden");
+							  $(".sub-menu6").css("visibility","hidden");
+							  $(".sub-menu2").css("display","none");
+							  $(".sub-menu7").css("display","none");
+								side_move();
+							}
+						
+
+						function openNAv4(){
+							
+							$(".main-nav2").show();
+							 $(".main-nav3").show();
+							  $(".sub-menu4").css("visibility","visible");
+							  $(".sub-menu1").css("visibility","hidden");
+							  $(".sub-menu3").css("visibility","hidden");
+							  $(".sub-menu5").css("visibility","hidden");
+							  $(".sub-menu6").css("visibility","hidden");
+							  $(".sub-menu2").css("display","none");
+							  $(".sub-menu7").css("display","none");
+								side_move();
+							}
+							function openNAv5(){
+							
+							$(".main-nav2").show();
+							 $(".main-nav3").show();
+							 $(".sub-menu5").css("visibility","visible");
+							  $(".sub-menu4").css("visibility","hidden");
+							  $(".sub-menu1").css("visibility","hidden");
+							  $(".sub-menu3").css("visibility","hidden");
+							  $(".sub-menu6").css("visibility","hidden");
+							  $(".sub-menu2").css("display","none");
+							  $(".sub-menu7").css("display","none");
+								side_move();
+							}
+							function openNAv6(){
+								
+								$(".main-nav2").show();
+								 $(".main-nav3").show();
+								 $(".sub-menu6").css("visibility","visible");
+								 $(".sub-menu5").css("visibility","hidden");
+								  $(".sub-menu4").css("visibility","hidden");
+								  $(".sub-menu1").css("visibility","hidden");
+								  $(".sub-menu3").css("visibility","hidden");
+								  $(".sub-menu2").css("display","none");
+									side_move();
+								}
+							
+						
+						</script>
+				
+				<li class="list-group-item" id="mytask" style="display: none"><a onmouseover="openNAv3()"> <img
+						src="images/mytask.png" height="25px" width="25px"
+						 style="margin-left: -8px;"></img> <span
+						class="list-group-item-value">My Task</span>
+
+				</a></li>
+				<li class="list-group-item processIcon" id="process" style="display: none"><a onmouseover="openNAv1()"> <img
+						src="images/process.png" height="30px" width="30px"
+						style="margin-left: -8px;"></img> <span
+						class="list-group-item-value">Process</span>
+
+				</a></li>
+				
+					<li class="list-group-item" id="claims" style="display: none"><a onmouseover="openNAv4()">
+					<img
+						src="images/task.png" height="25px" width="25px"
+						style="margin-left: -8px;width:50;height:50"></img>  <span
+						class="list-group-item-value">claims</span>
+
+				</a></li>
+				<li class="list-group-item" id="dashboard" style="display: none"><a onmouseover="openNAv5()"> <img
+						src="images/dashboard.png" height="25px" width="25px"
+						  style="margin-left: -8px;"></img> <span
+						class="list-group-item-value">Dashboard</span>
+
+				</a></li>
+				
+				<li class="list-group-item " id="admin" style="display: none"><a onmouseover="openNAv6()"> <img
+						src="images/admin.png" height="25px" width="25px"
+						style="margin-left: -8px;"></img> <span
+						class="list-group-item-value">Admin</span>
+
+				</a></li>
+			</div>
+		</ul>
+
+	</div>
+
+
+
+<style type="text/css">
+	
+	@media screen and (max-width: 780px) {
+    #sideNavBar{
+    	display: none;
+    }
+}
+
+</style>
+
+
+</h:body>
+</html>

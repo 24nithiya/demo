@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Task List</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<!-- <meta http-equiv="refresh" content="30"> -->
+  <style>
+
+  @media screen and (min-width: 768px) {
+        .modal-dialog {
+          width: 100%; /* New width for default modal */
+          
+         
+        }
+        .modal-sm {
+          width: 100%; /* New width for small modal */
+        }
+    }
+    @media screen and (min-width: 992px) {
+        .modal-lg {
+          width: 100%; /* New width for large modal */
+        }
+    }
+
+</style>
+</head>
+<body ng-app="myApp" ng-controller="myControl">
+	<div style="background:rgba(225,225,225,0.5);position:absolute; width: 100%;height: 100%;z-index: 99;display: none" id="loading" >
+  
+    <img src="loading.gif" width="100%" style="position: absolute;z-index: 999;top: 0;right: 0;bottom: 0;left: 0;">
+</div>
+
+
+<div class="container-fluid"><!-- Start of container fluid -->
+	
+  <div class="row" style="padding: 10px;background: rgba(230, 241, 247,0.3);border: 0px solid black"><!-- Start of 1st row -->
+
+    <div class="col-sm-1 col-xs-1"><!-- Start of col-1 result -->
+         <span><b ng-show="!key.name"> {{(pageSrc | filter:searchData).length}}</b><b>&nbsp;Result</b></span> 
+    </div><!-- End of col-1 result -->
+
+    <div class="col-sm-4 col-xs-4"><!-- Start of button col-3 -->
+      <!-- <button class="btn btn-success btn-sm" onclick="selectMenu()">Display Fields</button>
+      <button class="btn btn-info btn-sm" ng-click="insertEmployee()">Add Employee</button>
+      <button class="btn btn-info btn-sm" ng-click="bulkinsertEmployee()">Bulk Employee Entry</button> -->
+    </div><!-- End of button col-3 -->
+
+
+      <!-- Start of select record -->
+
+      <div class="col-sm-3 col-xs-3">
+        <div class="form-group">
+          <label class="control-label col-sm-7 text-right" >Show Records</label>
+          <div class="col-sm-5 ">
+            <select class="form-control input-sm" ng-model="page" ng-change="changePageSize(page)" ng-init="page='10'">
+              <option value="" disabled="disabled"> Select No</option>
+              <option value="10" class="active">10</option>
+              <option value="15">15</option>
+            </select>
+          </div>
+        </div>
+    </div>
+     <!-- End of select record -->
+
+     <div class="col-sm-4 col-xs-4 text-right"><!-- Start of col-5 paigination -->
+       
+        <ul class="pagination pagination-sm" style="padding: 0px;margin: 0px">
+  <li ng-click="currentPage=currentPage-1" ng-class="{'disabled':currentPage == 0}"><a href="">Previous</a></li>
+  <li ng-repeat="x in totalPageList" ng-class="{'active':$index==currentPage}" ng-click="customPage($index)"><a href="">{{x}}</a></li>
+  <li ng-class="{'disabled':currentPage >= getData().length/pageSize - 1}" ng-click="currentPage=currentPage+1" ><a href="">Next</a></li>
+</ul>
+
+     </div><!-- End of col-5 paigination -->
+
+ </div><!-- End of 1st row for header -->
+
+
+<div class="row"><!-- Start of outer 2nd row -->
+	<div class="col-sm-12"><!-- Start of 12 col -->
+		
+	
+	<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#home" ng-click="listChangeMytask()">My Task &nbsp;<span  class="label label-default">{{myTask.length}}</span></a></li>
+    <li><a data-toggle="tab" href="#menu1" ng-click="listChangeGroupTask()">Group Task &nbsp;<span  class="label label-default">{{groupTask.length}}</span></a></li>
+  </ul>
+
+
+    	 <div class="row"><!-- Start of inner 1st row -->
+      <div class="col-sm-12" style="border-top:0px solid rgb(237, 237, 237) ">
+      <table class="table table-striped">
+    <thead>
+      <tr>
+        <th ng-click="sort('name')" >Name &nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='name' && sortBool==false,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='name' && sortBool==true} " ></span>
+          <br> </th>
+
+          <th  ng-click="sort('created')">Created On&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='created' && sortBool==false,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='created' && sortBool==true} " ></span></th>
+
+        <th  ng-click="sort('due')">Due&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='due' && sortBool==false,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='due' && sortBool==true} " ng-style=""></span>
+         <br> </th>
+
+        <th  ng-click="sort('followUp')">Follow Up&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='followUp' && sortBool==false,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='followUp' && sortBool==true} " ng-style=""></span>
+         <br> </th>
+
+
+
+        <th  ng-click="sort('priority')">Priority&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='priority' && sortBool==false,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='priority' && sortBool==true} " ng-style=""></span>
+         <br></th>
+
+
+        <th>Action
+          <br></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td ><input type="text" class="form-control" placeholder="Search Name" ng-model="searchData.name" ng-style="customSearchCss" ng-keyup="searchDataFilter()"></td>
+        <td ><input type="text" class="form-control" placeholder="Search Created"  ng-model="searchData.created" ng-keyup="searchDataFilter()"></td>
+        <td ><input type="text" class="form-control" placeholder="Search By Due" ng-model="searchData.due" ng-keyup="searchDataFilter()"></td>
+        <td ><input type="text" class="form-control" placeholder="Search By FollowUp" ng-model="searchData.followUp" ng-keyup="searchDataFilter()"></td>
+        <td > <input type="text" class="form-control" placeholder="Search By Priority" ng-model="searchData.priority" ng-keyup="searchDataFilter()"></td>       
+        <td><button class="btn btn-default" ng-click="searchData={}">Clear</button></td>
+      </tr>
+
+      <tr ng-repeat="x in myTask | orderBy:selection:sortBool | filter:searchData | startFrom:currentPage*pageSize |limitTo :pageSize " ng-show="listShow">
+      	<td ng-click="editForm(x)" >{{x.name}}</td>
+      	<td ng-click="editForm(x)">{{x.created | date:'medium'}}</td>
+      	<td ng-click="editForm(x)">{{x.due}}</td>
+      	<td ng-click="editForm(x)">{{x.followUp}}</td>
+      	<td ng-click="editForm(x)" class="text-center">{{x.priority}}</td>
+      	<td class="text-center" ng-click="editForm(x)"><button class="btn btn-info btn-xs" ng-click="editForm(x)"><span class="glyphicon glyphicon-edit"></span></button></td>
+      </tr>
+
+       <tr ng-repeat="x in groupTask | orderBy:selection:sortBool | filter:searchData | startFrom:currentPage*pageSize |limitTo :pageSize " ng-hide="listShow">
+      	<td>{{x.name}}</td>
+      	<td>{{x.created | date:'medium'}}</td>
+      	<td>{{x.due}}</td>
+      	<td>{{x.followUp}}</td>
+      	<td class="text-center">{{x.priority}}</td>
+      	<td><select class="form-control input-sm" style="margin: 0px" ng-model="groupclaim" ng-change="groupAction(groupclaim,x)"><option value="">Action</option><option value="claim">Claim</option></select></td>
+      </tr>
+      
+    </tbody>
+  </table>
+      </div><!-- End of col 12 -->
+ </div><!-- End of inner 1st row -->
+
+  </div><!-- End of 12 col -->
+</div><!-- End of outer 2nd row -->
+
+      <div class="col-sm-12 text-right" style="border: 0px solid black;padding-right: 0px">
+        <ul class="pagination pagination-sm" style="border: 0px solid black">
+ <li ng-click="currentPage=currentPage-1" ng-class="{'disabled':currentPage == 0}"><a href="">Previous</a></li>
+  <li ng-repeat="x in totalPageList" ng-class="{'active':$index==currentPage}" ng-click="customPage($index)"><a href="">{{x}}</a></li>
+  <li ng-class="{'disabled':currentPage >= getData().length/pageSize - 1}" ng-click="currentPage=currentPage+1" ><a href="">Next</a></li>
+</ul>
+      </div>
+
+
+</div><!-- End of container fluid -->
+
+<!-- start modal -->
+    <style>
+
+    
+    </style>
+    <div id="myModalPage" class="modal fade" role="dialog" style="margin-top: -30px;margin-left: -15px" >
+      <div class="modal-dialog">
+
+       
+          <div class="modal-body" style="margin:0px;padding:0px;" >
+          
+          <div  class="embed-responsive embed-responsive-16by9"  >
+              <iframe src="" id="iframe" class="embed-responsive-item" name="iframe_a"  ></iframe>
+          </div>
+            <!-- style="height: 560px;"<iframe src="" id="frame" style="z-index:-10;width: 1204px;height: 480px;margin-left:-50px;margin-top:0px;padding:0px;margin-bottom:0px;"></iframe> -->
+          </div>
+ 
+
+      </div>
+    </div>
+    <!-- ENd of model -->
+   <script type="text/javascript">
+    window.closeModal = function(){
+        
+    $('#myModal').modal('hide');
+   location.reload();
+}
+
+
+  </script>
+  <script type="text/javascript">
+    window.moveTop = function(){
+        
+    window.parent.topScroll();
+}
+
+  </script>
+
+
+</body>
+
+
+
+<script type="text/javascript">
+	
+
+ var myApp= angular.module('myApp', [])
+ /*Start of controller*/
+  myApp.controller('myControl', function($scope,$http,$filter,$q) {
+
+function split_key(key)
+{
+  var arr=[];
+  var temp=key.split("&");
+  for(var i=0;i<temp.length;i++)
+    {
+     var key=temp[i].split("=");
+     arr.push(key[1]);
+    }
+ 
+  return arr;
+}
+var url_loc=decodeURIComponent(window.location.search);
+var arr=split_key(url_loc);
+
+$scope.sessionId=arr[0];
+console.log($scope.sessionId);
+$scope.listShow=true;
+
+
+
+function formName(key)
+			{
+				var arr=key.split(":");
+				return arr[2];
+			}
+
+
+
+
+/*Start of getting task*/
+$scope.myTask=[];
+$scope.groupTask=[];
+
+  		$http({
+        method : "GET",
+        url : " /actnow-claims-1.0.0/actnow/actnowtask?assignee="+$scope.sessionId+""
+    }).then(function mySuccess(response) {
+    		console.log(response.data);
+				var tempForm=response.data;
+				
+
+					/*Start of loop*/
+				angular.forEach(tempForm,function(val,key){
+
+					var formKey=formName(val.formKey);
+
+					var date=new Date(val.created);
+
+					var obj={
+    			"name":val.name,
+    			"created":date,
+    			"due":val.due,
+    			"followUp":val.followUp,
+    			"priority":val.priority,
+    			"formKey":formKey,
+    			"applicationId":val.applicationId,
+    			"executionId":val.executionId,
+    			"id":val.id
+    				}
+    				$scope.myTask.push(obj);
+
+				})/*End of loop*/
+				console.log($scope.myTask);
+				$scope.pageSrc=$scope.myTask;
+    		
+  
+
+
+
+/*Start of get group task*/
+    		$http({
+        method : "GET",
+        url : " /engine-rest/task?candidateUser="+$scope.sessionId+""
+    }).then(function mySuccess(response) {
+    		console.log(response.data);
+    		$scope.groupTask=response.data;
+
+
+
+
+
+
+
+
+    /*Start of edit menu*/
+$scope.editForm=function(x){
+
+  console.log(JSON.stringify(x, null, "\t"));
+  var key=x.applicationId;
+  var task_id=x.id;
+  var formKey=x.formKey
+                      
+var fin="/actnow-claims-1.0.0/"+formKey+"?key="+key+"&task="+task_id+"&sessionId="+$scope.sessionId+"";
+$("#iframe").attr("src",fin);
+$("#myModalPage").modal();
+//$("body").scrollTop();
+window.parent.topScroll();
+
+}
+
+    /*End of edit menu*/
+
+
+    /*Start of group action*/
+
+    $scope.groupAction=function(i,j){
+
+    	/*Start of condition*/
+
+    	if(i=="claim")
+    	{
+    		console.log(j);
+    			var claimJson={};
+						claimJson.taskId=j.id;
+						claimJson.loginId=$scope.sessionId;
+var claimJsonhtml=JSON.stringify(claimJson, null, "\t");
+$("#loading").css("display","block");
+ $http({              
+        method : "POST",
+         url: "/actnow-claims-1.0.0/actnow/actnowtask/claimtask",
+        data:claimJsonhtml,
+ headers: { 'Content-Type': 'application/json'}
+       
+   }).then(function mySuccess(response) {
+   	 $("#loading").css("display","none");
+      location.reload();
+        console.log("Success full insert emp"+response);
+    	 }, function myError(response) {
+    	 	 $("#loading").css("display","none");
+          location.reload();
+        console.log(response.data);
+    });
+
+	}/*End of condition*/
+
+ }
+ /*End of group action*/
+
+
+
+ $scope.listChangeMytask=function(){
+ 	$scope.listShow=true
+ 	$scope.sortBool=false;
+$scope.selection='name';
+$scope.searchData={};
+$scope.pageSrc=$scope.myTask;
+$scope.searchDataFilter();
+ }
+  $scope.listChangeGroupTask=function(){
+ 	$scope.listShow=false
+ 	$scope.sortBool=false;
+$scope.selection='name';
+$scope.searchData={}
+$scope.pageSrc=$scope.groupTask;
+$scope.searchDataFilter();
+}
+
+
+
+$scope.searchDataFilter=function(){
+
+   $scope.totalPageList=[];
+
+for(var i=0;i< $scope.numberOfPages();i++)
+{
+  $scope.totalPageList.push(i);
+}
+
+$scope.currentPage=0;
+}
+
+
+ 
+
+
+ $scope.currentPage = 0;
+  $scope.pageSize=10;
+$scope.sortBool=false;
+
+
+
+  $scope.changePageSize=function(i){
+
+//console.log(i);
+$scope.pageSize=parseInt(i);
+$scope.totalPageList=[];
+for(var i=0;i< $scope.numberOfPages();i++)
+{
+  $scope.totalPageList.push(i);
+}
+  }
+
+
+$scope.selection='name';
+    $scope.sort=function(o){
+      $scope.sortDepStatus="off";
+      $scope.sortBool=!$scope.sortBool;
+
+      $scope.selection=o;
+    //  console.log($scope.selection)
+   
+    }
+
+
+
+
+
+
+/*Start of paigination*/
+
+     $scope.getData = function () {
+      // needed for the pagination calc
+      // https://docs.angularjs.org/api/ng/filter/filter
+      return $filter('filter')($scope.pageSrc, $scope.searchData)
+     /* 
+       // manual filter
+       // if u used this, remove the filter from html, remove above line and replace data with getData()
+       
+        var arr = [];
+        if($scope.q == '') {
+            arr = $scope.data;
+        } else {
+            for(var ea in $scope.data) {
+                if($scope.data[ea].indexOf($scope.q) > -1) {
+                    arr.push( $scope.data[ea] );
+                }
+            }
+        }
+        return arr;
+       */
+    }
+
+    $scope.result= $scope.getData().length;
+
+     $scope.numberOfPages=function(){
+        return Math.ceil($scope.getData().length/$scope.pageSize);                
+    }
+ console.log("Result is"+ $scope.numberOfPages());
+
+
+$scope.totalPageList=[];
+
+for(var i=0;i< $scope.numberOfPages();i++)
+{
+  $scope.totalPageList.push(i);
+}
+
+
+$scope.customPage=function(i){
+  $scope.currentPage=i;
+}
+
+
+/*End of paigination*/
+
+
+
+    		
+    }, function myError(response) {
+        console.log(response.data);
+    });
+    /*End of get group task*/
+
+
+    }, function myError(response) {
+        console.log(response.data);
+    });
+
+/*End of getting task*/
+
+
+
+
+
+
+	});
+  /*End of controller*/
+
+/*Filter for paigination*/
+myApp.filter('startFrom', function() {
+    return function(input, start) {
+        start = +start; //parse to int
+        return input.slice(start);
+    }
+});
+
+/*End of filter paigination*/
+
+
+
+
+</script>
+</html>
+

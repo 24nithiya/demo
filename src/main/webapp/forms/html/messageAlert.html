@@ -1,0 +1,71 @@
+
+   <style>
+
+  @media screen and (min-width: 768px) {
+        .showFile{
+          width: 100%; /* New width for default modal */
+          
+          margin-left:auto;
+          margin-right: auto;
+        }
+        .modal-sm {
+          width: 100%; /* New width for small modal */
+        }
+    }
+    @media screen and (min-width: 992px) {
+        .modal-lg {
+          width: 100%; /* New width for large modal */
+        }
+    }
+
+</style>
+
+ <div class="modal fade" id="myModal" role="dialog" style="margin-top: -30px;margin-left: -10px" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog showFile">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        
+        </div>
+        <div class="modal-body">
+          <div  class="embed-responsive embed-responsive-16by9"  >
+  
+  <object class="embed-responsive-item" data=""   id="iframed" style="border: 0px solid black;" ></object>
+  
+</div>
+         <!--  <iframe src="" id="iframed" sandbox="allow-popups">
+  <p>Your browser does not support iframes.</p>
+</iframe> -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
+
+<!--MODAL FOR RESULT-->
+ <div class="modal fade" id="myModal3" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" style="width: 30%">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close modal-close clo-message" data-dismiss="modal">&times;</button>
+          
+        </div>
+        <div class="modal-body-result text-center">
+         
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default modal-close clo-message" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>

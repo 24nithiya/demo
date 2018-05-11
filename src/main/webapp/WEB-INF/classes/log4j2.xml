@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <!-- <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/> -->
+      <!-- <PatternLayout pattern="%d{ISO8601} %-5p [%t] %c: %m%n" /> -->
+      <!-- <PatternLayout pattern="%d %p %c{1.} [%t] %m%n" /> -->
+      <PatternLayout pattern=" %c: %m%n" />
+    </Console>
+    
+    <!--  <JDBC name="databaseAppender" tableName="audit_log">
+      <DataSource jndiName="java:jboss/datasources/actnowDS" />
+      <Column name="created_date" isEventTimestamp="true" />
+      <Column name="url" pattern="%m%n" isUnicode="false"/>
+      <Column name="response" pattern="%m%n" isUnicode="false" />
+    </JDBC>
+ -->    
+  </Appenders>
+  <Loggers>
+    <Root level="INFO">
+      <AppenderRef ref="Console"/>
+    </Root>
+	<logger name="com.entoss.pomfret.actnow" level="TRACE" additivity="false">
+  		<AppenderRef ref="Console"/>
+<!--   		<AppenderRef ref="databaseAppender"/> -->
+  	</logger>
+  </Loggers>
+</Configuration>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="com.entoss.pomfret.actnow.daas.ActNowTaskMapper"> 
+   <resultMap type="ActNowTask" id="ActNowTaskResult">
+    <id property="id" column="id"/>
+    <result property="name" column="name"/>
+    <result property="assignee" column="assignee"/>
+    <result property="applicationId" column="application_id"/>
+    <result property="owner" column="owner"/>
+    <result property="created" column="created"/>
+    <result property="due" column="due"/>
+    <result property="followUp" column="follow_up"/>
+    <result property="description" column="description"/>
+    <result property="executionId" column="execution_id"/>
+    <result property="priority" column="priority"/>
+    <result property="formKey" column="form_key"/>
+   </resultMap>
+   
+    <resultMap type="ActNowTask" id="ActNowTaskResult2">
+    <id property="id" column="id"/>
+    <result property="name" column="name"/>
+    <result property="description" column="description"/>
+    <result property="priority" column="priority"/>
+    <result property="assignee" column="assignee"/>
+    <result property="owner" column="owner"/>
+   </resultMap>
+   
+  <select id="getAllActNowTasks" resultMap="ActNowTaskResult">
+   SELECT * FROM ACTNOW_TASK
+  </select>
+  
+  <select id="getActNowTaskById" parameterType="java.lang.String" resultMap="ActNowTaskResult">
+     SELECT *    
+     FROM ACTNOW_TASK
+     WHERE ID = #{id}     
+  </select>
+  
+  <select id="getAllActNowTasksByAssigneeOwner" parameterType="java.util.Map" resultMap="ActNowTaskResult">
+   SELECT * FROM ACTNOW_TASK
+   WHERE ASSIGNEE = #{assignee} AND OWNER = #{owner} 
+  </select>
+  
+  <select id="getAllActNowTasksByAssignee" parameterType="java.lang.String" resultMap="ActNowTaskResult">
+   SELECT * FROM ACTNOW_TASK
+   WHERE ASSIGNEE = #{assignee}
+  </select>
+  
+  <select id="getAllActNowTasksByOwner" parameterType="java.lang.String" resultMap="ActNowTaskResult">
+   SELECT * FROM ACTNOW_TASK
+   WHERE OWNER = #{owner}
+  </select>
+  
+  <insert id="insertActNowTask" parameterType="ActNowTask">
+   INSERT INTO ACTNOW_TASK(ID, NAME, ASSIGNEE,APPLICATION_ID, OWNER, CREATED, DUE, FOLLOW_UP, 
+   		DESCRIPTION, EXECUTION_ID,PRIORITY,FORM_KEY)
+    VALUES(#{id}, #{name}, #{assignee}, 
+    		#{applicationId,javaType=UUID,jdbcType=OTHER,typeHandler=UUIDTypeHandler}, 
+    		#{owner}, #{created}, #{due}, #{followUp},#{description}, 
+    		#{executionId}, #{priority}, #{formKey})
+  </insert>
+  
+  <insert id="createTaskHistory" parameterType="java.lang.String">
+  	INSERT INTO HIST_ACTNOW_TASK (ID, NAME, ASSIGNEE, APPLICATION_ID, OWNER, CREATED,
+		DUE, FOLLOW_UP, DESCRIPTION, EXECUTION_ID, PRIORITY, FORM_KEY)
+	SELECT ID, NAME, ASSIGNEE, APPLICATION_ID, OWNER, CREATED,
+		DUE, FOLLOW_UP, DESCRIPTION, EXECUTION_ID, PRIORITY, FORM_KEY
+	FROM ACTNOW_TASK WHERE ID = #{taskId};
+  </insert>
+   
+  <update id="updateActNowTask" parameterType="ActNowTask">
+    UPDATE ACTNOW_TASK
+    SET
+     NAME = #{name},
+     ASSIGNEE = #{assignee},
+     OWNER = #{owner},
+     APPLICATION_ID = #{applicationId,javaType=UUID,jdbcType=OTHER,typeHandler=UUIDTypeHandler},
+     CREATED = #{created},
+     DUE = #{due},
+     FOLLOW_UP = #{followUp},
+     DESCRIPTION = #{description},
+     EXECUTION_ID = #{executionId},
+     PRIORITY = #{priority},
+     FORM_KEY = #{formKey}
+    WHERE ID = #{id}
+  </update>
+
+  
+  <update id="updateActNowTaskSetDates" parameterType="ActNowTask">
+     UPDATE ACTNOW_TASK
+     SET
+     NAME = #{name},
+     DESCRIPTION = #{description},
+     ASSIGNEE = #{assignee},
+     OWNER = #{owner},
+     PRIORITY = #{priority},
+     DUE = #{due},
+     FOLLOW_UP = #{followUp}
+    WHERE ID = #{id}
+  </update>
+   
+  <delete id="deleteActNowTask" parameterType="java.lang.String">
+    DELETE FROM ACTNOW_TASK WHERE ID = #{id}
+  </delete>
+   
+</mapper>

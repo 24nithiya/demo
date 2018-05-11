@@ -1,0 +1,263 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	class="layout-pf layout-pf-fixed" xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+	<title>Pomfret ActNow</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<h:outputStylesheet
+		name="node_modules/patternfly/dist/css/patternfly.css"></h:outputStylesheet>
+	<h:outputStylesheet
+		name="node_modules/patternfly/dist/css/patternfly-additions.min.css"></h:outputStylesheet>
+	<h:outputStylesheet
+		name="node_modules/patternfly/dist/css/patternfly.min.css"></h:outputStylesheet>
+
+	<!-- jQuery -->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/jquery/dist/jquery.min.js" />
+
+	<!-- Bootstrap JS -->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/bootstrap/dist/js/bootstrap.min.js" />
+
+	<!-- C3, D3 - Charting Libraries -->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/c3/c3.min.js" />
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/d3/d3.min.js" />
+
+	<!-- Datatables, jQuery Grid Component -->
+	<!-- Note: jquery.dataTables.js must occur in the html source before patternfly*.js.-->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/datatables/media/js/jquery.dataTables.min.js" />
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/drmonty-datatables-colvis/js/dataTables.colVis.js" />
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/datatables.net-colreorder/js/dataTables.colReorder.js" />
+
+	<!-- PatternFly Custom Componets -  Sidebar, Popovers and Datatables Customizations -->
+	<!-- Note: jquery.dataTables.js must occur in the html source before patternfly*.js.-->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/patternfly/dist/js/patternfly.min.js" />
+
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/jquery-match-height/dist/jquery.matchHeight-min.js" />
+
+	<!-- Bootstrap Combobox -->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/patternfly-bootstrap-combobox/js/bootstrap-combobox.js" />
+
+	<!-- Bootstrap Date Picker -->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js" />
+
+	<!-- Moment - required by Bootstrap Date Time Picker -->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/moment/min/moment.min.js" />
+
+	<!-- Bootstrap Date Time Picker - requires Moment -->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js" />
+
+	<!-- Bootstrap Select -->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/bootstrap-select/dist/js/bootstrap-select.min.js" />
+
+	<!-- Bootstrap Switch -->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/bootstrap-switch/dist/js/bootstrap-switch.min.js" />
+
+	<!-- Bootstrap Touchspin -->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js" />
+
+	<!-- Bootstrap Tree View -->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/patternfly-bootstrap-treeview/dist/bootstrap-treeview.min.js" />
+
+	<!-- Google Code Prettify - Syntax highlighting of code snippets -->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/google-code-prettify/bin/prettify.min.js" />
+	<link rel="stylesheet" type="text/css" href="styles.css"></link>
+	<link rel="stylesheet" type="text/css" href="sevice_stylesheet.css"></link>
+
+	<!-- <script
+		src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
+	<script type="text/javascript" src="script.js"></script>
+
+
+
+	<style>
+.sidenav {
+	transition: 0.0s;
+	padding-top: 0px
+}
+
+.sidenav a {
+	padding: 8px 8px 8px 32px;
+	text-decoration: none;
+	font-size: 25px;
+	color: #818181;
+	display: block;
+	transition: 0.1s;
+}
+
+.sidenav a:hover {
+	color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+	position: absolute;
+	top: 0;
+	right: 25px;
+	font-size: 36px;
+	margin-left: 50px;
+}
+
+#main {
+	transition: /* margin-left */ 0.0s;
+	padding: 16px;
+}
+
+  @media screen and (min-width: 768px) {
+        .modal-dialog {
+          width: 90%; /* New width for default modal */
+          
+          margin-left:auto;
+          margin-right: auto;
+        }
+        .modal-sm {
+          width: 80%; /* New width for small modal */
+        }
+    }
+    @media screen and (min-width: 992px) {
+        .modal-lg {
+          width: 80%; /* New width for large modal */
+        }
+    }
+
+</style>
+</h:head>
+<h:body class="cards-pf" >
+	
+<div style="margin-top:-55px">
+<div class="row toolbar-pf">
+
+				<div class="col-sm-10">
+					<form class="toolbar-pf-actions">
+						<div class="form-group toolbar-pf-filter">
+							<label class="sr-only" for="filter">Status</label>
+							<div class="input-group">
+								<div class="input-group-btn">
+									<button type="button"  class="btn btn-default dropdown-toggle"
+										data-toggle="dropdown" aria-haspopup="true"
+										aria-expanded="false">
+										 <span id="pla">Status </span><img src="images/caret.png"
+											class="caret_icon"></img>
+									</button>
+									<ul class="dropdown-menu">
+										<li><a href="#" onclick="get(this.text)">Status</a></li>
+										 <!-- <li><a href="#" onclick="get(this.text)" value="type">Type</a></li>
+										<li><a href="#" onclick="get(this.text)">Color</a></li>  -->
+									</ul>
+								</div>
+								<!-- /btn-group -->
+								<input class="form-control" id="filter" onkeyup="start()"
+									placeholder="Filter By ..." type="text" />
+							</div>
+							<!-- /input-group -->
+						</div>
+						<div class="form-group">
+							<div class="dropdown btn-group">
+								<button type="button" class="btn btn-default dropdown-toggle"
+									data-toggle="dropdown" aria-haspopup="true"
+									aria-expanded="false">
+									 <span id="pla1">Request Date </span><img src="images/caret.png"
+										class="caret_icon"></img>
+								</button>
+								<ul class="dropdown-menu">
+									
+									<li><a href="#" onclick="get1(this.text)">Request Date</a></li>
+									<li><a href="#" onclick="get1(this.text)">Total Amount</a></li>
+								</ul>
+							</div>
+							<button class="btn btn-link" type="button" id="sort">
+								<span><img src="images/alph-asc-icon.png" height="25px"
+									width="25px" id="sortImg"/></span>
+							</button>
+							
+						</div>
+						
+					</form>
+					<div class="row toolbar-pf-results">
+						<div class="col-sm-12">
+							<h5 id="result">40 Results</h5>
+							
+						</div>
+						<!-- 	/col -->
+					</div>
+					<!-- /row -->
+				</div>
+				<!-- 	/col -->
+			</div>
+			<!-- /row -->
+		<div>
+			<table  style="margin: auto" >
+
+				<tr class="ui-state-default product_heading_border">
+				<!-- <td class="ui-state-default product_heading_border"></td> -->
+					
+					
+					<th > Request Date</th>
+					<th >Travel Request No</th>
+					<th >Status</th>
+					<th >Total Amount</th>
+				
+					<th ></th>
+				</tr>
+				<tbody id="new_tab">
+				</tbody>
+			</table>
+		</div>
+		
+		<!-- start modal -->
+		<div id="myModal" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+
+				<!--     Modal content -->
+				<!-- <div class="modal-content"> -->
+					<!-- <div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">x</button>
+						<h4 class="modal-title">Modal Header</h4>
+					</div> -->
+					<div class="modal-body" style="margin:0px;padding:0px">
+					
+					<div  class="embed-responsive embed-responsive-4by3"  >
+  						<iframe src="" id="frame" class="embed-responsive-item" name="iframe_a" style="height: 570px;"></iframe>
+					</div>
+						<!-- <iframe src="" id="frame" style="z-index:-10;width: 1204px;height: 480px;margin-left:-50px;margin-top:0px;padding:0px;margin-bottom:0px;"></iframe> -->
+					</div>
+				<!-- 	<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div> -->
+				<!-- </div> -->
+
+			</div>
+		</div>
+		<!-- ENd of model -->
+		
+			<script type="text/javascript" src="filterClaim.js"></script>
+							
+</div>
+<script>
+
+
+
+</script>
+
+</h:body>
+</html>

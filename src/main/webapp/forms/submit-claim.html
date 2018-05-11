@@ -1,0 +1,579 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Submit claim</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="css/style.css">
+  <style>
+  @media screen and (min-width: 768px) {
+        .modal-dialog {
+          width: 90%; /* New width for default modal */
+          
+          margin-left:auto;
+          margin-right: auto;
+        }
+        .modal-sm {
+          width: 80%; /* New width for small modal */
+        }
+    }
+    @media screen and (min-width: 992px) {
+        .modal-lg {
+          width: 80%; /* New width for large modal */
+        }
+    }
+
+
+
+</style>
+ 
+</head>
+<body>
+  <div style="background:rgba(225,225,225,0.5);position:absolute; width: 100%;height: 100%;z-index: 99;display: none" id="loading" >
+  
+    <img src="loading.gif" width="100%" style="position: absolute;z-index: 999;top: 0;right: 0;bottom: 0;left: 0;">
+</div>
+
+<form id="form">
+<div class="tabs">
+  
+  <input type="radio" id="tab1" name="tab-control" checked>
+  <input type="radio" id="tab2" name="tab-control">
+  <input type="radio" id="tab3" name="tab-control">  
+  <input type="radio" id="tab4" name="tab-control">
+  <ul style="/*width:500px*/; background-color:#222; line-height: 40px;">
+    <li><label for="tab1" role="button"></svg><br><span>Main</span></label></li>
+    <li><label for="tab2" role="button"></svg><br><span>Documents</span></label></li>
+    <li><label for="tab3" role="button"></svg><br><span>Notes</span></label></li>    
+  <li><label for="tab4" role="button"></svg><br><span style="margin-right: 20px;">History</span></label></li>
+  <li><label for="tab1" role="button"></svg><br><span></span></label></li>
+    <li><label for="tab2" role="button"></svg><br><span></span></label></li>
+    <li><label for="tab3" role="button"></svg><br><span></span></label></li>    
+  <li><label for="tab4" role="button"></svg><br><span></span></label></li>
+  <li><label for="tab1" role="button"></svg><br><span></span></label></li>
+    <li><label for="tab2" role="button"></svg><br><span></span></label></li>
+    <li><label for="tab3" role="button"></svg><br><span></span></label></li>    
+  <li><label for="tab4" role="button"></svg><br><span></span></label></li> 
+  </ul>
+  
+  <div class="slider"><div class="indicator"></div></div>
+  <div class="content">
+    <section>
+    
+      <div class="container-fluid jumbotron mappfull" style="margin-top: -30px;padding:5px;padding-left: 20px;padding-right: 20px">
+      	 <div class="row" id="flip" style="background: #cfdff9" >
+          <div class="col-sm-12 text-right" style="border-bottom:1px solid rgba(20,20,20,0.3);">
+                   <span class="glyphicon glyphicon-align-justify" style="padding: 0px;margin: 0px"></span>
+              </div>
+              </div>
+              <div style="padding-top:0px" id="panel"><!--Start of 1st slide-->
+            <div class="row">
+              <div class="col-xs-3">
+                <label class="">Name</label>
+                  <input style="background-color:white; color:black;" class="form-control" name="firstName" value="" type="text" Id="fname" readonly/>
+              </div>
+              <div class="col-xs-3">
+                <label class="">Employee Id</label>
+                  <input class="form-control" placeholder="Enter Number" type="text" Id="number" name="employeeId" readonly/>
+              </div>
+              <div class="col-xs-3">
+                <label class="">Manager</label>
+                  <input class="form-control" placeholder="Enter Your manager Name" type="text" Id="manager" name="managerName" readonly/>
+              </div>
+              <div class="col-xs-3">
+                <label class="">Department Name</label>
+                  <input class="form-control" placeholder="Enter Your Department" type="text" Id="department" name="department" readonly/>
+              </div>
+            </div>
+
+            
+            <div class="row">
+                <div class="col-xs-3">
+                <label class="">Travel Request Id</label>
+                  <input class="form-control" placeholder="Enter Your TravelRequest No" type="text" Id="trId" name="trId" />
+                </div>
+                <div class="col-xs-3">
+                <label class="">Select Travel Id </label>
+                 <select id="travelGetId" class="form-control" onchange="preperData()">
+                   <option value="">Select Travel RequestId</option>
+                 </select>
+                </div>
+            </div>
+          </div>
+                    
+ </div><!-- End of 1st flip-->
+
+          <div class="container-fluid jumbotron" style="padding:5px;padding-left: 20px;padding-right: 20px">
+
+
+            <div class="row" id="flip1" style="background: #cfdff9">
+          <div class="col-sm-12 text-right" style="border-bottom:1px solid rgba(20,20,20,0.3);">
+                  <span class="glyphicon glyphicon-align-justify" style="padding: 0px;margin: 0px"></span>
+              </div>
+              </div>
+
+                <div id="panel1" style="padding-top:0px" >
+            <div class="row"> 
+              <div class="col-xs-4">
+                <label class="">Claim Type</label>
+               <!--    <input class="form-control" placeholder="select claim type" type="text" Id="claimtype"/> -->
+                  <select class="form-control" name="claimType">
+                        <option selected="true" disabled="disabled">Select Claim Type</option>
+                        <option>Travel Expense</option>
+                    </select>
+              </div>
+              <div class="col-xs-4">
+                <label class="">Mode Of Travel</label>
+                <!-- <input class="form-control" placeholder="select the mode" type="text" Id="travelmode" name="travelMode"/> -->
+                <select class="form-control" name="modeoftravel" id="modeoftravel" onchange="getClass()">
+                        <option selected="true" disabled="disabled">Select Mode Of Travel</option>
+                        
+                </select>
+              </div>
+              <div class="col-xs-4">
+                <label class="">Class Of Travel</label>
+                  <!-- <input class="form-control" placeholder="select the class" type="text" Id="travelclass" name="travelClass"/> -->
+                   <select class="form-control" name="classoftravel" id="classOfTravel">
+                        <option selected="true" disabled="disabled">Select Class Of Travel</option>
+                        
+                </select>
+              </div>
+            </div>
+
+          
+            <div class="row">
+                <div class="col-xs-4">
+                <label class="">Start Date</label>
+                  <!-- <input class="form-control" onfocus="(this.type='date')" placeholder="select travel start date" type="text" Id="startdate" name="startDate"/> -->
+                   <input type="date" id="startdate" name="startdate" min=""  class="form-control" required>
+                </div>
+                <div class="col-xs-4">
+                <label class="">End Date</label>
+                  <input class="form-control" type="date" Id="enddate" name="endDate"/>
+                </div>
+                <script type="text/javascript">
+               function todayDate() {
+    var today = new Date(); // get the current date
+    var dd = today.getDate(); //get the day from today.
+    var mm = today.getMonth()+1; //get the month from today +1 because january is 0!
+    var yyyy = today.getFullYear(); //get the year from today
+    //if day is below 10, add a zero before (ex: 9 -> 09)
+    if(dd<10) {
+        dd='0'+dd
+    }
+    //like the day, do the same to month (3->03)
+    if(mm<10) {
+        mm='0'+mm
+    }
+    //finally join yyyy mm and dd with a "-" between then
+    return yyyy+'-'+mm+'-'+dd;
+}
+
+//$("#startdate").attr("min",todayDate());
+$("#startdate").change(function(){
+
+  var sdate=$(this).val();
+  /*if(sdate<todayDate()){
+    $(this).val(todayDate());
+  }*/
+  console.log("njdsjdh"+sdate);
+  $("#enddate").attr("min",sdate);
+})
+$("#enddate").change(function(){
+
+  var sdate=$(this).val();
+  console.log("njdsjdh"+sdate);
+  $("#startdate").attr("max",sdate);
+  // $("#startdate").attr("min",todayDate());
+})
+  
+
+               
+                  
+                </script>
+
+                <!--start of Bank-->
+            <div class="col-xs-3" >
+                    <label class="">Select Bank</label>
+               <select class="bank_op form-control">
+    <option>Empty</option>
+      
+  </select>
+            </div>
+
+            <div class="col-xs-1">  
+             <label class="">Add Bank</label>           
+            <button type="button" class="btn btn-success " data-toggle="modal" data-target="#myModal1">+</button>
+            </div>
+                 <!--End of bank-->
+
+              </div>
+          </div><!-- End of flip 2nd -->
+          </div>
+                    
+       <!-- dynamically added form element -->
+        <div class="container-fluid jumbotron fontSize" style="padding:5px;padding-left: 20px;padding-right: 20px" >
+
+
+        	 <div class="row" id="flip3" style="background: #cfdff9" >
+          <div class="col-sm-12 text-right" style="border-bottom:1px solid rgba(20,20,20,0.3);">
+                   <span class="glyphicon glyphicon-align-justify" style="padding: 0px;margin: 0px"></span>
+              </div>
+              </div>
+
+
+              <div style="padding-top:0px" id="panel3"><!--Start of 1st slide-->
+
+          <div class="row">
+            <div class="col-sm-10">
+            <table class="table table-striped">
+                <thead>
+                <th>Expense Type</th>
+                <th>Payment Type</th>
+                <th>Amount</th>
+                <th>Receipt</th>
+                <th>&nbsp;</th>
+                 <th>&nbsp;</th>
+                  <th>&nbsp;</th>
+              </thead>
+
+              <tbody id="showReceiptData" class="mapp">
+                  <tr class="newRow">
+                    <td>
+                      <select class="form-control" name="expenseType[]"  id="expenseType0">
+                        <option selected="true" disabled="disabled">Select</option>
+                        <option>Ticket</option>
+                        <option>Rent a Car</option>
+                        <option>Lodging/Stay</option>
+                        <option>Food Expense</option>
+                        <option>Entertainment</option>
+                    </select>
+                    </td>
+
+                    <td>
+                       <select class="form-control" name="paymantType[]"  id="paymantType0">
+                        <option selected="true" disabled="disabled">Select</option>
+                        <option>Credit Card</option>
+                        <option>Debit Card</option>
+                        <option>Cash</option>
+                    </select>
+                    </td>
+                    <td><input class="form-control amount" type="number" placeholder="Expense " name="amount[]" id="amount0"> </td>
+
+                    <td><input class="form-control fileupload" type="file" name="files[]" id="filedata0"></td>
+
+                    <td> <button type="button" class="btn btn-default btn-xs fileuploadbutton" id="0" onclick="forDynamicFileUpload(this.id)" style="color: red" style="border: 0px solid black"><span class="glyphicon glyphicon-cloud-upload" ></span></button></td>
+
+                    <td><button name="" type="button" class="btn btn-info btnAdd" style="border: 0px solid black">+</button></td>
+
+                    <td> <button name="" type="button" class="btn btn-warning btnDelete" id="firstDelBut" disabled="disabled" style="border: 0px solid black">x</button></td>
+
+                  </tr>
+
+              </tbody>
+            </table>
+          </div><!-- End of col-10 -->
+          <div class="col-sm-2">
+             <table class="table table-striped">
+              <thead>
+                
+                <th>Total</th>
+                
+              </thead>
+              <tbody>
+               <tr><td>
+              <input type="text" class="form-control" name="" id="totalAmount" readonly>
+              </td></tr> 
+            </tbody>
+          </table>
+          </div>
+          </div><!-- End of row -->
+      </div><!-- End of flip 2 -->
+
+
+
+
+         
+
+           
+           
+         
+        </div>
+        
+        
+
+        <!-- dynamically added form element -->
+
+         <div class="container-fluid jumbotron fontSize">
+
+          <div class="row">
+          <div class="col-sm-6"></div>
+          <div class="col-sm-6">
+            
+
+
+          		<button id="sub" class="form-control btn-success pull-right" style="margin-top:0px; margin-bottom: 20px; width:100px;margin-right: 30px; " align="center" type="submit">Submit</button>
+            
+            <button  type="button" id="close" class="form-control  clo pull-right btn btn-primary"  style="margin-top:0px; margin-bottom: 20px; width:100px;margin-right: 40px;  " align="center" >Cancel</button>
+
+            
+          </div>
+          </div>
+        </div>
+
+
+          <!--   <script type="text/javascript">$('#close').click(function(){
+    $('#myModal').modal('hide');
+  });</script>
+ -->
+
+      </section>
+
+     <section>  <!--Documents Tab -->
+          <div class="document">
+        </div>
+        </section>
+
+        <section><!--Notes Tab Start-->
+         <div class="notes">
+        </div>
+
+          <table style="text-align:center" class=" table table-condensed " id="notes">
+          <col width="100">
+          <col width="100">
+          <col width="100">
+          <col width="100">
+          <col width="100">
+          <col width="20">
+          <col width="10">
+          <thead>
+            <tr style="background-color:#D7DBDD; " >
+              <th style="text-align:center;">User Id</th>
+              <th style="text-align:center;">User Name</th>
+              <th style="text-align:center;">Queue Name</th>
+              <th style="text-align:center;">Description</th>
+              <th style="text-align:center;">Remarks</th>
+              <th style="text-align:center;">&nbsp </th>
+              <!-- <th style="text-align:center;">&nbsp </th> -->
+            </tr>
+          </thead>
+          <tbody>
+   
+          </tbody>
+            
+          </table>
+        </section>
+        
+        <section>
+        <div class="history">
+        </div>
+        </section><!--End of history-->
+    
+  </div>
+</div>
+
+
+
+<div id="errormsg"  style="color:red; text-align: center; font-size: 25px;"></div>
+</form>
+
+
+<!-- Modal -->
+<div id="myModal1" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+     
+      <div class="modal-body">
+      
+
+        <div class="container "><!--Start of Bank-->
+
+  <div class="panel panel-success">
+    
+  <div class="panel-heading">Bank Form<button type="button" class="close" data-dismiss="modal">&times;</button></div>
+  <div class="panel-body">
+
+ 
+  <form >
+    <div class="row">
+
+      <div class="col-sm-12"><!--Start of 1st row-->
+
+        <div class="col-sm-6">
+          
+          <div class="form-group">
+      <label for="emp_id">Employee Id</label>
+      <input type="text" class="form-control" id="emp_id" placeholder="Employee Id" name="emp_id" readonly >
+    </div>
+
+        </div>
+        <div class="col-sm-6">
+          
+
+          <div class="form-group">
+      <label for="acc_name">Account Name</label>
+      <input type="text" class="form-control" id="acc_name" placeholder="Account Name" name="acc_name">
+    </div>
+        </div>
+        
+      </div><!--End of 1st row-->
+
+
+      <div class="col-sm-12"><!--Start of 2nd row-->
+
+        <div class="col-sm-6">
+          
+          <div class="form-group">
+      <label for="acc_no">Account Number</label>
+      <input type="text" class="form-control" id="acc_no" placeholder="Account Number" name="acc_no">
+    </div>
+
+        </div>
+        <div class="col-sm-6">
+          
+
+          <div class="form-group">
+      <label for="bank_name">Bank Name</label>
+      <input type="text" class="form-control" id="bank_name" placeholder="Bank Name" name="bank_name">
+    </div>
+        </div>
+        
+      </div><!--End of 2nd row-->
+
+      <div class="col-sm-12"><!--Start of 3rd row-->
+
+        <div class="col-sm-6">
+          
+          <div class="form-group">
+      <label for="branch_code">Branch Code</label>
+      <input type="text" class="form-control" id="branch_code" placeholder="Branch Code" name="branch_code">
+    </div>
+
+        </div>
+        <div class="col-sm-6">
+          
+
+          <div class="form-group">
+      <label for="branch_name">Branch Name</label>
+      <input type="text" class="form-control" id="branch_name" placeholder="Enter Branch Name" name="branch_name">
+    </div>
+        </div>
+        
+      </div><!--End of 3rd row-->
+
+      <div class="col-sm-12"><!--Start of 4th row-->
+
+        <div class="col-sm-6">
+          
+          <div class="form-group">
+      <label for="ifsc_code">IFSC</label>
+      <input type="text" class="form-control" id="ifsc_code" placeholder="Enter Ifsc Code" name="ifsc_code">
+    </div>
+
+        </div>
+        <div class="col-sm-6">
+          
+
+          <div class="form-group">
+      <label for="address">Address</label>
+      <textarea class="form-control" id="address" placeholder="Enter Adress Here" name="address"></textarea>
+    </div>
+        </div>
+        
+      </div><!--End of 4th row-->
+
+
+
+          
+
+    </div>
+    
+   <div class="col-sm-12 text-right">
+            <button type="button" id="bank_sub" class="btn btn-primary">Submit</button>
+         </div>
+   
+  </form>
+</div><!--End oof panel body-->
+
+</div><!--End of panel-->
+</div><!--End of Bank-->
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+<div class="message"></div>
+<!-- <div id="bottom" class="text-center">bottom</div> -->
+
+<script>
+
+$("#bottom").click(function(){
+
+   window.parent.topScroll();
+})
+
+</script>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<div class="message"></div>
+
+
+
+
+
+
+<script type="text/javascript">
+	
+$(document).ready(function(){
+    $("#flip").click(function(){
+        $("#panel").slideToggle("slow");
+           
+    });
+
+    $("#flip1").click(function(){
+        $("#panel1").slideToggle("slow");
+    });
+     $("#flip3").click(function(){
+        $("#panel3").slideToggle("slow");
+    });
+
+     $("#flip4").click(function(){
+        $("#panel4").slideToggle("slow");
+    });
+});
+</script>
+
+<script src="url/url.js"></script>
+<script src="js/submit-claim.js"></script>
+<script src="js/fileshare.js"></script>
+
+
+
+<script >
+
+
+
+  </script>
+</body>
+</html>
+
+
+ 

@@ -1,0 +1,300 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	class="layout-pf layout-pf-fixed" xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Pomfret ActNow</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<h:outputStylesheet
+		name="node_modules/patternfly/dist/css/patternfly.css"></h:outputStylesheet>
+	<h:outputStylesheet
+		name="node_modules/patternfly/dist/css/patternfly-additions.min.css"></h:outputStylesheet>
+	<h:outputStylesheet
+		name="node_modules/patternfly/dist/css/patternfly.min.css"></h:outputStylesheet>
+
+	<!-- jQuery -->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/jquery/dist/jquery.min.js" />
+
+	<!-- Bootstrap JS -->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/bootstrap/dist/js/bootstrap.min.js" />
+
+	<!-- C3, D3 - Charting Libraries -->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/c3/c3.min.js" />
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/d3/d3.min.js" />
+
+	<!-- Datatables, jQuery Grid Component -->
+	<!-- Note: jquery.dataTables.js must occur in the html source before patternfly*.js.-->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/datatables/media/js/jquery.dataTables.min.js" />
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/drmonty-datatables-colvis/js/dataTables.colVis.js" />
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/datatables.net-colreorder/js/dataTables.colReorder.js" />
+
+	<!-- PatternFly Custom Componets -  Sidebar, Popovers and Datatables Customizations -->
+	<!-- Note: jquery.dataTables.js must occur in the html source before patternfly*.js.-->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/patternfly/dist/js/patternfly.min.js" />
+
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/jquery-match-height/dist/jquery.matchHeight-min.js" />
+
+	<!-- Bootstrap Combobox -->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/patternfly-bootstrap-combobox/js/bootstrap-combobox.js" />
+
+	<!-- Bootstrap Date Picker -->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js" />
+
+	<!-- Moment - required by Bootstrap Date Time Picker -->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/moment/min/moment.min.js" />
+
+	<!-- Bootstrap Date Time Picker - requires Moment -->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js" />
+
+	<!-- Bootstrap Select -->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/bootstrap-select/dist/js/bootstrap-select.min.js" />
+
+	<!-- Bootstrap Switch -->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/bootstrap-switch/dist/js/bootstrap-switch.min.js" />
+
+	<!-- Bootstrap Touchspin -->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js" />
+
+	<!-- Bootstrap Tree View -->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/patternfly-bootstrap-treeview/dist/bootstrap-treeview.min.js" />
+
+	<!-- Google Code Prettify - Syntax highlighting of code snippets -->
+	<h:outputScript
+		name="node_modules/patternfly/node_modules/google-code-prettify/bin/prettify.min.js" />
+	<link rel="stylesheet" type="text/css" href="styles.css"></link>
+	<link rel="stylesheet" type="text/css" href="sevice_stylesheet.css"></link>
+	<!-- 	<link rel="stylesheet" type="text/css" href="../Menu/styles.css"></link> -->
+	<script
+		src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script type="text/javascript" src="script.js"></script>
+	<!--  style sheet for admin menu and other sub menu of admin(billing, configuration and add user-->
+	<link rel="stylesheet" type="text/css" href="admin_stylsheet.css"></link>
+
+	<style>
+.sidenav {
+	transition: 0.0s;
+	padding-top: 0px
+}
+
+.sidenav a {
+	padding: 8px 8px 8px 32px;
+	text-decoration: none;
+	font-size: 25px;
+	color: #818181;
+	display: block;
+	transition: 0.1s;
+}
+
+.sidenav a:hover {
+	color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+	position: absolute;
+	top: 0;
+	right: 25px;
+	font-size: 36px;
+	margin-left: 50px;
+}
+
+#main {
+	transition: /* margin-left */ 0.0s;
+	padding: 16px;
+}
+</style>
+</h:head>
+<h:body class="cards-pf">
+	<!--  Vertial bar menu -->
+	<nav class="navbar navbar-pf-vertical" style="margin-top: -51px;background-color: #292e34;">
+	<nav class="collapse navbar-collapse">
+	<ul class="nav navbar-nav navbar-right navbar-iconic">
+
+
+		<div class="collapse navbar-collapse navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-utility">
+				<li class="dropdown "><a class="nav-item-iconic"
+					id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="true"> <span title="Help"><img
+							src="images/icon-help.svg" class="helpicon"></img></span> <span><img
+							src="images/down.png" class="helpdownicon"></img></span>
+				</a>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+						<li><a href="http://entosstech.com/">Help</a></li>
+					
+					</ul></li>
+
+
+				<li class="dropdown "><a class="nav-item-iconic"
+					id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="true"> <span title="Help"><img
+							src="images/user.png" class="helpicon"></img></span> <span>Welcome<img src="images/down.png" class="helpdownicon"></img>
+					</span>
+				</a>
+					<ul class="dropdown-menu">
+						<li><a href="#">My Profile</a></li>
+						
+						<li role="presentation" class="divider"></li>
+						<li><a href="#">Logout</a></li>
+					</ul></li>
+			</ul>
+		</div>
+	</ul>
+	</nav> <!--Vertical bar ends here  --> <!--  Menu toggle-->
+	<div id="menu-toggle">
+		<img src="images/menu.png" width="20" height="20" onClick="openNav()"  style="margin-left: -8px;"></img>
+	</div>
+	<script>
+		var isOpen = 0;
+		function openNav() {
+
+			if (isOpen == 1) {
+				/* alert("close"); */
+				isOpen = 0;
+				document.getElementById("mySidenav").style.width = "0";
+				document.getElementById("content").style.marginLeft = "0";
+			}
+
+			else {
+				/* alert("open"); */
+				isOpen = 1;
+				document.getElementById("mySidenav").style.width = "120px";
+				document.getElementById("content").style.marginLeft = "161px";
+			}
+
+		}
+	</script> <a href="/" class="navbar-brand"> <img class="navbar-brand-icon"
+		src="images/pomfret_logo.jpg" alt="" />
+	</a> <nav id="menu" class="main-nav">
+	<ul>
+
+		
+		<li data-toggle="collapse" data-target="#service1" class="collapsed">
+			<a href="#"  >Process</a>
+		</li>
+		<ul class="sub-menu collapse" id="service1" style="margin-bottom: -60px;padding-left: 0px;">
+			<li style="margin-left: -3px;"><a href="http://localhost:8080/actnow-claims-1.0.0/forms/submit-claim.html" target="iframe_a"  style="background-color: #292e34;margin-top: -4px;
+height: 61px;">Submit Claim</a>
+  </li>
+			
+		</ul>
+		<li><a href="mytask.xhtml">MyTask</a></li>
+		<li><a href="#">Admin</a></li>
+<li><a href="#">Dashboard</a></li>
+	</ul>
+	</nav> <!--Menu toggle ends here  -->
+	
+	<div id="-secondary" class="nav-pf-secondary-nav">
+		<div class="nav-item-pf-header">
+			<a class="secondary-collapse-toggle-pf"
+				data-toggle="collapse-secondary-nav"></a>
+		</div>
+	</div>
+	<li
+		class="list-group-item secondary-nav-item-pf mobile-nav-item-pf visible-xs-block"
+		data-target="#amet-secondary"><a> <span
+			class="pficon pficon-user" data-toggle="tooltip" title=""
+			data-original-title="User"></span> <span
+			class="list-group-item-value">User</span>
+	</a>
+		<div id="user-secondary" class="nav-pf-secondary-nav">
+			<div class="nav-item-pf-header">
+				<a class="secondary-collapse-toggle-pf"
+					data-toggle="collapse-secondary-nav"></a> <span>User</span>
+			</div>
+
+			<ul class="list-group">
+				<li class="list-group-item"><a> <span
+						class="list-group-item-value">Preferences</span>
+				</a></li>
+
+				<li class="list-group-item"><a> <span
+						class="list-group-item-value">Logout</span>
+				</a></li>
+			</ul>
+		</div></li>
+	<li
+		class="list-group-item secondary-nav-item-pf mobile-nav-item-pf visible-xs-block"
+		data-target="#amet-secondary"><a> <span
+			class="pficon pficon-help" data-toggle="tooltip" title=""
+			data-original-title="Amet"></span> <span
+			class="list-group-item-value">Help</span>
+	</a>
+		<div id="help-secondary" class="nav-pf-secondary-nav">
+			<div class="nav-item-pf-header">
+				<a class="secondary-collapse-toggle-pf"
+					data-toggle="collapse-secondary-nav"></a> <span>Help</span>
+			</div>
+			<ul class="list-group">
+				<li class="list-group-item"><a> <span
+						class="list-group-item-value">Help</span>
+				</a></li>
+				<li class="list-group-item"><a> <span
+						class="list-group-item-value">About</span>
+				</a></li>
+			</ul>
+		</div></li>
+	</nav>
+	<!-- content to add here -->
+	<div id="content">
+		<ui:insert name="content">
+		
+		
+  <iframe height="600px" width="96%"  name="iframe_a" style="margin-left: 57px;margin-top: -8px;"></iframe>
+
+		</ui:insert>
+	</div>
+
+	<!-- START of side Nav -->
+	<div
+		class="nav-pf-vertical nav-pf-vertical-with-sub-menus nav-pf-persistent-secondary collapsed">
+		<ul class="list-group">
+		
+		<div id="mySidenav" class="sidenav">
+					<li style="margin-left: -3px;"><a  href="http://localhost:8080/actnow-claims-1.0.0/forms/submit-claim.html" target="iframe_a" style="background-color: #292e34;margin-top: -4px;
+height: 61px;"><img src="images/process.png"  height="25px" width="25px" style="margin-left: -13px;" ></img> <span
+						class="list-group-item-value"></span>
+				</a></li>
+				<li class="list-group-item"><a href="mytask.xhtml" target="iframe_a"> 
+						<img src="images/mytask.png" height="25px" width="25px" style="margin-left: -8px;"></img> <span
+						class="list-group-item-value">My Task</span>
+
+				</a></li>
+				<li class="list-group-item"><a href="#"> 
+						<img src="images/dashboard.png"  height="25px" width="25px" style="margin-left: -8px;"></img> <span
+						class="list-group-item-value">Dashboard</span>
+
+				</a></li>
+				<li class="list-group-item"><a href="#"> <img
+						src="images/admin.png" height="25px" width="25px" style="margin-left: -8px;"></img> <span
+						class="list-group-item-value">Admin</span>
+
+				</a></li>
+			</div>
+		</ul>
+
+	</div>
+	<!--End OF SIDE NAV-->
+
+
+</h:body>
+</html>

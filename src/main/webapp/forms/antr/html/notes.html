@@ -1,0 +1,115 @@
+    <div style="margin-left:15px; margin-right:15px; " class="container-fluid jumbotron">
+        <div class="row">
+          <div class="col-xs-4">
+            <label class="">User Id</label>
+            <input class="form-control" placeholder="Enter User Id" type="text" Id="userId" name="userid"/>
+          </div>
+          <div class="col-xs-4">
+            <label class="">User Name</label>
+            <input class="form-control" placeholder="Enter Your Name" type="text" Id="userName" name="username" readonly />
+          </div>
+          <div class="col-xs-4">
+            <label class="">Queue Name</label>
+            <input class="form-control" placeholder="Enter Queue Number" type="text" Id="queueName" name="queuename" value="" readonly />
+          </div>
+          
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <label class="">Description</label>
+             <textarea class="form-control" placeholder="Enter Description" type="text" Id="description" name="description">
+            </textarea>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <label class="">Remarks</label>
+            
+            <textarea class="form-control" placeholder="Enter Remarks" id="remarks" name="remarks">
+            </textarea>
+          
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-offset-10">
+          <button style="margin-bottom:5px; margin-left:0px; width:90px;" type="button" class="btn btn-info" onclick="addNotes()">Save</button>
+        </div>
+      </div>
+      
+          <table style="text-align:center" class=" table table-condensed " id="notes">
+          <col width="100">
+          <col width="100">
+          <col width="100">
+          <col width="100">
+          <col width="100">
+          <col width="20">
+          <col width="10">
+          <thead>
+            <tr style="background-color:#D7DBDD; " >
+              <th style="text-align:center;">User Id</th>
+              <th style="text-align:center;">User Name</th>
+              <th style="text-align:center;">Queue Name</th>
+              <th style="text-align:center;">Description</th>
+              <th style="text-align:center;">Remarks</th>
+              <th style="text-align:center;">&nbsp </th>
+              <!-- <th style="text-align:center;">&nbsp </th> -->
+            </tr>
+          </thead>
+          <tbody>
+   
+          </tbody>
+            
+          </table>
+        
+      
+<div id="popup_bg" >
+  <div id="popup_main_div" style="height:400px;">
+    <p style="margin-top:50px;" id="javascript_magic">
+        <div>
+          <p style="color:black; background-color:#F7F9F9; font-size:30px; margin-top:-50px; padding-top:10px; padding-bottom:10px; text-align:center; border-bottom:2px solid black;">
+          User Details
+          </p>
+        </div>
+      <div id="disburse" class="container-fluid jumbotron">
+        <div class="row">
+          <div class="col-xs-4">
+            <label class="">User Id</label>
+            <input class="form-control" placeholder="user id" type="text" Id=""/>
+          </div>
+          <div class="col-xs-4">
+            <label class="">User Name</label>
+            <input class="form-control" placeholder="user name" type="text" Id=""/>
+          </div>
+          <div class="col-xs-4">
+            <label class="">Queue Name</label>
+            <input class="form-control" placeholder="queue name" type="text" Id=""/>
+          </div>
+          
+        </div><br/>
+        <div class="row">
+          <div class="col-xs-12">
+            <label class="">Discription</label>
+            <input class="form-control" placeholder="discription" type="text" Id=""/>
+          </div>
+        </div>
+        <br/>
+        <div class="row">
+          <div class="col-xs-12">
+            <label class="">Remarks</label>
+            
+            <textarea class="form-control" placeholder="Message">
+                        </textarea>
+          
+          </div>
+        </div>
+      </div>
+        </p>
+    <div id="close_popup_div" title="close" onclick="closePopUpMenu()">
+      <p style="color:red;">
+      X
+      </p>
+    </div>
+    <button style="margin-left:700px; margin-top:5px;" onclick="closePopUpMenu()" class="btn btn-info ">Ok</button>
+  </div>
+</div>

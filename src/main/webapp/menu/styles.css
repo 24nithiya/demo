@@ -1,0 +1,178 @@
+body {
+	/* 	background-color: rgb(30, 30, 30); */
+	
+}
+
+h1 {
+	color: white;
+	text-align: center;
+	font-size: 40pt;
+}
+
+#menu {
+	/* transition: all 0.3s ease; */
+	transition: 0.0s;
+	position: fixed;
+	width: 0%;
+	top: 60px;;
+	left: -200px;
+	background: /* rgb(0, 0, 0); */ #292e34;
+	height: 100%;
+	z-index: 999;
+	box-shadow: 0px 0px 10px #292e34;
+	padding-top: 0px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+	margin: -7px;
+}
+
+#menu a {
+	background-color: transparent;
+	color: #d1d1d1;
+	cursor: pointer;
+	display: block;
+	font-size: 14px;
+	text-align: center;
+	text-decoration: none;
+	padding: 17px 20px 17px 25px;
+	margin: 7px auto 4px 37px;
+	/* transition: all 0.2s ease; */
+	transition: all 0.1s;
+	font-weight: 600;
+	box-sizing: border-box;
+	white-space: nowrap;
+	box-sizing: border-box;
+	line-height: 25px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	border-bottom-style: solid;
+	border-bottom-color: transparent;
+	border-width: 1px;
+	width: 145px;
+	height: 53px;
+}
+
+#menu a:hover {
+	background: rgb(50, 50, 50);
+	border-bottom-color: #000000;
+	border-width: 1px;
+}
+
+#menu-toggle {
+	position: fixed;
+	top: 10px;
+	left: 17px;
+	/* 	background: rgb(0, 100, 100); */
+	z-index: 1000;
+	padding-left: 10px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+	padding-right: 10px;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	transition: all 0.3s ease;
+}
+
+#menu-toggle:hover {
+	cursor: pointer;
+}
+
+#menu.open {
+	left: 0;
+	width: 225px;
+	display: block;
+}
+
+#menu-toggle.open {
+	
+}
+
+#logo {
+	padding-left: 20px;
+	padding-top: 7px;
+	padding-bottom: 9px;
+	padding-right: 0px;
+	width: 100px;
+	height: 40px;
+}
+
+#service {
+	color: #39a5dc;
+	float: left;
+	font-size: 20px;
+	line-height: 26px;
+	margin-right: 10px;
+	text-align: center;
+	width: 24px;
+}
+#service1 {
+	/* color: #39a5dc;
+	float: left;
+	font-size: 20px;
+	line-height: 26px;
+	margin-right: 10px;
+	text-align: center;
+	width: 24px; */
+	float: right;
+font-size: 20px;
+line-height: 26px;
+margin-right: 10px;
+text-align: center;
+width: 24px;
+margin-top: -60px;
+}
+
+.main-nav {
+	list-style: none;
+	padding: 0;
+	text-align: center;
+}
+
+.main-nav, .main-nav a, .main-nav li {
+	position: relative;
+}
+
+ul {
+	list-style: none;
+}
+
+ol, ul {
+	margin-bottom: 20px;
+}
+
+.helpicon {
+	/* height: 25px;
+	width: 25px;
+	margin: 39px -133px 3px 111px;
+ */
+	height: 20px;
+	width: 25px;
+	margin: -10px 0px -5px -15px;
+}
+
+.usericon {
+	height: 25px;
+	width: 25px;
+	margin: 37px 4px 6px 150px;
+}
+
+.serviceicon {
+	height: 25px;
+	width: 22px;
+}
+
+.userdownicon {
+	/* height: 20px;
+	width: 20px;
+	margin:33px 0px 0px 0px; */
+	height: 20px;
+	width: 20px;
+	margin: -10px -36px -12px 0px;
+}
+
+.helpdownicon {
+	height: 20px;
+	width: 20px;
+	/*  margin:41px -159px 5px 133px; */
+}

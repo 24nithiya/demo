@@ -1,0 +1,65 @@
+<html>
+<head>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<script>
+
+    $(function() {
+   $.getJSON('folder-out.json', function(data) {
+       $.each(data.objects, function(i, f) {
+          var tblRow = "<tr>" +  
+           "<td>" + f.object.properties['cmis:name'].value + "</td>" +
+		   "<td>" + f.object.properties['cmis:creationDate'].value + "</td>" +
+		   "<td>" + f.object.properties['cmis:createdBy'].value + "</td>" +
+		   "<td>" + f.object.properties['cmis:lastModificationDate'].value + "</td>" +
+           "<td>" + f.object.properties['cmis:lastModifiedBy'].value + "</td>" +
+		   "<td>" + f.object.properties['cmis:objectId'].value + "</td>" +
+		   "</tr>"
+           $(tblRow).appendTo("#userdata tbody");
+     });
+
+   });
+
+});
+</script>
+</head>
+
+<body>
+
+		<div style="width:inherit;" class="container-fluid">
+				<div class="container-fluid">
+					<nav class="navbar navbar-inverse">
+						<div class="container-fluid">
+				
+							<!-- Collect the nav links, forms, and other content for toggling -->
+							<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+							  <ul class="nav navbar-nav">
+								<li><a href="../forms/submit-claim.html">Main Form</a></li>
+								<li class="active"><a href="#">Documents<span class="sr-only">(current)</span></a></li>
+								<li><a href="../forms/notes.html">Notes</a></li>
+								<li><a href="../forms/history.html">History</a></li>
+							  </ul>
+							</div>
+						</div>
+					</nav>
+				</div>						
+			</div>
+
+<div class="container-fluid">
+  <table style="text-align:center" class=" table table-condensed " id= "userdata">
+  <thead style="background-color:#D7DBDD;">
+			<th style="text-align:center;">Name</th>
+			<th style="text-align:center;">Created Date</th>
+            <th style="text-align:center;">Created By</th>
+			<th style="text-align:center;">Last Modified</th>
+            <th style="text-align:center;">Modified By</th>
+			<th style="text-align:center;">Request Id</th>
+        </thead>
+      <tbody>
+
+       </tbody>
+   </table>
+</div>
+
+</body>
+</html>

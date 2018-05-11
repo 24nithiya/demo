@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Approve claim</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="css/style.css">
+ 
+ 
+</head>
+<body>
+  <div style="background:rgba(225,225,225,0.5);position:absolute; width: 100%;height: 100%;z-index: 99;display: none" id="loading" >
+  
+    <img src="loading.gif" width="100%" style="position: absolute;z-index: 999;top: 0;right: 0;bottom: 0;left: 0;">
+</div>
+
+<form id="form">
+<div class="tabs">
+  
+  <input type="radio" id="tab1" name="tab-control" checked>
+  <input type="radio" id="tab2" name="tab-control">
+  <input type="radio" id="tab3" name="tab-control">  
+  <input type="radio" id="tab4" name="tab-control">
+  <ul style="/*width:500px*/; background-color:#222; line-height: 40px;">
+    <li><label for="tab1" role="button"></svg><br><span>Main</span></label></li>
+    <li><label for="tab2" role="button"></svg><br><span>Documents</span></label></li>
+    <li><label for="tab3" role="button"></svg><br><span>Notes</span></label></li>    
+  <li><label for="tab4" role="button"></svg><br><span style="margin-right: 20px;">History</span></label></li>
+  <li><label for="tab1" role="button"></svg><br><span></span></label></li>
+    <li><label for="tab2" role="button"></svg><br><span></span></label></li>
+    <li><label for="tab3" role="button"></svg><br><span></span></label></li>    
+  <li><label for="tab4" role="button"></svg><br><span></span></label></li>
+  <li><label for="tab1" role="button"></svg><br><span></span></label></li>
+    <li><label for="tab2" role="button"></svg><br><span></span></label></li>
+    <li><label for="tab3" role="button"></svg><br><span></span></label></li>    
+  <li><label for="tab4" role="button"></svg><br><span></span></label></li> 
+ <li > <button type="button" class="close clo " data-dismiss="modal" style="color: #ffff;margin-right: 20px;margin-bottom:10px ;font-size:35px " >&times;</button></li>
+  </ul>
+  
+  <div class="slider"><div class="indicator"></div></div>
+  <div class="content">
+    <section>
+         <div id="home" class="tab-pane fade in active">
+     
+        
+         <div class="container-fluid jumbotron mappfull" style="margin-top: -30px;padding-left:20px;padding-right: 20px;padding-top: 0">
+
+          <div class="row" id="flip" style="background: #cfdff9" >
+          <div class="col-sm-12 text-right" style="border-bottom:1px solid rgba(20,20,20,0.3);">
+                   <span class="glyphicon glyphicon-align-justify" style="padding: 0px;margin: 0px"></span>
+              </div>
+              </div>
+
+
+              <div style="padding-top:0px" id="panel"><!--Start of 1st slide-->
+            <div class="row" >
+              
+              <div class="col-xs-3">
+                <label class="">Name</label>
+                  <input class="form-control" placeholder="enter name" type="text" Id="fsname" readonly/>
+              </div>
+              <div class="col-xs-3">
+                <label class="">Employee Id</label>
+                  <input class="form-control" placeholder="enter number" type="text" Id="number" readonly/>
+              </div>
+              <div class="col-xs-3">
+                <label class="">Manager</label>
+                  <input class="form-control" placeholder="enter your manager name" type="text" Id="manager" readonly/>
+              </div>
+              <div class="col-xs-3">
+                <label class="">Department Name</label>
+                  <input class="form-control" placeholder="enter your department" type="text" Id="department" readonly/>
+              </div>
+            </div>
+            <!-- <br/> -->
+            <div class="row">
+                <div class="col-xs-3">
+                <label class="">Travel Request Id</label>
+                  <input class="form-control" placeholder="Enter TravelRequest Id" type="text" Id="travelId" readonly/>
+                </div>
+            </div>
+          </div>
+        </div><!--end of 1st slde-->
+
+
+ 
+
+<!--start of second slide-->
+
+          <div class="container-fluid jumbotron" style="padding-left:20px;padding-right: 20px;padding-top: 0">
+
+
+            <div class="row" id="flip1" style="background: #cfdff9">
+          <div class="col-sm-12 text-right" style="border-bottom:1px solid rgba(20,20,20,0.3);">
+                  <span class="glyphicon glyphicon-align-justify" style="padding: 0px;margin: 0px"></span>
+              </div>
+              </div>
+
+                <div id="panel1" style="padding-top:0px" >
+            <div class="row" >
+              <div class="col-xs-4">
+                <label class="">Claim Type</label>
+                  <input class="form-control" placeholder="Select Claim Type" type="text" Id="claimType" readonly/>
+              </div>
+              <div class="col-xs-4">
+                <label class="">Mode Of Travel</label>
+                  <input class="form-control" placeholder="Select Tthe Mode" type="text" Id="modeTravel" readonly/>
+              </div>
+              <div class="col-xs-4">
+                <label class="">Class Of Travel</label>
+                  <input class="form-control" placeholder="Select The Class" type="text" Id="classTravel" readonly/>
+              </div>
+            </div>
+            <!-- <br/> -->
+            <div class="row">
+                <div class="col-xs-4">
+                <label class="">Start Date</label>
+                  <input class="form-control"  placeholder="Select Travel Start Date" type="text" Id="startDate" readonly/>
+                </div>
+                <div class="col-xs-4">
+                <label class="">End Date</label>
+                  <input class="form-control"  placeholder="Select Travel End Date" type="text" Id="endDate" readonly/>
+                </div>
+
+<div class="col-xs-4">
+                    <label class="">Bank Name</label>
+               <input type="text" class="form-control .bank_op getBank" id="" readonly>
+            </div>
+
+
+            </div>
+          </div>
+          </div>
+                    
+                    <!--end of 2nd slide-->
+
+
+<div class="container-fluid jumbotron" style="padding-left:20px;padding-right: 20px;padding-top: 0">
+
+ <div class="row" id="flip3" style="background: #cfdff9">
+          <div class="col-sm-12 text-right" style="border-bottom:1px solid rgba(20,20,20,0.3);">
+                  <span class="glyphicon glyphicon-align-justify" style="padding: 0px;margin: 0px"></span>
+              </div>
+              </div>
+      <div id="panel3" style="padding-top:20px" >
+        <table class="table jumbotron" id="myTable">    
+          <table id="rows_tab" class="table jumbotron">
+            <tr>
+              <th>Expense Type</th>
+              <th>Payment Type</th>
+              <th>Amount</th>
+              <th>Receipt</th>
+              <th>Total</th>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+
+              <td><input type="text" placeholder="total" id="total" class="form-control"></div></td></tr>
+          </table>
+          
+        </table>
+         </div>
+        </div>
+
+
+        
+        <div class="container-fluid jumbotron" style="padding-left:20px;padding-right: 20px;padding-top: 0" >
+
+ <div class="row" id="flip4"  style="background: #cfdff9" >
+          <div class="col-sm-12 text-right" style="border-bottom:1px solid rgba(20,20,20,0.3);">
+                   <span class="glyphicon glyphicon-align-justify" style="padding: 0px;margin: 0px"></span>
+              </div>
+              </div>
+      
+        <div class="container-fluid jumbotron" id="panel4"> 
+          <div  class="col-sm-6">
+            <div class="form-group" style="padding:0px;">
+  <label for="sel1">Action</label>
+  <select class="form-control" id="sel1" name="action">
+    <option selected="true" disabled="disabled">Select</option>
+
+    <option value="ACCOUNTSREVIEW">Approve</option>
+    <option value="CLAIMREJECTED">Reject</option>
+
+    <option value="EMPLOYEEREVIEW">Send Back To Employee</option>
+    
+  </select>
+</div>
+  
+          </div>
+
+
+        <div class="col-sm-6">
+
+              <div class="form-group" style="padding-left:20px;">
+  <label for="comment">Remarks:</label>
+  <textarea class="form-control" rows="3" id="comment" name="comment"></textarea>
+</div>
+          </div>
+
+        </div>
+
+        </div>
+        <!-- dynamically added form element -->
+
+        <div class="container-fluid jumbotron fontSize" style="padding-left:20px;padding-right: 20px">
+          <div class="row">
+          <div class="col-sm-6"></div>
+          <div class="col-sm-6">
+
+            <button id="sub" class="form-control btn-success pull-right" style="margin-top:0px; margin-bottom: 20px; width:100px;margin-right: 30px; " align="center" type="submit">Submit</button>
+            
+            <button  type="button" id="close" class="form-control clo pull-right btn btn-primary"  style="margin-top:0px; margin-bottom: 20px; width:100px;margin-right: 40px;  " align="center" >Cancel</button>
+          
+            
+          </div>
+          </div>
+        </div>
+      </section>
+
+    <!--   <script type="text/javascript">$('#close').click(function(){
+    $('#myModal').modal('hide');
+  });</script> -->
+
+   
+
+    
+        <section>  <!--Documents Tab -->
+          <div class="document">
+        </div>
+        </section>
+
+        
+
+        <section>
+
+       <div class="notes"></div>
+           <table style="text-align:center" class=" table table-condensed " id="notes">
+          <col width="100">
+          <col width="100">
+          <col width="100">
+          <col width="100">
+          <col width="100">
+          <col width="20">
+          <col width="10">
+          <thead>
+            <tr style="background-color:#D7DBDD; " >
+              <th style="text-align:center;">User Id</th>
+              <th style="text-align:center;">User Name</th>
+              <th style="text-align:center;">Queue Name</th>
+              <th style="text-align:center;">Description</th>
+              <th style="text-align:center;">Remarks</th>
+              <th style="text-align:center;">&nbsp; </th>
+             
+          </thead>
+          <tbody>
+   
+          </tbody>
+            
+          </table>
+        
+
+        </section>
+
+
+
+
+
+
+    <section>
+     
+
+         <table style="text-align:center" class=" table table-condensed " id="history">
+          <col width="100">
+          <col width="100">
+          <col width="100">
+          <col width="100">
+          <col width="100">
+          <col width="20">
+          <col width="10">
+          <thead>
+            <tr style="background-color:#D7DBDD; " >
+              <th style="text-align:center;">Event Id</th>
+              <th style="text-align:center;">Created By</th>
+              <th style="text-align:center;">Created at</th>
+              <th style="text-align:center;">Event Descritption</th>
+              <th style="text-align:center;">Remarks </th>
+              <!-- <th style="text-align:center;">&nbsp </th> -->
+            </tr>
+          </thead>
+          <tbody>
+   
+          </tbody>
+            
+          </table>
+
+
+
+    </section><!--End of history-->
+    
+  </div>
+</div>
+
+
+
+<div id="errormsg"  style="color:red; text-align: center; font-size: 25px;"></div>
+</form>
+
+
+<div class="message"></div>
+
+
+      <script type="text/javascript">
+           
+$(".clo").click(function(){
+  //alert("going to close");
+  window.parent.closeModal();
+});
+         </script>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="url/url.js"></script>
+<script src="js/fileshare.js"></script>
+<script src="js/approve-claim.js"></script>
+
+
+</body>
+</html>
+
+
+ 

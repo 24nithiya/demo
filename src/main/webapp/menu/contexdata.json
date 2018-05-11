@@ -1,0 +1,31 @@
+{
+"help":{
+		"mainMenu":{
+		"mytask":"All the tasks assigned to you",
+		"process":"Page need to be filled for travel and expense management",
+		"myClaim":"list of all the submitted claim requests",
+		"submitClaimRequest":"You can reimburse the money through this use case",
+		"submitTravelRequest":"You can disburse amount before travelling through this use case"
+	},
+	"taskMenu":{
+		"myTask":"Task assigned for an individual",
+		"groupTask":"Process to reimbursed the money through use case submit claim /travel request approval"
+	},
+	"forms":{
+		"mains":"Details about travel and claim request ",
+		"documents":"Add any relevant documents about the request",
+		"notes":"Add any relevant notes about the request ",
+		"history ":"view the status of your request",
+		"action ":"Take a decision on the request",
+		"remarks":"Write up regarding the travel/claim request",
+		"cancel":"delete",
+		"addOn":"Add on ",
+		"advance":"Request for an advance amount while travel request use case",
+		"hideAndView":"hide/show",
+		"view ":"Click to view the request ",
+		"addBank":"You can add on the bank details for the claim request"
+	}
+}
+
+
+}

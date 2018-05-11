@@ -1,0 +1,22 @@
+[
+{
+	"mode":"Flight",
+	"class":["Economic","Business,FirstClass","Premium"]
+},
+{
+	"mode":"Bus",
+	"class":["Ac Seater","Non Ac Seater","Ac Slepper","Non Ac Slepper"]
+},
+{
+	"mode":"Train",
+	"class":["Ac Seater","Non Ac Seater","Ac Slepper","Non Ac Slepper"]
+},
+{
+	"mode":"Car",
+	"class":["Micro","Mini","Prime","Luxury"]
+},
+{
+	"mode":"Ship",
+	"class":["First","Second","Bunk","VIP"]
+}
+]

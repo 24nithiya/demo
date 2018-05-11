@@ -1,0 +1,118 @@
+@CHARSET "ISO-8859-1";
+
+.span_spacing {
+	margin-left: 120px;
+}
+
+.img_graph {
+	height: 221px;
+	width: 210px;
+	float: left;
+	padding: 10px 20px 20px 10px;
+}
+
+p {
+	font-family: Georgia, Times, "Times New Roman", serif;
+	font-size: 14px;
+	-webkit-font-smoothing: antialiased;
+	text-size-adjust: 100%;
+	color: rgb(40, 40, 40);
+}
+
+.list {
+	list-style-type: none;
+	font-family: Georgia, Times, "Times New Roman", serif;
+	margin: 0;
+	padding: 0;
+	display: list-item;
+	text-align: -webkit-match-parent;
+	width: 176px;
+}
+
+.alignmt {
+	float: left;
+	padding: 10px 35px 35px 42px;
+}
+
+.helpicon {
+	width: 20px;
+}
+
+.usericon {
+	width: 25px;
+}
+
+.userdownicon {
+	width: 20px;
+}
+
+.helpdownicon {
+	width: 13px;
+}
+
+.action_list {
+	width: 20px;
+}
+
+.product_name {
+	margin-left: 70px;
+}
+
+.action_list {
+	width: 20px;
+	margin-top: -76px;
+}
+
+.menu_space {
+	margin-right: -17px;
+}
+
+.caret_icon {
+	height: 20px;
+}
+
+.close_icon {
+	height: 13px;
+	width: 14px;
+}
+
+.search_icon {
+	height: 14px;
+}
+
+.option_icon {
+	height: 14px;
+	width: 17px;
+}
+
+.service_icon {
+	    height: 18px;
+    margin-top: -59px;
+    margin-right: 0px;
+}
+
+.menu-img {
+	margin-bottom: -74px;
+	height: 25px;
+	width: 25px;
+}
+
+.product_name_alignment {
+	margin-left: 50px;
+}
+
+.product_heading_border {
+	border: 0px solid #a8a8a8;
+}
+
+.productname_heading {
+	margin-left: 383px;
+	border: 0px solid #a8a8a8;
+}
+.datatabel_column {
+	width: 37px;
+	border: 0px solid #a8a8a8;
+}
+.product_margin{
+margin-left: 116px;
+}

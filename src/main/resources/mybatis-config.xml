@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias alias="ClaimRequest" type="com.entoss.actnow.domain.travel.ClaimRequest"/>
+		<typeAlias alias="TravelRequest" type="com.entoss.actnow.domain.travel.TravelRequest"/>
+		<typeAlias alias="Employee" type="com.entoss.actnow.domain.Employee"/>
+		<typeAlias alias="Company" type="com.entoss.actnow.domain.Company"/>
+		<typeAlias alias="Department" type="com.entoss.actnow.domain.Department"/>
+		<typeAlias alias="Organization" type="com.entoss.actnow.domain.Organization"/>
+		<typeAlias alias="BusinessUnit" type="com.entoss.actnow.domain.BusinessUnit"/>
+		<typeAlias alias="BankAccount" type="com.entoss.actnow.domain.BankAccount"/>
+		<typeAlias alias="PropertySet" type="com.entoss.actnow.domain.PropertySet"/>
+		<typeAlias alias="ActNowTask" type="com.entoss.actnow.domain.ActNowTask"/>
+		<typeAlias alias="AuditRecord" type="com.entoss.actnow.domain.AuditRecord"/>
+
+		<typeAlias alias="SubscriberAccount" type="com.entoss.actnow.domain.SubscriberAccount"/>
+
+		<typeAlias alias="ProcessRoles" type="com.entoss.actnow.domain.ProcessRoles"/>
+		<typeAlias alias="Roles" type="com.entoss.actnow.domain.Roles"/>
+		<typeAlias alias="UserProcessRoles" type="com.entoss.actnow.domain.UserProcessRoles"/>
+		<typeAlias alias="UserRoles" type="com.entoss.actnow.domain.UserRoles"/>
+
+		<typeAlias alias="UUID" type="java.util.UUID"/>
+		<typeAlias alias="UUIDTypeHandler" type="com.entoss.pomfret.actnow.daas.typehandlers.UUIDTypeHandler"/>
+		<typeAlias alias="JsonElement" type="com.google.gson.JsonElement"/>
+		<typeAlias alias="JsonElementTypeHandler" type="com.entoss.pomfret.actnow.daas.typehandlers.JsonElementTypeHandler"/>
+	</typeAliases>
+	
+	<typeHandlers>
+		<package name="com.entoss.pomfret.actnow.daas.typehandlers"/>
+	</typeHandlers>
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="MANAGED"/> 
+			<!-- <dataSource type="POOLED">
+			<property name="driver" value="org.postgresql.Driver"/>
+			<property name="url"
+			value="jdbc:postgresql://localhost:5432/actnow"/>
+			<property name="username" value="postgres"/>
+			<property name="password" value="postgres"/>
+			</dataSource> -->
+			
+			<dataSource type="JNDI">
+				<property name="data_source" value="java:jboss/datasources/actnowDS"/>
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<!-- <package name="com.entoss.pomfret.actnow.daas"/>  -->
+		<mapper resource="com/entoss/pomfret/actnow/daas/ClaimRequestMapper.xml"/>
+		<mapper resource="com/entoss/pomfret/actnow/daas/TravelRequestMapper.xml"/>
+		<mapper resource="com/entoss/pomfret/actnow/daas/EmployeeMapper.xml"/>
+		<mapper resource="com/entoss/pomfret/actnow/daas/CompanyMapper.xml"/>
+		<mapper resource="com/entoss/pomfret/actnow/daas/DepartmentMapper.xml"/>
+		<mapper resource="com/entoss/pomfret/actnow/daas/OrganizationMapper.xml"/>
+		<mapper resource="com/entoss/pomfret/actnow/daas/BusinessUnitMapper.xml"/>
+		<mapper resource="com/entoss/pomfret/actnow/daas/BankAccountMapper.xml"/>
+		<mapper resource="com/entoss/pomfret/actnow/daas/ActNowTaskMapper.xml"/>
+		<mapper resource="com/entoss/pomfret/actnow/daas/PropertySetMapper.xml"/>
+		<mapper resource="com/entoss/pomfret/actnow/daas/AuditRecordMapper.xml"/>
+
+		<mapper resource="com/entoss/pomfret/actnow/daas/SubscriberAccountMapper.xml"/>
+
+		<!-- <mapper resource="com/entoss/pomfret/actnow/daas/UserProcessRolesMapper.xml"/>
+		<mapper resource="com/entoss/pomfret/actnow/daas/UserRolesMapper.xml"/> -->
+
+	</mappers>
+</configuration>

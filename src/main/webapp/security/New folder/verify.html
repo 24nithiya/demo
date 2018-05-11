@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Password</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+      
+ 
+ 
+</head>
+<body ng-app="myApp" ng-controller="myControl">
+
+
+ 
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      
+      <div class="modal-body">
+       
+         <ng-form name="mailForm">
+          <div class="form-group">
+          <label data-toggle="tooltip" title="password must be -2 numbers,1 Upper case, 1 special character and minimum 8 length characters" data-placement="auto">Password</label>
+             <input type="password" data-toggle="tooltip" data-placement="auto" ng-model="pass" name="pass" id="pass" placeholder="Enter password" title="password must be -2 numbers,1 Upper case, 1 special character and minimum 8 length characters" ng-pattern="/^(?=(.*\d){2})(?=.*[A-Z]{1})(?=.*[a-zA-Z])(?=.*[!@#$%])[0-9a-zA-Z!@#$%]{8,}/" class="form-control" ng-required="true" /><br />
+            <span ng-show="mailForm.pass.$error.pattern" style="color:red">Password is Not Valid</span>
+          </div>
+
+          <div class="form-group">
+               <label >Confirm Password</label>
+            <input type="password"  name="confirmPass" ng-model="confirmPass" placeholder="Enter Confirm password " id="conpass" class="form-control" ng-disabled="mailForm.pass.$error.pattern" valid-password-c ng-required="true">
+            <span ng-show="mailForm.confirmPass.$error.noMatch && mailForm.confirmPass.$dirty" style="color:red">Password is Not Match</span>
+          </div>
+ <div class="form-group text-right">
+  <button class="btn btn-success" ng-disabled="mailForm.$invalid" ng-click="sub()" >Submit</button>
+ </div>
+
+
+
+        </ng-form>
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="message"></div>
+</body>
+<script type="text/javascript">
+
+        
+  $(document).ready(function(){
+    $("#myModal").modal();
+     $('[data-toggle="tooltip"]').tooltip();   
+
+var myInput = document.getElementById('pass');
+ myInput.onpaste = function(e) {
+   e.preventDefault();
+ }
+
+ var myInput1 = document.getElementById('conpass');
+ myInput1.onpaste = function(e) {
+   e.preventDefault();
+ }
+
+  });
+$(".message").load("html/messageAlert.html");
+           
+$(".clo").click(function(){
+location.reload();
+});
+
+  angular.module('myApp', [])
+  .controller('myControl', function($scope,$http,$q) {
+
+
+function split_key(key)
+{
+  var arr=[];
+  var temp=key.split("&");
+  for(var i=0;i<temp.length;i++)
+    {
+     var key=temp[i].split("=");
+     arr.push(key[1]);
+    }
+ 
+  return arr;
+}
+var url_loc=decodeURIComponent(window.location.search);
+var arr=split_key(url_loc);
+
+var userName=arr[0];
+console.log(userName);
+
+$scope.sub=function(){
+  console.log(userName);
+
+
+
+
+ $http({              
+        method : "PUT",
+         url: "/engine-rest/user/"+userName+"/credentials",
+        data:{
+    "password":$scope.pass
+    
+},
+ headers: { 'Content-Type': 'application/json'}
+       
+   }).then(function mySuccess(response) {
+
+    console.log("Success");
+     $(".modal-body-result").html("<div class='alert alert-success'> <strong> Submission successfully</strong></div>");
+                    $("#myModal3").modal();
+                  
+   }, function myError(response) {
+        console.log("FAIL");
+          $(".modal-body-result").html("<div class='alert alert-danger'> <strong> Submission Failed</div>");
+                    $("#myModal3").modal();
+                   
+    });
+
+}
+
+
+
+
+
+  })
+   .directive('validPasswordC', function () {
+    return {
+        require: 'ngModel',
+        link: function (scope, elm, attrs, ctrl) {
+            ctrl.$parsers.unshift(function (viewValue, $scope) {
+
+                if(viewValue.length>8){
+                var noMatch = viewValue != scope.mailForm.pass.$viewValue
+                        }
+                        else{
+                           var noMatch=true;
+                        }
+                console.log(noMatch);
+                console.log(viewValue+"  "+scope.mailForm.pass.$viewValue);
+                ctrl.$setValidity('noMatch', !noMatch)
+                return !noMatch;
+            })
+        }
+    }
+})
+</script>
+</html>

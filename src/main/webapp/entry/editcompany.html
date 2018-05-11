@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Company</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+      <link rel="stylesheet" href="css/style.css">
+  <style>
+  
+</style>
+ 
+</head>
+<body ng-app="myApp" ng-controller="ngCntrl">
+
+
+  <div style="background:rgba(225,225,225,0.5);position:absolute; width: 100%;height: 100%;z-index: 99;display: none" id="loading" >
+  
+    <img src="loading.gif" width="100%" style="position: absolute;z-index: 999;top: 0;right: 0;bottom: 0;left: 0;">
+</div>
+
+<div class="tabs">
+  
+   
+  <input type="radio" id="tab1" name="tab-control" checked>
+  <input type="radio" id="tab2" name="tab-control">
+  <input type="radio" id="tab3" name="tab-control">  
+  <input type="radio" id="tab4" name="tab-control">
+  <ul style="/*width:500px*/; background-color:#222; line-height: 40px;">
+    <li><label for="tab1" role="button"></svg><!-- <br> --><span>Company</span></label></li>
+    <li><label for="tab2" role="button"></svg><!-- <br> --><span></span></label></li>
+    <li><label for="tab3" role="button"></svg><!-- <br> --><span></span></label></li>    
+  <li><label for="tab4" role="button"></svg><!-- <br> --><span style="margin-right: 20px;"></span></label></li>
+  <li><label for="tab1" role="button"></svg><!-- <br> --><span></span></label></li>
+    <li><label for="tab2" role="button"></svg><!-- <br> --><span></span></label></li>
+    <li><label for="tab3" role="button"></svg><!-- <br> --><span></span></label></li>    
+  <li><label for="tab4" role="button"></svg><!-- <br> --><span></span></label></li>
+  <li><label for="tab1" role="button"></svg><!-- <br> --><span></span></label></li>
+    <li><label for="tab2" role="button"></svg><!-- <br> --><span></span></label></li>
+    <li><label for="tab3" role="button"></svg><!-- <br> --><span></span></label></li>    
+  <li><label for="tab4" role="button"></svg><!-- <br> --><span></span></label></li> 
+  <li > <button type="button" class="close clo " data-dismiss="modal" style="color: #ffff;margin-right: 20px;margin-bottom:10px ;font-size:35px " >&times;</button></li>
+  </ul>
+  <div class="slider"><div class="indicator"></div></div>
+  <div class="content">
+    <section>
+
+<style type="text/css">
+  .nav{
+    border: none;
+  }
+  .nav-tabs > li > a:hover{
+  
+  
+    background: rgb(204, 120, 12);
+  color: #fff !important;
+}
+  .nav-tabs > li > a{
+
+    border: 0px solid #fff;
+    border-bottom: none;
+     border-radius: 4px;
+background: #fff;
+
+ -webkit-transform: perspective(100px) rotateX(30deg);
+ -moz-transform: perspective(100px) rotateX(30deg);
+  }
+  .nav-tabs > li > a:active{
+background: rgb(43, 24, 99);
+  }
+  .nav-tabs > li > a::after{
+    background: none;
+  }
+  .nav-tabs > li.active > a, .nav-tabs > li > a:hover{
+    background: rgb(43, 24, 99);
+    color: #fff !important;
+  }
+  .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
+  	background: rgb(43, 24, 99);
+  	border: 3px solid #fff;
+  	border-bottom: none; 
+  }
+
+</style>
+
+   <div class="container-fluid jumbotron mappfull " style="margin-top:-30px;padding-bottom: 0px;margin-bottom: 0px "><!--Start of container fluid-->
+    <div class="col-sm-4" style="margin-top:0px;padding-bottom: 0px;margin-bottom: -10px ">
+    <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#details"><b>Details</b></a></li>
+    <li><a data-toggle="tab" href="#data"><b>Settings</b></a></li>
+     
+    
+    </ul>
+    </div>
+  </div>
+  
+   
+ 
+
+
+
+
+
+
+
+
+<form name="form">
+<div class="tab-content" >
+  <div class="tab-pane fade in active"  id="details">
+  <div class="container-fluid jumbotron mappfull ">
+     	<div class="row"><!-- satart of row -->
+
+        <div class="col-sm-12"><!-- Start of col-12 -->
+
+          <div class="col-sm-3">
+           
+          <label class="">Parent Company<span style="color:red;">*</span></label>
+          <input type="text" name="parentCompany" placeholder="enter parent Company name" class="form-control" ng-model="com.parentCompny" ng-required="true">
+            <div ng-show="form.$submitted || form.parentCompany.$touched">
+                <span style="color:orange" ng-show="form.parentCompany.$error.required"> Please enter Parent Company</span>
+            </div>
+           
+           </div>
+          <label><input type="checkbox" value="">subsidery</label>
+
+        </div><!-- End of col-12 -->
+
+
+        <div class="col-sm-12"><!-- start of col-sm 12 -->
+
+          <div class="col-sm-3">
+           <!-- <br> -->
+          <label class="">Child Company<span style="color:red;">*</span></label>
+          <input type="text" name="childCompany" placeholder="enter Company name" class="form-control" ng-model="com.company" ng-required="true">
+
+              <div ng-show="form.$submitted || form.childCompany.$touched">
+                <span style="color:orange" ng-show="form.childCompany.$error.required"> Please enter Child Company</span>
+            </div>
+
+          </div>
+
+          <div class="col-sm-2">
+           <!-- <br> -->
+          <label class="">Alias<span style="color:red;">*</span></label>
+          <input type="text" name="alias" placeholder="enter alise" class="form-control" ng-model="com.alias" ng-required="true">
+
+
+              <div ng-show="form.$submitted || form.alias.$touched">
+                <span style="color:orange" ng-show="form.alias.$error.required"> Please enter Alias</span>
+            </div>
+
+
+          </div>
+
+          <div class="col-sm-3">
+           <!-- <br> -->
+          <label class="">Legal enity<span style="color:red;">*</span></label>
+          <input type="text" name="leglEntity" placeholder="enter legal entity" class="form-control"  ng-model="com.leglEntity" ng-required="true">
+
+
+              <div ng-show="form.$submitted || form.leglEntity.$touched">
+                <span style="color:orange" ng-show="form.leglEntity.$error.required"> Please Legal entity</span>
+            </div>
+
+
+          </div>
+
+<!-- Country edit start -->
+          <div class="col-sm-2">
+           <!-- <br> -->
+          <label class="">Country<span style="color:red;">*</span></label>
+            <div class="input-group" ng-show="countryEdit">
+              <input type="text" class="form-control" ng-model="country.name" name="country">
+              <span class="input-group-addon glyphicon glyphicon-pencil btn-sm" style="background: #fff" ng-init="countryEdit=true" ng-click="countryEditModeStart()" ></span>
+            </div>
+
+         
+        
+             <div class="input-group" ng-hide="countryEdit">
+         <select class="form-control" ng-model="country" name="country" ng-change="countrySelect(country)" ng-required="true">
+            <option value="">Select Country</option>
+            <option ng-repeat="x in countryData" value="{{x}}">{{x.name}}</option>
+          </select>
+          <span class="input-group-addon glyphicon glyphicon-remove btn-sm" style="background: #fff" ng-click="countryEditModeClose()" ></span>
+        </div>
+
+              <div ng-show="form.$submitted || form.country.$touched">
+                <span style="color:orange" ng-show="form.country.$error.required"> Please Select Country</span>
+            </div>
+
+
+          </div>
+          <!-- Country edit end -->
+
+<!-- state edit start -->
+          <div class="col-sm-2">
+           <!-- <br> -->
+          <label class="">State<span style="color:red;">*</span></label>
+
+             <div class="input-group" ng-show="countryEdit">
+              <input type="text" class="form-control" ng-model="state.name" name="state">
+           
+            </div>
+
+
+            <div class="input-group" ng-hide="countryEdit">
+          <select class="form-control" ng-model="state" name="state" ng-required="true">
+             <option value="">Select State</option>
+            <option ng-repeat="x in stateShow" value="{{x}}">{{x.name}}</option> 
+          </select>
+          
+        </div>
+
+            <div ng-show="form.$submitted || form.state.$touched">
+                <span style="color:orange" ng-show="form.state.$error.required"> Please Select state</span>
+            </div>
+
+
+          </div>
+          <!-- State edit end -->
+
+
+        </div><!-- End of col-sm 12 -->
+
+
+        <div class="col-sm-12"><!-- Start of 3 rd col 12 -->
+
+           <div class="col-sm-3">
+           <!-- <br> -->
+          <label class="">Address Line 1<span style="color:red;">*</span></label>
+          <input type="text" name="addressLin1" placeholder="enter address line 1" class="form-control"  ng-model="com.addressLin1" ng-required="true">
+
+             <div ng-show="form.$submitted || form.addressLin1.$touched">
+                <span style="color:orange" ng-show="form.addressLin1.$error.required"> Please Select addressLin1</span>
+            </div>            
+
+          </div> 
+          <div class="col-sm-3">
+           <!-- <br> -->
+          <label class="">Address Line 2</label>
+          <input type="text" name="addressLin2" placeholder="enter address line 2" class="form-control"  ng-model="com.addressLin2">
+          </div> 
+          <div class="col-sm-3">
+           <!-- <br> -->
+          <label class="">Address Line 3</label>
+          <input type="text" name="addressLin3" placeholder="enter address line 3" class="form-control"  ng-model="com.addressLin3">
+          </div>
+           <div class="col-sm-3">
+           <!-- <br> -->
+          <label class="">Post Code<span style="color:red;">*</span></label>
+          <input type="text" name="postCode" placeholder="enter post code" class="form-control"  ng-model="com.postCode" ng-required="true">
+
+               <div ng-show="form.$submitted || form.postCode.$touched">
+                <span style="color:orange" ng-show="form.postCode.$error.required"> Please Enter PostCode</span>
+            </div>             
+
+          </div>
+
+        </div><!-- End of 3rd col 12 -->
+
+        <div class="col-sm-12"><!-- Start of 4th col 12 -->
+
+          <div class="col-sm-3">
+           <!-- <br> -->
+          <label class="">Contact No <span style="color:red;">*</span></label>
+          <div class="input-group">
+       <span class="input-group-addon" style="background: #fff; border-left: none;margin-top: -1px">{{countryCallingCodes}} </span>
+          <input type="number" min="0" name="contact" placeholder="enter Contact" class="form-control"  ng-model="com.contact" ng-required="true">
+     
+    </div>
+
+               <div ng-show="form.$submitted || form.contact.$touched">
+                <span style="color:orange" ng-show="form.contact.$error.required"> Please Enter ContactNo</span>
+            </div>  
+
+          </div> 
+          <div class="col-sm-3">
+           <!-- <br> -->
+          <label class="">Fax</label>
+
+               <div class="input-group">
+       <span class="input-group-addon" style="background: #fff; border-left: none;margin-top: -1px">{{countryCallingCodes}} </span>
+          <input type="text" name="fax" placeholder="enter Fax" class="form-control"  ng-model="com.fax" >
+     
+    </div>
+
+          
+
+
+          </div>
+
+          <div class="col-sm-3">
+           <!-- <br> -->
+          <label class="">Email<span style="color:red;">*</span></label>
+          <input type="text" name="email" placeholder="enter Email" class="form-control"  ng-model="com.email" ng-required="true">
+
+              <div ng-show="form.$submitted || form.emailId.$touched">
+                <span style="color:orange" ng-show="form.emailId.$error.required"> Please Enter EmailId </span>
+              <span style="color:orange" class="error" ng-show="form.emailId.$error.email">Not valid email!</span>
+               </div> 
+
+          </div> 
+           <div class="col-sm-3">
+         
+          <label class="">Website<span style="color:red;">*</span></label>
+
+  <div class="input-group">
+      <input type="url" name="website" placeholder="enter Website" class="form-control" ng-model="com.website" ng-required="true" style="border-right: none">
+      <span class="input-group-addon glyphicon glyphicon-info-sign" data-toggle="tooltip" title=" http://xyz OR https://xyz" style="background: #fff; border-left: none;margin-top: -1px"> </span>
+    </div>
+
+             <div ng-show="form.$submitted || form.website.$touched">
+                <span style="color:orange" ng-show="form.website.$error.required"> Please Enter WebSite</span>
+            </div> 
+
+          </div> 
+
+        </div><!-- End of 4th col 12 -->
+
+
+      </div><!-- End of row -->
+     </div><!-- End of container fluids -->
+
+
+
+      <div class="container-fluid jumbotron mappfull"><!-- Start of contaner fluid -->
+        <div class="row"><!-- Start of row -->
+  
+          <div class="col-sm-6">
+			<div class="col-sm-12"  style="background: #cfdff9;"><label class="">Business Unit</label></div>
+           	<div class="col-sm-12"  ng-repeat="x in busRow" >
+           		<!-- <br> -->
+           		<div class="col-sm-12"><label>Name<span style="color:red;">*</span></label></div>
+           		<div class="col-sm-6" >
+           			
+           			
+          			<input type="text"  placeholder="enter Business Unit" name="businessunits{{$index}}" class="form-control" ng-model="x.name" ng-required="true">
+      			</div>
+      			<div class="col-sm-6">      				
+      				    <button class="btn btn-success" type="button" ng-click="addBus()">+</button>
+      				    <button class="btn btn-warning"  type="button" ng-click="removeBus($index)" ng-disabled="busRow.length==1">-</button>
+
+                   <div ng-show="form.$submitted || form.businessunits{{$index}}.$touched">
+                <span style="color:orange" ng-show="form.businessunits{{$index}}.$error.required"> Please Enter BusinesUnit</span>
+                  </div> 
+
+      				
+      			</div>     			
+           	</div>
+       
+
+           </div><!-- End of col-6 -->
+        </div><!-- End of row -->
+
+
+        <div class="row">
+           <div class="col-sm-6"><br>
+			<div class="col-sm-12" style="background: #cfdff9;"><label class="">Department</label></div>
+
+           	<div class="col-sm-12"  ng-repeat="x in depRow">
+           		<!-- <br> -->
+           		<div class="col-sm-12"><label>Name<span style="color:red;">*</span></label></div>
+           		<div class="col-sm-6" >
+           			
+          			<input type="text" name="depRow{{$index}}" placeholder="enter department name" class="form-control" ng-model="x.name" ng-required="true">
+
+
+                   <div ng-show="form.$submitted || form.depRow{{$index}}.$touched">
+                <span style="color:orange" ng-show="form.depRow{{$index}}.$error.required"> Please Enter Department</span>
+                  </div> 
+
+      			</div>
+      			<div class="col-sm-6">      				
+      				    <button class="btn btn-success" type="button" ng-click="addDep()">+</button>
+      				    <button class="btn btn-warning" type="button" ng-click="removeDep($index)" ng-disabled="depRow.length==1">-</button>      				
+      			</div>     			
+           	</div>
+       
+
+           </div><!-- End of col-6 -->
+         </div><!-- End of row -->
+
+
+      </div><!-- End of container fluid -->
+    </div>
+
+
+       <div class="container-fluid jumbotron mappfull tab-pane fade" id="data"><!-- Start of 2nd tab -->
+         <div class="row">
+          
+
+
+                   <div class="col-sm-12"><!-- Stat of col 12 -->
+            
+          <div class="col-sm-3">
+           <!-- <br> -->
+          <label class="">Default currency<span style="color:red;">*</span></label>
+          
+               <input type="text" class="form-control"  name="defaultCurrency" ng-model="currencyName" ng-required="true" readonly style="background: #fff">
+              
+               <div ng-show="form.$submitted || form.defaultCurrency.$touched">
+                <span style="color:orange" ng-show="form.defaultCurrency.$error.required"> Please Select Default currency</span>
+            </div> 
+
+          </div> 
+          <div class="col-sm-3">
+           <!-- <br> -->
+          <label class="">Default date format<span style="color:red;">*</span></label>
+
+          <div class="input-group" ng-show="dateFormat">
+               <input type="text" class="form-control"  name="defaultDateFormat" ng-model="defaultDateFormat"  ng-required="true" >
+              <span class="input-group-addon glyphicon glyphicon-pencil btn-sm" style="background: #fff" ng-init="dateFormat=true" ng-click="dateEditModeStart()" ></span>
+            </div>
+
+              <div class="input-group" ng-hide="dateFormat">
+           <select class="form-control" id="date" ng-model="defaultDateFormat" name="defaultDateFormat" ng-required="true">
+            <option value="">Select Date Format</option>
+            <option> mm-dd-yyyy</option>
+            <option> mm/dd/yyyy</option>
+            <option>dd-mm-yyyy</option>
+            <option>dd/mm/yyyy</option>
+            <option>yyyy-mm-dd</option>
+            <option>yyyy/mm/dd</option>
+          </select>
+           <span class="input-group-addon glyphicon glyphicon-remove btn-sm" style="background: #fff" ng-click="dateEditModeClose()" ></span>
+          </div>
+
+
+               <div ng-show="form.$submitted || form.defaultDateFormat.$touched">
+                <span style="color:orange" ng-show="form.defaultDateFormat.$error.required"> Please Select default DateFormat</span>
+            </div> 
+
+          </div> 
+          <div class="col-sm-3">
+           <!-- <br> -->
+          <label class="">Decimal Point<span style="color:red;">*</span></label>
+
+
+
+
+           <select class="form-control"  ng-model="decimalPoint" name="decimalPoint" ng-required="true"><option value="">Select Decimal Point</option><option value="1" > Dot ( . )</option><option value="2">Comma ( , )</option></select>
+
+            <div ng-show="form.$submitted || form.decimalPoint.$touched">
+                <span style="color:orange" ng-show="form.decimalPoint.$error.required"> Please Select decimal point</span>
+            </div> 
+
+
+          </div> 
+          <div class="col-sm-3">
+           <!-- <br> -->
+          <label class=""  >decimal Position<span style="color:red;">*</span></label>
+          <input type="text" name="" placeholder="enter Ddecimal Position" class="form-control" ng-model="decimalPosition" name="decimalPosition" ng-required="true">
+
+           <div ng-show="form.$submitted || form.decimalPosition.$touched">
+                <span style="color:orange" ng-show="form.decimalPosition.$error.required"> Please Select decimal point</span>
+            </div> 
+
+          </div> 
+          </div><!-- End of col 12 -->
+          
+          <div class="col-sm-12"><!-- Start of col 12 -->
+            <div class="col-sm-3">
+              <!-- <br> -->
+              <label class="">Default Time Zone<span style="color:red;">*</span></label>
+                    
+                      <input type="text" class="form-control" id="timezone"  ng-model="defaultTimeZone.text" name="defaultTimeZone" ng-required="true" readonly style="background: #fff">
+                      	
+                        <div ng-show="form.$submitted || form.defaultTimeZone.$touched">
+                           <span style="color:orange" ng-show="form.defaultTimeZone.$error.required"> Please Select default Time zone</span>
+                        </div> 
+
+
+            </div>
+            <div class="col-sm-2">
+              <!-- <br> -->
+              <label class="">Fical Year Start<span style="color:red;">*</span></label>
+              <select class="form-control"  ng-model="ficalYrStart" name="ficalYrStart" ng-required="true">
+    <option value=''>--Select Month--</option>
+    <option selected value='1'>Janaury</option>
+    <option value='2'>February</option>
+    <option value='3'>March</option>
+    <option value='4'>April</option>
+    <option value='5'>May</option>
+    <option value='6'>June</option>
+    <option value='7'>July</option>
+    <option value='8'>August</option>
+    <option value='9'>September</option>
+    <option value='10'>October</option>
+    <option value='11'>November</option>
+    <option value='12'>December</option>
+    </select> 
+
+       <div ng-show="form.$submitted || form.ficalYrStart.$touched">
+                           <span style="color:orange" ng-show="form.ficalYrStart.$error.required"> Please Select Fical Year</span>
+                        </div> 
+            </div>
+          </div><!-- End of col 12 -->
+         </div><!-- End of row -->
+       </div><!-- End of 2nd tab -->
+
+
+</form>
+
+       
+    </div><!-- End of tab container -->
+
+<div class="container-fluid jumbotron fontSize" style="padding-left:20px;padding-right: 20px">
+          <div class="row">
+          <div class="col-sm-6"></div>
+          <div class="col-sm-6">
+            
+
+              <button id="sub" class="form-control btn-success pull-right" style="margin-top:0px; margin-bottom: 20px; width:100px;margin-right: 30px; " align="center" type="button" ng-click="sub()" ng-disabled="form.$invalid">Submit</button>
+
+            <button  type="button" id="close" class="form-control clo  pull-right btn btn-primary"  style="margin-top:0px; margin-bottom: 20px; width:100px;margin-right: 40px;  " align="center" >Cancel</button>
+
+          
+            
+          </div>
+          </div>
+        </div>
+
+
+        </section>
+
+
+
+
+
+        <section>  <!--Documents Tab -->
+          <div class="document">
+        </div>
+        </section>
+
+        <section><!--Notes Tab Start-->
+         <div class="notes">
+        </div>
+        </section>
+        
+        <section>
+        <div class="history">
+        </div>
+        </section><!--End of history-->
+    
+  </div>
+</div>
+
+
+
+<div id="errormsg"  style="color:red; text-align: center; font-size: 25px;"></div>
+
+
+
+<div class="message"></div>
+
+
+
+ <script type="text/javascript">
+           
+$(".clo").click(function(){
+//  alert("going to close");
+  window.parent.closeModal();
+});
+         </script>
+
+
+
+
+
+  <script src="country.js"></script>
+<script src="timeZone.js"></script>
+<script type="text/javascript">
+	 $(".clo").click(function(){
+//  alert("going to close");
+  window.parent.closeModal();
+});
+    
+function split_key(key)
+{
+  var arr=[];
+  var temp=key.split("&");
+  for(var i=0;i<temp.length;i++)
+    {
+     var key=temp[i].split("=");
+     arr.push(key[1]);
+    }
+ 
+  return arr;
+}
+var url_loc=decodeURIComponent(window.location.search);
+var arr=split_key(url_loc);
+
+var companyId=arr[0];
+
+ //console.log(country_arr)
+  $(".document").load("html/document.html");
+$(".notes").load("html/notes.html");
+$(".history").load("html/history.html");
+$(".message").load("html/messageAlert.html");
+
+
+angular.module('myApp', [])
+  .controller('ngCntrl', function($scope,$http,$q) {
+
+
+/*Start of geting countries AND details*/
+
+
+   $http({
+        method : "GET",
+        url : "/actnow-claims-1.0.0/entry/js/countries.json"
+    }).then(function mySuccess(response) {
+
+     
+      $scope.countryData=response.data.countries;
+       //console.log($scope.countryData);
+
+      $http({
+        method : "GET",
+        url : "/actnow-claims-1.0.0/entry/js/states.json"
+    }).then(function mySuccess(response) {
+
+      
+      $scope.stateData=response.data;
+     // console.log($scope.stateData);
+
+          $http({
+        method : "GET",
+        url : "/actnow-claims-1.0.0/entry/js/countryDetails.json"
+    }).then(function mySuccess(response) {
+
+      $scope.countryDetails=response.data;
+//console.log($scope.countryDetails);
+         $http({
+        method : "GET",
+        url : "/actnow-claims-1.0.0/entry/js/Common-Currency.json"
+    }).then(function mySuccess(response) {
+
+      
+      $scope.currencyDetails=response.data;
+//console.log($scope.currencyDetails);
+
+  $http({
+        method : "GET",
+        url : "/actnow-claims-1.0.0/entry/js/countrycodeWithZone.json"
+    }).then(function mySuccess(response) {
+
+      
+      $scope.countrycodeWithZone=response.data.countries;
+//console.log($scope.countrycodeWithZone);
+$http({
+        method : "GET",
+        url : "/actnow-claims-1.0.0/entry/js/timezones.json"
+    }).then(function mySuccess(response) {
+
+      $scope.timezones=response.data;
+//console.log($scope.timezones);
+      },   
+     function myError(response) {
+      console.log(response);
+    }); 
+
+      },   
+     function myError(response) {
+      console.log(response);
+    }); 
+
+      },   
+     function myError(response) {
+      console.log(response);
+    }); 
+      },   
+     function myError(response) {
+      console.log(response);
+    }); 
+      },   
+     function myError(response) {
+      console.log(response);
+    });     
+      },   
+     function myError(response) {
+      console.log(response);
+    });     
+
+
+
+/*End of geting Country and Details */
+
+
+
+
+
+
+
+/*
+
+console.log($scope.countryList);
+
+$scope.timeZoneList=timeZone;
+
+console.log($scope.timeZoneList)*/
+
+
+$scope.countrySelect=function(dat){
+ /* $scope.ind=parseInt(dat);
+
+  $scope.stateList=s_a[$scope.ind+1].split("|");
+  console.log($scope.stateList);*/
+  var data=JSON.parse(dat);
+  //console.log(data);
+  $scope.countryCode=data.sortname;
+  $scope.countryId=data.id;
+
+console.log($scope.countryId);
+
+
+ // console.log($scope.stateData);
+$scope.stateShow=[];
+  angular.forEach($scope.stateData.states,function(valState,keyState){
+
+    
+    if(valState.country_id==$scope.countryId)
+    {
+      console.log(valState);
+      $scope.stateShow.push(valState);
+    }
+      
+   
+  })
+  //console.log($scope.stateShow)
+
+
+  angular.forEach($scope.countryDetails,function(val,key){
+
+    if(val.alpha2==$scope.countryCode)
+    {
+     // console.log(val);
+      $scope.countryCallingCodes=val.countryCallingCodes[0];
+      $scope.currencyCode=val.currencies[0];
+    }
+  })
+  //console.log($scope.countryCallingCodes);
+
+  //console.log($scope.currencyDetails);
+
+  angular.forEach($scope.currencyDetails,function(val,key){
+
+      if(val.code==$scope.currencyCode)
+      {
+        $scope.currencyName=val.name;
+      }
+
+  })
+
+
+    var countrytime=$scope.countrycodeWithZone[$scope.countryCode].zones;
+  //  console.log(countrytime);
+
+    //console.log($scope.timezones);
+
+angular.forEach(countrytime,function(val,key){
+
+      angular.forEach($scope.timezones,function(timval,timkey){
+
+        if(timval.utc.includes(val))
+        {
+         // console.log(timval);
+          $scope.defaultTimeZone=timval;
+
+        }
+      })
+})
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$scope.companyId=companyId;
+
+
+
+
+
+
+/*Start of company get process*/
+   $http({
+        method : "GET",
+        url : "/actnow-claims-1.0.0/actnow/companies/"+$scope.companyId+""
+    }).then(function mySuccess(response) {
+      
+
+        $scope.comData=response.data;
+
+          if($scope.comData.contact.includes("_")){
+        var tel=$scope.comData.contact.split("_");
+        console.log(tel[0]+"____"+tel[1]);
+        
+         $scope.telNoset=tel[1];
+         $scope.telcode=tel[0];
+          $scope.countryCallingCodes=$scope.telcode;
+      }
+      else{
+        $scope.telNoset=$scope.comData.contact;
+        $scope.countryCallingCodes="NA"
+      }
+
+      if($scope.comData.fax!=null)
+      {
+     if($scope.comData.fax.includes("_")){
+     var no =$scope.comData.fax.split("_");
+        $scope.faxNo=no[1];
+     }else{
+$scope.faxNo=$scope.comData.fax;
+     }
+}
+      $scope.com={
+      
+       "parentCompny": $scope.comData.parentCompny,
+       "company": $scope.comData.company,
+       "alias": $scope.comData.alias,
+       "leglEntity":$scope.comData.leglEntity,
+        "addressLin1": $scope.comData.addressLin1,
+       "addressLin2": $scope.comData.addressLin2,
+       "addressLin3": $scope.comData.addressLin3,
+       "postCode": $scope.comData.postCode,
+       "contact": parseInt($scope.telNoset),
+       "fax": $scope.faxNo,
+       "email": $scope.comData.email,
+       "website": $scope.comData.website,
+       
+   };
+
+  $scope.country={"name":$scope.comData.country};
+  $scope.state={"name":$scope.comData.state};
+  $scope.currencyName=$scope.comData.defaultCurrency;
+  $scope.defaultDateFormat=$scope.comData.defaultDateFormat;
+  $scope.decimalPoint=$scope.comData.decimalPoint;
+   $scope.decimalPosition=$scope.comData.decimalPosition;
+
+   $scope.defaultTimeZone={"text":$scope.comData.defaultTimeZone};
+
+   $scope.ficalYrStart=$scope.comData.ficalYrStart;
+ $scope.uniqueId=$scope.comData.uniqueId;
+ $scope.id=$scope.comData.id;
+ //alert("TIME is "+$scope.defaultTimeZone.text);
+
+    $http({
+        method : "GET",
+        url : "/actnow-claims-1.0.0/actnow/department"
+    }).then(function mySuccess(response) {
+      /*start of company success*/
+
+        $scope.dep=response.data;
+        $scope.depLength=0;
+        $scope.depRow=[];
+        $scope.depRowGet=[];
+
+        angular.forEach($scope.dep,function(val,key){
+
+            if (val.uniqueId==$scope.comData.uniqueId) {
+              
+              $scope.depRow.push(val);
+              $scope.depLength++;
+              $scope.depRowGet.push(val);
+
+            }
+
+        })
+
+       // console.log($scope.depRow);
+     }, function myError(response) {
+        console.log(response.data);
+    });
+
+
+
+    $http({
+        method : "GET",
+        url : "/actnow-claims-1.0.0/actnow/businessunits"
+    }).then(function mySuccess(response) {
+      /*start of company success*/
+
+        $scope.bus=response.data;
+        $scope.busRow=[];
+         $scope.busRowGet=[];
+        $scope.busLength=0;
+
+        angular.forEach($scope.bus,function(val,key){
+
+            if (val.uniqueId==$scope.comData.uniqueId) {
+              
+              $scope.busRow.push(val);
+               $scope.busLength++;
+               $scope.busRowGet.push(val);
+            }
+
+        })
+       // console.log($scope.busRow);
+    }, function myError(response) {
+        console.log(response.data);
+    });
+
+
+    }, function myError(response) {
+        console.log(response.data);
+    });/*End of company error*/
+
+
+/*End of company get process*/
+$scope.insDep=false;
+ $scope.delDep=false;
+ $scope.insBus=false;
+  $scope.delBus=false;
+$scope.depRow=[{}];
+$scope.addDep=function(){
+  
+  $scope.depRow.push({});
+  $scope.insDep=true;
+}
+
+$scope.removeDep=function(x){
+
+  $scope.depRow.splice(x,1);
+  $scope.delDep=true;
+}
+        
+
+$scope.busRow=[{}];
+$scope.addBus=function(){
+  
+  $scope.busRow.push({});
+  $scope.insBus=true;
+}
+
+$scope.removeBus=function(x){
+
+  $scope.busRow.splice(x,1);
+  $scope.delBus=true;
+}
+/*End of dep bus add remove*/
+
+
+
+/*Start of dynamical select edit mode*/
+ $scope.countryEditModeStart=function(){
+    
+    $scope.countryEdit=false;
+    $scope.country="";
+  $scope.state="";
+    $scope.currencyName="";
+  $scope.defaultTimeZone="";
+  $scope.countryCallingCodes="";
+
+   }
+
+$scope.countryEditModeClose=function(){
+    
+    $scope.countryEdit=true;
+$scope.country={"name":$scope.comData.country};
+  $scope.state={"name":$scope.comData.state};
+  $scope.currencyName=$scope.comData.defaultCurrency;
+  $scope.defaultTimeZone={"text":$scope.comData.defaultTimeZone};
+  $scope.countryCallingCodes=$scope.telcode;
+
+   }
+
+    $scope.dateEditModeStart=function(){
+    
+    $scope.dateFormat=false;
+  
+   }
+   $scope.dateEditModeClose=function(){
+    
+    $scope.dateFormat=true;
+    $scope.defaultDateFormat=$scope.comData.defaultDateFormat;
+  
+   }
+
+
+   /*End of dynamical select edit mode*/
+
+
+
+   /*Start of sub*/
+
+   $scope.sub=function(){
+    if($scope.countryEdit==false)
+    {
+    $scope.countrySub=JSON.parse($scope.country).name;
+     $scope.stateSub=JSON.parse($scope.state).name;
+  }
+  else{
+    $scope.countrySub=$scope.country.name;
+     $scope.stateSub=$scope.state.name;
+  }
+
+    $scope.comData={
+      "id":$scope.id,
+       "parentCompny": $scope.com.parentCompny,
+       "company": $scope.com.company,
+       "alias": $scope.com.alias,
+       "leglEntity": $scope.com.leglEntity,
+       "country": $scope.countrySub,
+       "state": $scope.stateSub,
+       "addressLin1": $scope.com.addressLin1,
+       "addressLin2": $scope.com.addressLin2,
+       "addressLin3": $scope.com.addressLin3,
+       "postCode": parseInt($scope.com.postCode),
+       "contact": $scope.countryCallingCodes+"_"+$scope.com.contact,
+       "uniqueId": $scope.uniqueId,
+       "fax": $scope.countryCallingCodes+"_"+$scope.com.fax,
+       "email": $scope.com.email,
+       "website": $scope.com.website,
+       "defaultCurrency": $scope.currencyName,
+       "defaultDateFormat": $scope.defaultDateFormat,
+       "decimalPoint": $scope.decimalPoint,
+       "decimalPosition":$scope.decimalPosition,
+       "defaultTimeZone": $scope.defaultTimeZone.text,
+       "ficalYrStart": $scope.ficalYrStart
+   };
+  // console.log($scope.comData);
+
+
+
+$scope.depData=[];
+angular.forEach($scope.depRow,function(value,key){
+//console.log("Dep value"+JSON.stringify(value, null, "\t"));
+  var tempDep={
+     "id": value.id,
+    "name": value.name,
+    "uniqueId":value.uniqueId
+ };
+
+$scope.depData.push(tempDep);
+});
+
+$scope.busData=[];
+
+angular.forEach($scope.busRow,function(value,key){
+
+  var tempBus={
+       "id": value.id,
+      "name": value.name,
+       "costCentre": 89,
+       "uniqueId":$scope.uniqueId
+   };
+
+$scope.busData.push(tempBus);
+});
+
+   
+
+
+console.log($scope.comData);
+/*console.log($scope.busData);
+console.log($scope.depData);*/
+
+
+
+var companypost=JSON.stringify($scope.comData, null, "\t");
+var buspost=JSON.stringify($scope.busData, null, "\t");
+var deppost=JSON.stringify($scope.depData, null, "\t");
+/*console.log(companypost);
+console.log(deppost);
+console.log(buspost);*/
+
+
+
+
+
+/*Start of nested http operation with callback function*/
+chain = $q.when();
+chain.then(function() {
+
+$scope.opStatus=false;
+  /*Start 1st http for company post*/
+      return $http({
+        method : "PUT",
+         url: "/actnow-claims-1.0.0/actnow/companies",
+        data:companypost,
+
+ headers: { 'Content-Type': 'application/json'}
+
+       
+    }).then(function mySuccess(response) {
+
+        $scope.opStatus=true;
+        console.log("Success full update COMPANY"+response);
+      }, function myError(response) {
+      console.log(response);
+      $scope.opStatus=false;
+        // alert("Failed t insert Department"+response);
+           $(".modal-body-result").html("<div class='alert alert-danger'> <strong> Submission Failed</div>");
+                    $("#myModal3").modal();
+    });
+
+    /*End of 1st http for company post*/
+
+    }).then(function() {
+
+
+return $http({                  /*Start of post busPost*/
+        method : "PUT",
+         url: "/actnow-claims-1.0.0/actnow/businessunits",
+        data:buspost,
+
+
+ headers: { 'Content-Type': 'application/json'}
+
+       
+    }).then(function mySuccess(response) {
+        console.log("Success full update Business"+response);
+        $scope.opStatus=true;
+     }, function myError(response) {
+      console.log(response);
+        // alert("Failed t insert Department"+response);
+        $scope.opStatus=false;
+           $(".modal-body-result").html("<div class='alert alert-danger'> <strong> Submission Failed</div>");
+                    $("#myModal3").modal();
+    });
+    /*End of bus post*/
+
+    
+    }).then(function() {
+
+    return   $http({                 /*Start of post depPost*/
+        method : "PUT",
+         url: "/actnow-claims-1.0.0/actnow/department",
+        data:deppost,
+ headers: { 'Content-Type': 'application/json'}
+    }).then(function mySuccess(response) {
+        console.log("Success full update Department"+response);
+        $scope.opStatus=true;
+      }, function myError(response) {
+      console.log(response);
+        // alert("Failed t insert Department"+response);
+        $scope.opStatus=false;
+           $(".modal-body-result").html("<div class='alert alert-danger'> <strong> Submission Failed</div>");
+                    $("#myModal3").modal();
+    });
+    /*End of dep post*/
+
+    }).then(function() {
+
+
+
+/*Start of department part insert*/
+ (function(){ if($scope.insDep)/*First conditio for dep insert*/
+  {
+     // console.log("Redeay to insert Department");
+$scope.depRowInsert=[];
+     
+      angular.forEach($scope.depRow,function(val,key){
+        var cnt=0;
+            angular.forEach($scope.depRowGet,function(depval,depkey){
+
+                if(val==depval)
+                {
+                  cnt++;
+                  console.log("value Matched __"+val.name)
+                }
+            })/*End of inner loop*/
+
+            if(cnt==0)
+            {
+                 var tempDep={
+                      "name": val.name,
+                      "uniqueId":$scope.uniqueId
+                              };
+
+                $scope.depRowInsert.push(tempDep);
+
+            }
+      })/*End of outer loop*/
+
+       console.log("Value extracted __"+JSON.stringify($scope.depRowInsert, null, "\t"));
+
+/*Start of post depPost*/
+
+       $http({                 
+        method : "POST",
+         url: "/actnow-claims-1.0.0/actnow/department",
+        data:$scope.depRowInsert,
+
+ headers: { 'Content-Type': 'application/json'}
+
+       
+    }).then(function mySuccess(response) {
+        console.log("Success full insert Department"+response);
+        $scope.opStatus=true;
+    },   
+       /*maIN SUCCESS END HERE*/
+     function myError(response) {
+      console.log(response);
+      $scope.opStatus=false;
+      
+    });  
+
+  }
+})()/*End of First Condition for dep insert*/
+
+
+    }).then(function() {
+      /*Start of delete department*/
+     return (function(){ if($scope.delDep)
+      {
+        
+        console.log("ACTIVE FOR DELETE"+$scope.depRow.length);
+       
+         $scope.depRowDel=[];
+
+        angular.forEach($scope.depRowGet,function(val,key){/*Start of outer loop*/
+             var cnt=0;
+            angular.forEach($scope.depRow,function(depval,depkey){/*Start of inner loop*/
+
+                if(val==depval)
+                {
+                  cnt++;
+                }
+            });/*End of inner loop*/
+            if(cnt==0)
+            {
+              $scope.depRowDel.push(val);
+            }
+        })/*End of outer loop*/
+         console.log("DELETE ACTIVE"+JSON.stringify($scope.depRowDel, null, "\t"));
+
+
+          angular.forEach($scope.depRowDel,function(val,key){
+
+              var id=val.id;
+               if(id!="")/*Start of id condition*/
+                          {
+
+                          (function(id) {
+                            
+                            $http({              
+        method : "DELETE",
+         url: "/actnow-claims-1.0.0/actnow/department/"+id+"",
+   }).then(function mySuccess(response) {
+       
+       console.log("successfull delete department"+response);
+       $scope.opStatus=true;
+
+                   
+    },   
+       /*maIN SUCCESS END HERE*/
+     function myError(response) {
+      console.log("Faild in delete department"+response);
+      $scope.opStatus=false;
+      
+    });     
+                          })(id)
+
+                        }/*End of id condition*/
+          })
+
+
+
+      }/*end of if condition*/
+    })();
+
+      /*End of delete department*/
+
+   }).then(function() {
+
+
+    /*Start of business unit*/
+
+
+
+
+/*Start of BusinessUnit part insert*/
+ return (function(){ if($scope.insBus)/*First conditio for BUS insert*/
+  {
+     // console.log("Redeay to insert Department");
+$scope.busRowInsert=[];
+     
+      angular.forEach($scope.busRow,function(val,key){
+        var cnt=0;
+            angular.forEach($scope.busRowGet,function(busval,buskey){
+
+                if(val==busval)
+                {
+                  cnt++;
+                  console.log("value Matched __"+val.name)
+                }
+            })/*End of inner loop*/
+
+            if(cnt==0)
+            {
+                 var tempBus={
+                      "name": val.name,
+                      "uniqueId":$scope.uniqueId
+                              };
+
+                $scope.busRowInsert.push(tempBus);
+
+            }
+      })/*End of outer loop*/
+
+       console.log("Value extracted __"+JSON.stringify($scope.busRowInsert, null, "\t"));
+
+/*Start of post depPost*/
+
+       $http({                 
+        method : "POST",
+         url: "/actnow-claims-1.0.0/actnow/businessunits",
+        data:$scope.busRowInsert,
+
+ headers: { 'Content-Type': 'application/json'}
+
+       
+    }).then(function mySuccess(response) {
+        console.log("Success full insert Department"+response);
+        $scope.opStatus=true;
+    },   
+       /*maIN SUCCESS END HERE*/
+     function myError(response) {
+      console.log(response);
+      $scope.opStatus=false;
+      
+    });  
+
+  }/*End of First Condition for BUS insert*/
+})();
+
+   
+    }).then(function() {
+      /*Start of Delete Business Row*/
+
+      return (function(){  if($scope.delBus)
+      {
+        
+        console.log("ACTIVE FOR DELETE"+$scope.busRow.length);
+       
+         $scope.busRowDel=[];
+
+        angular.forEach($scope.busRowGet,function(val,key){/*Start of outer loop*/
+             var cnt=0;
+            angular.forEach($scope.busRow,function(busval,buskey){/*Start of inner loop*/
+
+                if(val==busval)
+                {
+                  cnt++;
+                }
+            });/*End of inner loop*/
+            if(cnt==0)
+            {
+              $scope.busRowDel.push(val);
+            }
+        })/*End of outer loop*/
+         console.log("DELETE ACTIVE"+JSON.stringify($scope.busRowDel, null, "\t"));
+
+
+          angular.forEach($scope.busRowDel,function(val,key){
+
+              var id=val.id;
+               if(id!="")/*Start of id condition*/
+                          {
+
+                          (function(id) {
+                            
+                            $http({              
+        method : "DELETE",
+         url: "/actnow-claims-1.0.0/actnow/businessunits/"+id+"",
+   }).then(function mySuccess(response) {
+       
+       console.log("successfull delete BusinessUnit"+response);
+       $scope.opStatus=true;
+
+                   
+    },   
+       /*maIN SUCCESS END HERE*/
+     function myError(response) {
+      console.log("Faild in delete department"+response);
+      $scope.opStatus=false;
+      
+    });     
+                          })(id)
+
+                        }/*End of id condition*/
+          })
+
+
+
+      }/*end of if condition*/
+    })();
+      /*End of Delete Business Row*/
+     }).then(function() {
+
+      /*Start of Result modal*/
+       
+       return (function(){if($scope.opStatus)
+   {
+
+                         window.parent.moveTop();
+                        $(".modal-body-result").html("<div class='alert alert-success'> <strong>Coloum Data Submission successfully</strong></div>");
+                    $("#myModal3").modal();
+                       $(".clo-message").on("click",function(){
+                         window.parent.closeModal();
+                       })
+}
+else{
+   window.parent.moveTop();
+   $(".modal-body-result").html("<div class='alert alert-danger'> <strong>Coloum Submission Failed</div>");
+                    $("#myModal3").modal();
+                       $(".clo-message").on("click",function(){
+                         window.parent.closeModal();
+                       })
+}
+})();
+/*End of result modal*/
+
+     })
+    /*End of business unit*/
+    
+   /*End of nested http operation with callback function*/  
+
+  
+
+
+
+  
+} /*End of sub*/   
+
+  });/*End of controller*/
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+
+
+ 

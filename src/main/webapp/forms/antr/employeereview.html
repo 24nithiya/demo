@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>EMployee review travel</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      
+      <link rel="stylesheet" href="css/style.css">
+  <style>
+  @media screen and (min-width: 768px) {
+        .modal-dialog {
+          width: 90%; /* New width for default modal */
+          
+          margin-left:auto;
+          margin-right: auto;
+        }
+        .modal-sm {
+          width: 80%; /* New width for small modal */
+        }
+    }
+    @media screen and (min-width: 992px) {
+        .modal-lg {
+          width: 80%; /* New width for large modal */
+        }
+    }
+
+
+</style>
+ 
+</head>
+<body>
+
+
+  <div style="background:rgba(225,225,225,0.5);position:absolute; width: 100%;height: 100%;z-index: 99;display: none" id="loading" >
+  
+    <img src="loading.gif" width="100%" style="position: absolute;z-index: 999;top: 0;right: 0;bottom: 0;left: 0;">
+</div>
+  
+<form id="form">
+<div class="tabs">
+  
+  <input type="radio" id="tab1" name="tab-control" checked>
+  <input type="radio" id="tab2" name="tab-control">
+  <input type="radio" id="tab3" name="tab-control">  
+  <input type="radio" id="tab4" name="tab-control">
+  <ul style="/*width:500px*/; background-color:#222; line-height: 40px;">
+    <li><label for="tab1" role="button"></svg><br><span>Main</span></label></li>
+    <li><label for="tab2" role="button"></svg><br><span>Documents</span></label></li>
+    <li><label for="tab3" role="button"></svg><br><span>Notes</span></label></li>    
+  <li><label for="tab4" role="button"></svg><br><span style="margin-right: 20px;">History</span></label></li>
+  <li><label for="tab1" role="button"></svg><br><span></span></label></li>
+    <li><label for="tab2" role="button"></svg><br><span></span></label></li>
+    <li><label for="tab3" role="button"></svg><br><span></span></label></li>    
+  <li><label for="tab4" role="button"></svg><br><span></span></label></li>
+  <li><label for="tab1" role="button"></svg><br><span></span></label></li>
+    <li><label for="tab2" role="button"></svg><br><span></span></label></li>
+    <li><label for="tab3" role="button"></svg><br><span></span></label></li>    
+  <li><label for="tab4" role="button"></svg><br><span></span></label></li> 
+  <li > <button type="button" class="close clo " data-dismiss="modal" style="color: #ffff;margin-right: 20px;margin-bottom:10px ;font-size:35px " >&times;</button></li>
+  </ul>
+  
+  <div class="slider"><div class="indicator"></div></div>
+  <div class="content">
+    <section>
+    
+  <div class="container-fluid jumbotron mappfull" style="margin-top: -30px;padding-left:20px;padding-right: 20px;padding-top: 0">
+
+          <div class="row" id="flip" style="background: #cfdff9" >
+          <div class="col-sm-12 text-right" style="border-bottom:1px solid rgba(20,20,20,0.3);">
+                   <span class="glyphicon glyphicon-align-justify" style="padding: 0px;margin: 0px"></span>
+              </div>
+              </div>
+
+
+              <div style="padding-top:0px" id="panel"><!--Start of 1st slide-->
+            <div class="row ">
+              <div class="col-xs-3">
+                <label class="">Name</label>
+                  <input style="background-color:white; color:black;" class="form-control" name="firstName" value="" type="text" Id="fname" readonly/>
+              </div>
+              <div class="col-xs-3">
+                <label class="">Employee Id</label>
+                  <input class="form-control" placeholder="enter number" type="text" Id="number" name="employeeId"/>
+              </div>
+               <div class="col-xs-3">
+                <label class="">Contact No</label>
+                  <input class="form-control" placeholder="enter your contact no" type="text" Id="contactNo" name="contactNo"/>
+              </div>
+              <div class="col-xs-3">
+                <label class="">Manager</label>
+                  <input class="form-control" placeholder="enter your manager name" type="text" Id="manager" name="managerName"/>
+              </div>
+              
+            </div>
+            <br/>
+            <div class="row">
+              <div class="col-xs-3">
+                <label class="">Department No</label>
+                  <input class="form-control" placeholder="enter your department" type="text" Id="department" name="department"/>
+              </div>
+                <div class="col-xs-3">
+                <label class="">Travel Request Id</label>
+                  <input class="form-control" placeholder="enter your department" type="text" Id="trId" name="trId"/>
+                </div>
+                <div class="col-xs-3">
+                <label class="">Place of visit</label>
+                  <input class="form-control" placeholder="place of visit" type="text" Id="place_visit" name="trId" />
+                </div>
+                <div class="col-xs-3">
+                <label class="">Purpose Of visit</label>
+                  <input class="form-control" placeholder="Purpose of visit" type="text" Id="purpose_visit" name="trId"/>
+                </div>
+                
+
+            </div>
+          </div><!-- End of panel -->
+          </div>
+                    
+                    <!--Start of 2nd row-->
+        <div class="container-fluid">
+             <div class="row" id="flip" style="background: #cfdff9" >
+          <div class="col-sm-12 text-right" style="border-bottom:1px solid rgba(20,20,20,0.3);">
+                   <span class="glyphicon glyphicon-align-justify" style="padding: 0px;margin: 0px"></span>
+              </div>
+              </div>
+
+
+              <div style="padding-top:0px" id="panel"><!--Start of 1st slide-->
+          <div class="container-fluid jumbotron mappfull" >
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="checkbox">
+                  <label><input type="checkbox" id="adv_check" value="">Advance</label>
+                </div>
+              </div>
+              
+              <div class="col-sm-10" id="adv" style="display: none">
+                
+               
+          
+              </div>
+            </div>
+          </div><!--End of onatiner-->
+
+          <div class="container-fluid jumbotron mappfull">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="checkbox">
+                  <label><input type="checkbox" id="ticket_check"  value="">Ticket</label>
+                </div>
+              </div>
+             
+              <div class="col-sm-10" id="ticket" style="display: none"><!--Start of ticket field  -->
+                 <div  id="ticket_add">
+              
+              </div>
+           
+            </div><!--End of ticket field-->
+
+
+            </div>
+          </div><!--End of onatiner-->
+
+          <div class="container-fluid jumbotron mappfull">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="checkbox">
+                  <label><input type="checkbox" id="hotel_check" value="">Hotel</label>
+                </div>
+              </div>
+
+              <div class="col-sm-10" id="hotel" style="display: none" ><!--start field-->
+                <div id="hotel_add">
+               
+                  </div><!--End of field-->
+              </div>
+
+            </div>
+          </div><!--End of onatiner-->
+
+          <div class="container-fluid jumbotron mappfull">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="checkbox">
+                  <label><input type="checkbox" id="car_check" value="">Rent a car</label>
+                </div>
+              </div>
+              <div class="col-sm-10" id="car" style="display: none;"><!--Start field-->
+                <div id="car_add">
+                
+              </div>
+              </div><!--End field-->
+
+            </div>
+          </div><!--End of container-->
+
+        </div><!-- End of flip -->
+
+        </div>
+        <!--End of 2nd row-->    
+
+
+         <div class="container-fluid jumbotron fontSize">
+          <div class="row">
+          <div  class="col-sm-6">
+            <div class="form-group" style="padding:20px;">
+  <label for="sel1">Action</label>
+  <select class="form-control" id="sel1" name="action">
+    <option selected="true" disabled="disabled">Select</option>
+ <option value="NEEDAPPROVAL">Resubmit</option>
+     <option value="CANCELLED">Cancell</option>
+   
+
+    
+  </select>
+</div>
+  
+          </div>
+
+
+        <div class="col-sm-5">
+
+              <div class="form-group" style="padding-left:0px;">
+  <label for="comment">Remarks:</label>
+  <textarea class="form-control" rows="3" id="comment" name="comment"></textarea>
+</div>
+          </div>
+
+          </div><!-- End of rows -->
+        </div><!-- End of fluid -->
+
+  <div class="container-fluid jumbotron fontSize">
+          <div class="row">
+          <div class="col-sm-6"></div>
+          <div class="col-sm-6">
+
+            <button id="sub" class="form-control btn-success pull-right" style="margin-top:0px; margin-bottom: 20px; width:100px;margin-right: 30px; " align="center" type="button">Submit</button>
+            
+            <button  type="button" id="close" class="form-control clo pull-right btn btn-primary"  style="margin-top:0px; margin-bottom: 20px; width:100px;margin-right: 40px;  " align="center" >Cancel</button>
+          
+            
+          </div>
+          </div><!-- End of row -->
+        </div><!-- End of fluid -->
+ 
+      </section>
+  
+   
+
+        <section>  <!--Documents Tab -->
+          <div class="document">
+        </div>
+        </section>
+
+        <section><!--Notes Tab Start-->
+         <div class="notes">
+        </div>
+        </section>
+        
+        <section>
+        <div class="history">
+        </div>
+        </section><!--End of history-->
+    
+  </div>
+</div>
+
+
+
+<div id="errormsg"  style="color:red; text-align: center; font-size: 25px;"></div>
+</form>
+
+
+
+<div class="message"></div>
+
+
+ <script type="text/javascript">
+           
+$(".clo").click(function(){
+//  alert("going to close");
+  window.parent.closeModal();
+});
+         </script>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="url/url.js"></script>
+<script src="js/fileshare.js"></script>
+
+<script src="js/review-employee-travel-claim.js"></script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+
+
+ 

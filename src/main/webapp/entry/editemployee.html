@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Employee</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+      <link rel="stylesheet" href="css/style.css">
+  <style>
+  .ng-valid{
+        border:1px solid rgb(92,184,92);
+    }
+    
+</style>
+ 
+</head>
+<body ng-app="myApp" ng-controller="myControl">
+
+<div style="background:rgba(225,225,225,0.5);position:absolute; width: 100%;height: 100%;z-index: 99;display: none" id="loading" >
+  
+    <img src="loading.gif" width="100%" style="position: absolute;z-index: 999;top: 0;right: 0;bottom: 0;left: 0;">
+</div>
+
+<form name="form" class="needs-validation">
+<div class="tabs">
+  
+   
+  <input type="radio" id="tab1" name="tab-control" checked>
+  <input type="radio" id="tab2" name="tab-control">
+  <input type="radio" id="tab3" name="tab-control">  
+  <input type="radio" id="tab4" name="tab-control">
+  <ul style="/*width:500px*/; background-color:#222; line-height: 40px;">
+    <li><label for="tab1" role="button"></svg><br><span>Employee</span></label></li>
+<!--     <li><label for="tab2" role="button"></svg><br><span>Documents</span></label></li>
+    <li><label for="tab3" role="button"></svg><br><span>Notes</span></label></li>    
+  <li><label for="tab4" role="button"></svg><br><span style="margin-right: 20px;">History</span></label></li> -->
+  <li><label for="tab1" role="button"></svg><br><span></span></label></li>
+    <li><label for="tab2" role="button"></svg><br><span></span></label></li>
+    <li><label for="tab3" role="button"></svg><br><span></span></label></li>    
+  <li><label for="tab4" role="button"></svg><br><span></span></label></li>
+  <li><label for="tab1" role="button"></svg><br><span></span></label></li>
+    <li><label for="tab2" role="button"></svg><br><span></span></label></li>
+    <li><label for="tab3" role="button"></svg><br><span></span></label></li>    
+  <li><label for="tab4" role="button"></svg><br><span></span></label></li> 
+  <li > <button type="button" class="close clo " data-dismiss="modal" style="color: #ffff;margin-right: 20px;margin-bottom:10px ;font-size:35px " >&times;</button></li>
+  </ul>
+  <div class="slider"><div class="indicator"></div></div>
+  <div class="content">
+    <section>
+
+     <div class="container-fluid jumbotron mappfull" style="margin-top:-30px "><!--Start of container fluid-->
+      <div class="row"><!-- satart of row -->
+
+        <div class="col-sm-3">
+          <div class="col-sm-6 "><label class="">Id<span style="color:red;">*</span></label><input type="text" name="id" class="form-control" placeholder="enter id" ng-model="emp.id" ng-required="true" />
+            <div ng-show="form.$submitted || form.id.$touched">
+                <span style="color:orange" ng-show="form.id.$error.required"> Please enter Id</span>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <label class="">Gender<span style="color:red;">*</span></label>
+            <select class="form-control" ng-model="emp.gender" name="gender" ng-required="true">
+              <option value="" readonly>select gender</option>
+              <option value="M">Male</option>
+              <option value="F">Female</option>
+            </select>
+
+                 <div ng-show="form.$submitted || form.gender.$touched">
+                <span style="color:orange" ng-show="form.gender.$error.required"> Please Select Gender</span>
+                  </div>
+
+          </div><!-- End of col-6 -->
+        </div><!-- End of col-3 -->
+
+        <div class="col-sm-9"><!-- Start of col-9 -->
+        <div class="col-sm-4">
+          <label class="">First Name<span style="color:red;">*</span></label>
+          <input type="text"  placeholder="enter first name" class="form-control" ng-model="emp.firstName" name="fname" ng-required="true">
+
+             <div ng-show="form.$submitted || form.fname.$touched">
+                <span style="color:orange" ng-show="form.fname.$error.required"> Please Enter First Name</span>
+               </div>
+
+        </div>
+        <div class="col-sm-4">
+          <label class="">Middle Name</label>
+          <input type="text"  placeholder="enter middle name" class="form-control" ng-model="emp.middleName" name="mname" >
+        </div>
+        <div class="col-sm-4">
+          <label class="">Last Name<span style="color:red;">*</span></label>
+          <input type="text"  placeholder="enter last name" class="form-control" ng-model="emp.lastName" name="lname" ng-required="true">
+
+              <div ng-show="form.$submitted || form.lname.$touched">
+                <span style="color:orange" ng-show="form.lname.$error.required"> Please Enter Last Name</span>
+               </div>
+
+        </div>
+        </div><!-- End of col-9 -->
+      </div><!-- End of 1st row -->
+
+
+      <div class="row"><!-- Strat of 2nd row -->
+
+        <div class="col-sm-12">
+          <div class="col-sm-3">
+            <br>
+          <label class="">Date Of Joining<span style="color:red;">*</span></label>
+          <input class="form-control dep_date" onfocus="(this.type='date')" placeholder="Enter Date of joining" type="text" Id="startdate"  ng-model="emp.dateOfJoining" name="dateOfJoining" ng-required="true"/>
+
+                <div ng-show="form.$submitted || form.dateOfJoining.$touched">
+                <span style="color:orange" ng-show="form.dateOfJoining.$error.required"> Please Date of joining</span>
+               </div>
+
+          </div>
+
+          <div class="col-sm-3">
+            <br>
+          <label class="">Date Of Birth<span style="color:red;">*</span></label>
+          <input class="form-control dep_date" onfocus="(this.type='date')" placeholder="Enter Date" type="text" Id="startdate" name="dateOfBirth" ng-model="emp.dateOfBirth" ng-required="true" />
+
+               <div ng-show="form.$submitted || form.dateOfBirth.$touched">
+                <span style="color:orange" ng-show="form.dateOfBirth.$error.required"> Please Date of Birth</span>
+               </div>
+
+          </div>
+
+
+          <div class="col-sm-3">
+            <br>
+          <label class="">Status<span style="color:red;">*</span></label>
+          <input type="text" name="status" placeholder="enter Status" class="form-control" ng-model="emp.status" ng-required="true" >
+
+             <div ng-show="form.$submitted || form.status.$touched">
+                <span style="color:orange" ng-show="form.status.$error.required"> Please Enter status</span>
+               </div>
+
+          </div>
+
+        </div><!-- End of col-12 -->
+        
+      </div><!-- End of 2nd row -->
+
+     </div><!-- End of container fluid -->
+
+
+     <div class="container-fluid jumbotron mappfull" ><!-- Start of 2nd continer fluid -->
+      <div class="row"><!-- Start of 1st row -->
+
+        <div class="col-sm-12"><!-- start of col-12 -->
+
+          <div class="col-sm-3">
+            <br>
+          <label class="">Company<span style="color:red;">*</span></label>
+          <select class="form-control" ng-model="emp.cmpnyId" ng-change="companyLink(emp.cmpnyId)" name="cmpnyId"  ng-required="true" ng-options="x.company for x in company ">
+           <!--  <option value="" readonly>Select Company</option>
+            <option ng-repeat="x in company" value="{{x}}" >{{x.company}}</option> -->
+          </select>
+               <div ng-show="form.$submitted || form.cmpnyId.$touched">
+                <span style="color:orange" ng-show="form.cmpnyId.$error.required"> Please Select company</span>
+               </div>
+
+          </div>
+          <div class="col-sm-3">
+            <br>
+          <label class="">Business unit</label>
+          <select class="form-control" ng-model="emp.buId" name="businessunits"  ng-options="y.name for y in businessDataLink " >
+            <!-- <option value="" readonly>Select Business Unit</option>
+
+            <option ng-repeat="y in businessDataLink" value={{y.id}}>{{y.name}}</option> -->
+          </select>
+          </div>
+          <div class="col-sm-3">
+            <br>
+          <label class="">Department</label>
+          <select class="form-control" ng-model="emp.deptId" name="deptId" ng-options="z.name for z in depDataLink ">
+            <!-- <option value="" readonly>Select Department</option>
+            <option ng-repeat="z in depDataLink" value="{{z.id}}" >{{z.name}}</option> -->
+          </select>
+          </div>
+
+        </div><!-- End col-12 -->
+
+
+        <div class="col-sm-12"><!-- Start col 12 -->
+          <div class="col-sm-3">
+            <br>
+          <label class="">designation<span style="color:red;">*</span></label>
+          <input type="text" name="designation" placeholder="enter designation" class="form-control" ng-model="emp.designation" ng-required="true" >
+          
+                <div ng-show="form.$submitted || form.designation.$touched">
+                <span style="color:orange" ng-show="form.designation.$error.required"> Please Select Desigation </span>
+               </div>
+
+          </div>
+
+          <div class="col-sm-3">
+            <br>
+          <label class="">Report To<span style="color:red;">*</span></label>
+         <!--  <select class="form-control" ng-model="emp.reportTo" name="reportTo" ng-required="true">
+            <option value="" readonly>Select Report to</option>
+            <option ng-repeat="m in getAllManager" value="{{m.employeeId}}">{{m.firstName}}</option>
+          </select> -->
+          <input type="text" name="reportTo" ng-model="emp.reportTo" ng-required="true" class="form-control">
+           <div ng-show="form.$submitted || form.reportTo.$touched">
+                <span style="color:orange" ng-show="form.reportTo.$error.required"> Please Select Report to </span>
+               </div>
+
+          </div>
+
+          <div class="col-sm-3">
+            <br>
+          <label class="">User Id<span style="color:red;">*</span></label>
+          <input type="text" name="userId" placeholder="enter User Id"  class="form-control" ng-model="emp.loginId" ng-required="true">
+
+                <div ng-show="form.$submitted || form.userId.$touched">
+                <span style="color:orange" ng-show="form.userId.$error.required"> Please Enter UserId </span>
+               </div>
+          </div>
+
+          <div class="col-sm-3">
+            <br>
+          <label class="">Email<span style="color:red;">*</span></label>
+        <!--  <input type="email" name="emailId"  ng-model="emp.emailId" country  > -->
+        <input type="email" name="emailId" placeholder="enter Email" class="form-control" ng-model="emp.emailId" country ng-required="true"/>
+                 <span style="color:black;" ng-show="form.emailId.$pending.country">Checking ....</span>
+        <span style="color:orange;" ng-show="form.emailId.$error.country">Already exists, try another</span>
+
+
+              <div ng-show="form.$submitted || form.emailId.$touched">
+                <span style="color:orange" ng-show="form.emailId.$error.required"> Please Enter EmailId </span>
+                
+               </div>
+               
+             
+
+               <!--  <ul class="error-msgs" ng-messages="form.emailId.$error">
+        
+        <li ng-message="uppercaseValidator">Strong secret has to contain at least 1 uppercase</li>
+            </ul> -->
+
+          </div>
+        </div><!-- End col 12 -->
+
+
+      </div><!-- End of 1st row -->
+     </div><!-- End of 2nd container fluid -->
+
+
+ <div class="container-fluid jumbotron mappfull" ><!-- Start of 3rd container fluid -->
+  <div class="row">
+        <div class="col-sm-12"><!-- Start of col-12 -->
+          <div class="col-sm-3">
+            <label>Process Roles</label>
+            <select class="form-control" ng-model="selProcessRoles" name="selProcessRoles"  ng-change=processRolesChange(selProcessRoles)>
+              <option value="">Select Process Roles</option>
+              <option ng-repeat="x in processRoles" value="{{x}}" ng-disabled="rolesShowName.includes(x.id)">{{x.id}}</option>
+            </select>
+                <!-- <div ng-show="form.$submitted || form.selProcessRoles.$touched">
+                <span style="color:orange" ng-show="form.selProcessRoles.$error.required"> Please Select Process Roles </span>
+               </div> -->
+          </div>
+
+          <div class="col-sm-3">
+            <label>User Roles</label>
+            <select class="form-control" ng-model="selUserRoles" name="selUserRoles"  ng-change=userRolesChange(selUserRoles)>
+              <option value="">Select User Roles</option>
+              <option ng-repeat="x in userRoles" value="{{x}}" ng-disabled="rolesShowName.includes(x.id)">{{x.id}}</option>
+            </select>
+            <!-- <div ng-show="form.$submitted || form.selUserRoles.$touched">
+                <span style="color:orange" ng-show="form.selUserRoles.$error.required"> Please Select User ROles </span>
+               </div> -->
+          </div>
+
+          <div class="col-sm-4">
+            <label>Assigned Roles</label>
+             <!--  <div class="list-group">
+              <a href="#" class="list-group-item" ng-repeat="x in roleShow">{{x.name}}<a class="glyphicon glyphicon-remove text-right"></a></a>
+            </div> -->
+            
+            <div  class="col-sm-12" ng-repeat="x in roleShow" style="margin-bottom: 3px">
+            
+            <div class="input-group">
+             <input type="text" class="form-control" name="" value="{{x.id}}" style="border-right: none" >
+             <span class="input-group-addon" style="background: #fff;border-left: none" ng-click="closeAssignRoles(x)">&times;</span>
+           </div>
+            </div>
+          </div><!-- End of col-6 -->
+        </div><!-- End of col-12 -->
+  </div><!-- End of row -->
+</div><!-- End of 3rd container fluid -->
+
+
+      <div class="container-fluid jumbotron fontSize">
+          <div class="row">
+          <div class="col-sm-6"></div>
+          <div class="col-sm-6">
+            
+             <button id="sub" type="button" class="form-control btn-success pull-right"  style="margin-top:0px; margin-bottom: 20px; width:100px;margin-right: 30px; " align="center" type="button" ng-click="sub()" >Submit</button>
+            <button  type="button" id="close" class="form-control   pull-right btn btn-primary clo"  style="margin-top:0px; margin-bottom: 20px; width:100px;margin-right: 40px;  " align="center" >Cancel</button>
+
+          
+           
+            
+          </div>
+          </div>
+        </div>
+
+
+    </section>
+
+
+
+
+
+        <section>  <!--Documents Tab -->
+          <div class="document">
+        </div>
+        </section>
+
+        <section><!--Notes Tab Start-->
+         <div class="notes">
+        </div>
+        </section>
+        
+        <section>
+        <div class="history">
+        </div>
+        </section><!--End of history-->
+    
+  </div>
+</div>
+
+
+
+<div id="errormsg"  style="color:red; text-align: center; font-size: 25px;"></div>
+</form>
+
+
+<div class="message"></div>
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+           
+$(".clo").click(function(){
+//  alert("going to close");
+  window.parent.closeModal();
+});
+        
+function split_key(key)
+{
+  var arr=[];
+  var temp=key.split("&");
+  for(var i=0;i<temp.length;i++)
+    {
+     var key=temp[i].split("=");
+     arr.push(key[1]);
+    }
+ 
+  return arr;
+}
+var url_loc=decodeURIComponent(window.location.search);
+var arr=split_key(url_loc);
+
+var empId=arr[0];
+
+
+
+  $(".document").load("html/document.html");
+$(".notes").load("html/notes.html");
+$(".history").load("html/history.html");
+$(".message").load("html/messageAlert.html");
+
+angular.module('myApp', [])
+  .controller('myControl', function($scope,$http,$q) {
+
+
+$scope.employeeId=empId;
+$scope.emp={};
+
+
+
+
+
+
+    $http({
+        method : "GET",
+        url : "/actnow-claims-1.0.0/actnow/businessunits"
+    }).then(function mySuccess(response) {
+      
+        $scope.busData=response.data;
+        console.log($scope.busData);
+    }, function myError(response) {
+        console.log(response.data);
+    });
+
+
+
+    $http({
+        method : "GET",
+        url : "/actnow-claims-1.0.0/actnow/department"
+    }).then(function mySuccess(response) {
+      
+        $scope.depData=response.data;
+        console.log($scope.busData);
+    }, function myError(response) {
+        console.log(response.data);
+    });
+
+
+
+
+$scope.comapnyDet={};
+/*Start of getting bus and dep as per uuid*/
+$scope.companyLink=function(x){
+$scope.getAllManager=[];
+$scope.comObj =x;
+
+$scope.comId=$scope.comObj.id;
+console.log($scope.comId);
+
+$scope.comUnId=$scope.comObj.uniqueId;
+$scope.businessDataLink=[];
+$scope.depDataLink=[];
+
+
+
+
+
+  angular.forEach($scope.busData,function(value,key){
+   if(value.uniqueId==$scope.comUnId)
+   {
+    $scope.businessDataLink.push(value);
+   }
+
+  });
+
+
+  angular.forEach($scope.depData,function(value,key){
+   if(value.uniqueId==$scope.comUnId)
+   {
+    $scope.depDataLink.push(value);
+
+   }
+
+  });
+
+
+  $http({
+        method : "GET",
+        url : " /actnow-claims-1.0.0/actnow/employees/"
+    }).then(function mySuccess(response) {
+      
+      $scope.empComData=response.data;
+      angular.forEach($scope.empComData,function(val,key){
+
+          if(val.cmpnyId==$scope.comId)
+          {
+            console.log(val);
+            $scope.getAllManager.push(val);
+          }
+
+      })
+
+      })
+
+
+}
+
+
+
+
+
+
+
+/*End of getting bus and dep as per uuid*/
+
+
+/*Start of get all Data*/
+
+$http({
+        method : "GET",
+        url : " /actnow-claims-1.0.0/actnow/employees/"+$scope.employeeId+""
+    }).then(function mySuccess(response) {
+
+        console.log(response.data);
+
+        $scope.empData=response.data;
+
+
+       $scope.currEmpId= $scope.empData.employeeId;
+       $scope.currentComId=$scope.empData.cmpnyId;
+       $scope.loginId=$scope.empData.loginId;
+
+
+
+
+
+
+        $scope.emp={
+           "id": $scope.empData.id,
+       "gender": $scope.empData.gender,
+       "firstName":$scope.empData.firstName,
+       "middleName": $scope.empData.middleName+"",
+       "lastName": $scope.empData.lastName,
+       "dateOfJoining": $scope.empData.dateOfJoining,
+       "dateOfBirth": $scope.empData.dateOfBirth,
+       "status": $scope.empData.status,
+       "designation": $scope.empData.designation,
+       "reportTo": parseInt($scope.empData.reportTo),
+       "loginId": $scope.empData.loginId,
+       "emailId": $scope.empData.emailId
+        }
+
+
+
+
+/*Start of get company name*/
+        $http({
+        method : "GET",
+        url : "/actnow-claims-1.0.0/actnow/companies"
+    }).then(function mySuccess(response) {
+
+        $scope.company=response.data;
+     angular.forEach($scope.company,function(val,key){
+
+        if(val.id==$scope.empData.cmpnyId)
+        {
+          console.log(val);
+          $scope.emp.cmpnyId=val;
+          var comData=$scope.emp.cmpnyId
+        //  $scope.companyLink( JSON.stringify(comData, null, "\t"));
+        $scope.companyLink(comData);
+        }
+
+     })
+
+     angular.forEach($scope.businessDataLink,function(val,key){
+      if(val.id==$scope.empData.buId)
+      {
+        $scope.emp.buId=val;
+      }
+     })
+
+     angular.forEach($scope.depDataLink,function(val,key){
+      console.log("get dept"+val);
+      if(val.id==$scope.empData.deptId)
+      {
+        $scope.emp.deptId=val;
+      }
+     })
+
+
+        console.log("Company Data"+$scope.companyData);
+    }, function myError(response) {
+        console.log(response.data);
+    });
+
+/*End of get compnies*/
+
+
+
+/*Start of get emp manager data*/
+
+/*
+ $http({
+        method : "GET",
+        url : " /actnow-claims-1.0.0/actnow/employees/"
+    }).then(function mySuccess(response) {
+      
+       $scope.allEmpGetData=response.data;
+       $scope.getAllManager=[];
+       angular.forEach($scope.allEmpGetData,function(value,key){
+
+        if(value.cmpnyId==$scope.currentComId && value.employeeId!=$scope.currEmpId)
+        {
+        //  console.log("MANAGER DETILS"+value.employeeId);
+         // console.log($scope.currEmpId);
+         console.log(value);
+          $scope.getAllManager.push(value);
+
+        }
+       })
+      // console.log($scope.empGetData);
+       
+    }, function myError(response) {
+        console.log(response.data);
+    });*/
+/*End of get emp manager data*/
+
+
+/*Start of getting roles Data*/
+ $http({
+        method : "GET",
+        url : "/actnow-claims-1.0.0/actnow/employees/rolesOfUsers/"+ $scope.loginId+""
+    }).then(function mySuccess(response) {
+        
+        //  console.log("Roles are GET "+response.data);
+          $scope.roleShow=response.data.groups;
+          $scope.databaseRoles=response.data.groups;
+          $scope.rolesShowName=[];
+
+          angular.forEach($scope.roleShow,function(val,key){
+            $scope.rolesShowName.push(val.id);
+          });
+        //  console.log($scope.rolesShowName);
+
+
+
+        });
+
+/*Start of getting process roles*/
+     $http({
+        method : "GET",
+        url : "/actnow-claims-1.0.0/actnow/employees/processRoles"
+    }).then(function mySuccess(response) {
+        
+          console.log("Roles are GET "+response.data);
+          $scope.processRoles=response.data;
+          console.log( $scope.processRoles);
+        });
+/*End of getting process roles*/
+
+
+/*Start of getting user roles*/
+    $http({
+        method : "GET",
+        url : "/actnow-claims-1.0.0/actnow/employees/roles"
+    }).then(function mySuccess(response) {
+        
+        //  console.log("Roles are GET "+response.data);
+          $scope.userRoles=response.data;
+          console.log($scope.userRoles);
+        });
+  /*End of geting user roles*/
+     $scope.processRolesInsert=[];
+     $scope.processRolesDel=[];
+$scope.userRolesInsert=[];
+$scope.userRolesDel=[];
+     $scope.processRolesChange=function(x){
+      var data=JSON.parse(x)
+
+        if(data!=null)
+      {
+        $scope.roleShow.push(data);
+          $scope.rolesShowName.push(data.id);
+        }
+          /*$scope.processRolesInsert.push(data);*/
+         // console.log($scope.processRolesInsert);
+     }
+     $scope.userRolesChange=function(x){
+      var data=JSON.parse(x);
+      if(data!=null)
+      {
+
+       $scope.roleShow.push(data);
+        $scope.rolesShowName.push(data.id);
+      }
+       /* $scope.userRolesInsert.push(data);*/
+       // console.log( $scope.userRolesInsert);
+     }
+
+     /*Start of close assign roles*/
+     $scope.closeAssignRoles=function(x){
+
+       // console.log($scope.roleShow+" includes "+x);
+        
+       var index=parseInt($scope.roleShow.indexOf(x));
+ $scope.roleShow.splice(index,1);
+ var ind=parseInt($scope.rolesShowName.indexOf(x.id));
+$scope.rolesShowName.splice(ind,1);
+
+   /* angular.forEach($scope.processRoles,function(val,key){
+      if(val.id==x.id)
+      {
+        $scope.processRolesDel.push(val);
+        console.log($scope.processRolesDel);
+      }
+    })
+
+    angular.forEach($scope.userRoles,function(val,key){
+      if(val.id==x.id)
+      {
+        
+         $scope.userRolesDel.push(val);
+         console.log($scope.userRolesDel);
+      }
+    })*/
+
+
+ /*    if($scope.processRolesInsert.length>0)
+  {
+    
+ var index=parseInt($scope.processRolesInsert.indexOf(x));
+ if(index>-1)
+  {
+    console.log("Already in processRoles");
+ $scope.processRolesInsert.splice(index,1);
+
+  }
+  }
+   if($scope.userRolesInsert.length>0)
+  {
+
+
+    var index=parseInt($scope.userRolesInsert.indexOf(x));
+ if(index>-1)
+  {
+     console.log("Already in userRoles");
+ $scope.userRolesInsert.splice(index,1);
+  }
+  
+  }*/
+
+
+   /* console.log("Process Roles is present "+$scope.processRolesInsert.indexOf(x));
+    console.log("User Roles is present "+$scope.userRolesInsert.indexOf(x));*/
+
+
+// console.log(ind);
+
+     }
+     /*End of close assign roles*/
+
+    /*End of getting Roles Data*/
+
+
+      });/*End of get all data*/
+
+
+
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+/*Start of sub*/
+
+$scope.sub=function(){
+  
+
+
+  $http({
+        method : "GET",
+        url : "/actnow-claims-1.0.0/actnow/employees/rolesOfUsers/"+ $scope.loginId+""
+    }).then(function mySuccess(response) {
+        $scope.databaseRoles=response.data.groups;
+
+  $scope.empDataSubmit={
+       "id": $scope.emp.id,
+       "gender": $scope.emp.gender,
+       "firstName": $scope.emp.firstName,
+       "middleName": $scope.emp.middleName+"",
+       "lastName": $scope.emp.lastName,
+       "dateOfJoining": $scope.emp.dateOfJoining,
+       "dateOfBirth": $scope.emp.dateOfBirth,
+       "status": $scope.emp.status,
+       "cmpnyId": $scope.comId,
+       "buId": parseInt($scope.emp.buId['id']),
+       "deptId": parseInt($scope.emp.deptId['id']),
+       "designation": $scope.emp.designation,
+       "reportTo": parseInt($scope.emp.reportTo),
+       "loginId": $scope.emp.loginId,
+       "emailId": $scope.emp.emailId,
+       "employeeId":$scope.currEmpId
+   }
+   console.log($scope.empDataSubmit);
+
+var empput=JSON.stringify( $scope.empDataSubmit, null, "\t");
+console.log(empput);
+/*console.log($scope.roleShow);
+console.log($scope.databaseRoles);
+console.log($scope.processRoles);
+console.log($scope.userRoles);*/
+
+/*Start GET roles insert part starat*/
+$scope.insertData=[];
+$scope.deleteData=[];
+angular.forEach($scope.roleShow,function(val,key){
+
+  var cnt=0;
+    angular.forEach($scope.databaseRoles,function(dbval,dbkey){
+
+        if(val.id==dbval.id){
+          cnt++;
+        }
+
+    })
+     if(cnt==0)
+        {
+        //  console.log("Roles need to Insert"+val.name);
+          $scope.insertData.push(val);
+        }
+})
+
+/*End of GET roles insert part*/
+
+/*Start of GET roles delete part*/
+angular.forEach($scope.databaseRoles,function(val,key){
+
+  var cnt=0;
+    angular.forEach($scope.roleShow,function(dbval,dbkey){
+
+        if(val.id==dbval.id){
+          cnt++;
+        }
+
+    })
+     if(cnt==0)
+        {
+         // console.log("Roles Delete"+val.name);
+          $scope.deleteData.push(val);
+        }
+})
+/*End of GET roles delete part*/
+
+console.log($scope.insertData);
+console.log($scope.deleteData);
+
+
+if($scope.insertData.length>0)
+{
+  $scope.processRolesInsert=[];
+  $scope.userRolesInsert=[];
+  angular.forEach($scope.insertData,function(val,key){  
+      angular.forEach($scope.processRoles,function(value,key){
+          if(val.id==value.id){
+            console.log(" INSERT Belongs to Process Roles "+val.name);
+            $scope.processRolesInsert.push(val);
+          }
+      })
+      angular.forEach($scope.userRoles,function(value,key){
+          if(val.id==value.id){
+            console.log("INSERT Belongs to User Roles "+val.name);
+            $scope.userRolesInsert.push(val);
+          }
+      })
+  })
+}
+if($scope.deleteData.length>0)
+{
+  $scope.processRolesDel=[];
+  $scope.userRolesDel=[];
+  angular.forEach($scope.deleteData,function(val,key){
+    angular.forEach($scope.processRoles,function(value,key){
+          if(val.id==value.id){
+            console.log("DELETE Belongs to Process Roles "+val.name);
+            $scope.processRolesDel.push(val);
+          }
+      })
+      angular.forEach($scope.userRoles,function(value,key){
+          if(val.id==value.id){
+            console.log("DELETE Belongs to User Roles "+val.name);
+            $scope.userRolesDel.push(val);
+          }
+      })
+
+  })
+
+}
+
+
+$scope.count=5;
+
+chain = $q.when();
+chain.then(function() {/*Start of first then*/
+
+
+/*Start of insert process roless*/
+return (function(){
+$("#loading").css("display","block");
+if($scope.processRolesInsert.length>0)
+{
+  console.log($scope.processRolesInsert);
+  angular.forEach($scope.processRolesInsert,function(val,key){
+
+  var rolesName=val.id;
+  var userId=$scope.emp.loginId;
+
+  /*Stat of http post*/
+    (function(rolesName,userId){
+console.log(rolesName+" "+userId);
+    var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url":"/actnow-claims-1.0.0/actnow/employees/processRoles/"+rolesName+"/"+userId+"",
+  "method": "PUT",
+  "headers": {
+    "content-type": "application/json",
+    "cache-control": "no-cache",
+    
+  }
+}
+
+$.ajax(settings).done(function (jqXHR, textStatus, errorThrown) {
+  console.log("Process ROles "+jqXHR);
+  console.log("Process ROles "+textStatus);
+  console.log("Process ROles "+errorThrown);
+  
+  $scope.successModal();
+}).fail(function(jqXHR, textStatus, errorThrown){
+  console.log("Process ROles "+jqXHR);
+  console.log("Process ROles "+textStatus);
+  console.log("Process ROles "+errorThrown);
+  $scope.failModal();
+});
+ })(rolesName,userId);
+
+})/*End of loop*/
+}else{
+  $scope.successModal();
+}
+/*End of insert process roles*/
+})();/*End of 1st return function*/
+
+/*End of first then*/
+  }).then(function() {
+
+/*Start of 2nd then fun*/
+
+return (function(){
+
+
+
+/*Start of insert User roless*/
+
+if($scope.userRolesInsert.length>0)
+{
+  console.log($scope.userRolesInsert);
+  angular.forEach($scope.userRolesInsert,function(val,key){
+
+  var rolesName=val.id;
+  var userId=$scope.emp.loginId;
+
+  /*Stat of http post*/
+    (function(rolesName,userId){
+console.log(rolesName+" "+userId);
+    var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url":"/actnow-claims-1.0.0/actnow/employees/roles/"+rolesName+"/"+userId+"",
+  "method": "PUT",
+  "headers": {
+    "content-type": "application/json",
+    "cache-control": "no-cache",
+    
+  }
+}
+
+$.ajax(settings).done(function (jqXHR, textStatus, errorThrown) {
+  console.log("User ROles "+jqXHR);
+  console.log("User ROles "+textStatus);
+  console.log("User ROles "+errorThrown);
+  
+  $scope.successModal();
+}).fail(function(jqXHR, textStatus, errorThrown){
+  console.log("User ROles "+jqXHR);
+  console.log("User ROles "+textStatus);
+  console.log("User ROles "+errorThrown);
+  $scope.failModal();
+});
+ })(rolesName,userId);
+
+})/*End of loop*/
+}else{
+  $scope.successModal();
+}
+/*End of insert User roles*/
+
+})()
+/*End of 2nd then fun*/
+   }).then(function() {
+    /*Start of 3rd then fun*/
+    return (function(){ 
+
+/*Start of Delete User roless*/
+
+if($scope.userRolesDel.length>0)
+{
+  console.log($scope.userRolesDel);
+  angular.forEach($scope.userRolesDel,function(val,key){
+
+  var rolesName=val.id;
+  var userId=$scope.emp.loginId;
+
+  /*Stat of http post*/
+    (function(rolesName,userId){
+console.log(rolesName+" "+userId);
+    var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "/actnow-claims-1.0.0/actnow/employees/userRoles/"+rolesName+"/"+userId+"",
+  "method": "DELETE",
+  "headers": {
+    "cache-control": "no-cache",
+  }
+}
+
+$.ajax(settings).done(function (jqXHR, textStatus, errorThrown) {
+  console.log(jqXHR+"User ROles DELETE");
+  console.log(textStatus+"User ROles DELETE");
+  console.log(errorThrown+"User ROles DELETE");
+   
+  $scope.successModal();
+}).fail(function(jqXHR, textStatus, errorThrown){
+  console.log(jqXHR+"User ROles DELETE");
+  console.log(textStatus+"User ROles DELETE"+textStatus);
+  console.log(errorThrown+"User ROles DELETE");
+  $scope.failModal();
+});
+ })(rolesName,userId);
+
+})/*End of loop*/
+}else{
+  $scope.successModal();
+}
+/*End of Delete User roles*/
+
+
+
+    })()
+    /*End of 3rd then fun*/
+    }).then(function() {
+      /*Start of 4th return fun*/
+      return (function(){
+
+
+
+/*Start of Delete Process roless*/
+
+if($scope.processRolesDel.length>0)
+{
+  console.log($scope.processRolesDel);
+  angular.forEach($scope.processRolesDel,function(val,key){
+
+  var rolesName=val.id;
+  var userId=$scope.emp.loginId;
+
+  /*Stat of http post*/
+    (function(rolesName,userId){
+console.log(rolesName+" "+userId);
+    var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "/actnow-claims-1.0.0/actnow/employees/processRoles/"+rolesName+"/"+userId+"",
+  "method": "DELETE",
+  "headers": {
+    "cache-control": "no-cache",
+  }
+}
+
+$.ajax(settings).done(function (jqXHR, textStatus, errorThrown) {
+  console.log(jqXHR+"Process ROles DELETE");
+  console.log(textStatus+"Process ROles DELETE");
+  console.log(errorThrown+"Process ROles DELETE");
+  
+  $scope.successModal();
+}).fail(function(jqXHR, textStatus, errorThrown){
+  console.log(jqXHR+"Process ROles DELETE");
+  console.log(textStatus+"Process ROles DELETE");
+  console.log(errorThrown+"Process ROles DELETE");
+  $scope.failModal();
+});
+ })(rolesName,userId);
+
+})/*End of loop*/
+}else{
+  $scope.successModal();
+}
+/*End of Delete Process roles*/
+
+      })()
+      /*Start of 4th return fun*/
+   }).then(function() {
+    /*Start of 5th return fun*/
+
+
+
+
+
+
+
+$http({              
+        method : "PUT",
+         url: "/actnow-claims-1.0.0/actnow/employees",
+        data:empput,
+ headers: { 'Content-Type': 'application/json'}
+       
+   }).then(function mySuccess(response) {
+        console.log("Success full insert emp"+response);
+
+  $scope.successModal($scope.count);
+        
+        
+    },   
+       /*maIN SUCCESS END HERE*/
+     function myError(response) {
+      $scope.failModal();
+      console.log(response);
+       //  alert("Failed t insert EMployee"+response)
+
+    }); 
+
+
+    /*End of 5th return fun*/
+   })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+  });/*End of get process roles*/
+
+$scope.successModal=function(){
+  console.log($scope.count);
+  --$scope.count;
+if($scope.count==0)
+{
+  $("#loading").css("display","none");
+   window.parent.moveTop();
+            $(".modal-body-result").html("<div class='alert alert-success'> <strong> Submission successfully</strong></div>");
+                    $("#myModal3").modal();
+                      
+                       $(".clo-message").on("click",function(){
+                         window.parent.closeModal();
+                       })
+}
+
+}
+$scope.failModal=function(){
+
+
+        $("#loading").css("display","none");
+         window.parent.moveTop();
+           $(".modal-body-result").html("<div class='alert alert-danger'> <strong> Submission Failed</div>");
+                    $("#myModal3").modal();
+
+                       $(".clo-message").on("click",function(){
+                         window.parent.closeModal();
+                       })
+}
+
+
+
+}
+/*End of sub*/
+
+
+
+
+
+    })/*End of controller*/
+                  
+ /*Email validation end*/
+
+</script>
+
+
+
+
+
+</body>
+</html>
+
+

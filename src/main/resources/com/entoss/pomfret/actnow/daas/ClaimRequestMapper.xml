@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.entoss.pomfret.actnow.daas.ClaimRequestMapper">
+	<resultMap type="ClaimRequest" id="ClaimRequestResult">
+		<id property="id" column="id"/>
+		<result property="dateCreated" column="date_created"/>
+		<result property="dateModified" column="date_modified"/>
+		<result property="applicationId" column="application_id"/>
+		<result property="application" column="application"/>
+		<result property="applicationStatus" column="application_status"/>
+		<result property="costCentre" column="cost_centre"/>
+		<result property="employeeId" column="employee_id"/>
+		<result property="totalAmount" column="total_amount"/>
+		<result property="claimType" column="claim_type"/>
+		<result property="processInstanceId" column="process_instance_id"/>
+		<result property="definitionId" column="definition_id"/>
+	</resultMap>
+	<select id="findAllClaims" resultMap="ClaimRequestResult">
+		SELECT * FROM CLAIM_REQUEST
+	</select>
+	<select id="findClaimById" parameterType="java.util.UUID" resultType="ClaimRequest">
+		SELECT ID, DATE_CREATED AS DATECREATED, DATE_MODIFIED AS DATEMODIFIED, APPLICATION_ID AS APPLICATIONID,
+
+				APPLICATION, APPLICATION_STATUS AS APPLICATIONSTATUS, COST_CENTRE AS COSTCENTRE,
+				EMPLOYEE_ID AS EMPLOYEEID, TOTAL_AMOUNT AS TOTALAMOUNT, CLAIM_TYPE AS CLAIMTYPE,
+				PROCESS_INSTANCE_ID AS PROCESSINSTANCEID,DEFINITION_ID AS DEFINITIONID
+			FROM CLAIM_REQUEST WHERE APPLICATION_ID=#{applicationId,javaType=UUID,jdbcType=OTHER,typeHandler=UUIDTypeHandler}
+	</select>
+	
+	<select id="findClaimsByEmployeeId" resultMap="ClaimRequestResult">
+		SELECT * FROM CLAIM_REQUEST WHERE EMPLOYEE_ID=#{employeeId}
+	</select>
+	
+	
+	<select id="getTaskId" parameterType="java.util.UUID" resultType="java.lang.String">
+	   SELECT ID FROM ACTNOW_TASK
+	   WHERE APPLICATION_ID = #{applicationId,javaType=UUID,jdbcType=OTHER,typeHandler=UUIDTypeHandler}
+	</select>
+	<select id="getProcessInstanceId" parameterType="java.util.UUID" resultType="java.util.UUID">
+	   SELECT PROCESS_INSTANCE_ID FROM CLAIM_REQUEST
+	   WHERE APPLICATION_ID = #{applicationId,javaType=UUID,jdbcType=OTHER,typeHandler=UUIDTypeHandler}
+	 </select>
+  
+	<insert id="createClaim" parameterType="ClaimRequest">
+		INSERT INTO CLAIM_REQUEST(DATE_CREATED, DATE_MODIFIED, APPLICATION_ID, 
+			APPLICATION, APPLICATION_STATUS, COST_CENTRE, EMPLOYEE_ID, TOTAL_AMOUNT, CLAIM_TYPE,
+			PROCESS_INSTANCE_ID, DEFINITION_ID)
+		VALUES(#{dateCreated},#{dateModified},
+			#{applicationId,javaType=UUID,jdbcType=OTHER,typeHandler=UUIDTypeHandler}, 
+			#{application,javaType=JsonElement,jdbcType=OTHER,typeHandler=JsonElementTypeHandler}, 
+			#{applicationStatus}, #{costCentre},#{employeeId},#{totalAmount},#{claimType},
+			#{processInstanceId,javaType=UUID,jdbcType=OTHER,typeHandler=UUIDTypeHandler},#{definitionId})
+	</insert>
+	
+	<update id="updateClaim" parameterType="ClaimRequest">
+		UPDATE CLAIM_REQUEST
+		SET 
+		DATE_CREATED = #{dateCreated},
+		DATE_MODIFIED = #{dateModified},
+		APPLICATION = #{application,javaType=JsonElement,jdbcType=OTHER,typeHandler=JsonElementTypeHandler}, 
+		APPLICATION_STATUS = #{applicationStatus},
+		COST_CENTRE = #{costCentre},
+		EMPLOYEE_ID = #{employeeId},
+		TOTAL_AMOUNT = #{totalAmount},
+		CLAIM_TYPE = #{claimType}
+		WHERE APPLICATION_ID = #{applicationId,javaType=UUID,jdbcType=OTHER,typeHandler=UUIDTypeHandler}
+	</update>
+	
+	<delete id="deleteClaim" parameterType="int">
+		DELETE FROM CLAIM_REQUEST WHERE ID = #{id}
+	</delete>
+	
+	<select id="getEmployeeEmailId" parameterType="int" resultType="java.lang.String">
+	   SELECT EMAIL_ID FROM EMPLOYEE WHERE EMPLOYEE_ID=#{employeeId};
+	 </select>
+	 
+	 <select id="getEmployeeLoginId" parameterType="int" resultType="java.lang.String">
+	   SELECT LOGIN_ID FROM EMPLOYEE WHERE EMPLOYEE_ID=#{employeeId};
+	 </select>
+	 
+</mapper>

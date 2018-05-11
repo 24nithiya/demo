@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cmmn:definitions xmlns:dc="http://www.omg.org/spec/CMMN/20151109/DC" xmlns:di="http://www.omg.org/spec/CMMN/20151109/DI" xmlns:cmmndi="http://www.omg.org/spec/CMMN/20151109/CMMNDI" xmlns:cmmn="http://www.omg.org/spec/CMMN/20151109/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/cmmn" id="Test" targetNamespace="http://bpmn.io/schema/cmmn" exporter="Camunda Modeler" exporterVersion="1.7.2">
+  <cmmn:case id="travel_booking_case" name="Travel Booking Case">
+    <cmmn:casePlanModel id="ANTR_BOOKING_CASE" name="Travel Booking Service" autoComplete="true">
+      <cmmn:planItem id="BOOKTICKET" name="Book Ticket" definitionRef="HumanTask_1jrc5bb">
+        <cmmn:entryCriterion id="EntryCriterion_1iyxi2m" sentryRef="Sentry_0rfm18j" />
+      </cmmn:planItem>
+      <cmmn:planItem id="BOOKHOTEL" name="Book Hotel" definitionRef="HumanTask_05jnmgr">
+        <cmmn:entryCriterion id="EntryCriterion_142aiel" sentryRef="Sentry_1hnh0vj" />
+      </cmmn:planItem>
+      <cmmn:planItem id="BOOKCARRENTAL" name="Rent a car" definitionRef="HumanTask_1an0icq">
+        <cmmn:entryCriterion id="EntryCriterion_0xtxf8h" sentryRef="Sentry_0w2izej" />
+      </cmmn:planItem>
+      <cmmn:sentry id="Sentry_0rfm18j">
+        <cmmn:ifPart id="IfPart_0yu2kg0">
+          <cmmn:condition id="Expression_07yl02m"><![CDATA[${"REQUESTED".equals(ticketBookingStatus) }]]></cmmn:condition>
+        </cmmn:ifPart>
+      </cmmn:sentry>
+      <cmmn:sentry id="Sentry_1hnh0vj">
+        <cmmn:ifPart id="IfPart_1iqgpjl">
+          <cmmn:condition id="Expression_0z7gkif"><![CDATA[${"REQUESTED".equals(hotelBookingStatus) }]]></cmmn:condition>
+        </cmmn:ifPart>
+      </cmmn:sentry>
+      <cmmn:sentry id="Sentry_0w2izej">
+        <cmmn:ifPart id="IfPart_12e0z58">
+          <cmmn:condition id="Expression_0wvbncg"><![CDATA[${"REQUESTED".equals(carRentalBookingStatus) }]]></cmmn:condition>
+        </cmmn:ifPart>
+      </cmmn:sentry>
+      <cmmn:humanTask id="HumanTask_1jrc5bb" camunda:formKey="embedded:app:forms/antr/bookticket.html" camunda:candidateGroups="ANTR_BOOKTICKET" />
+      <cmmn:humanTask id="HumanTask_05jnmgr" camunda:formKey="embedded:app:forms/antr/bookhotel.html" camunda:candidateGroups="ANTR_BOOKHOTEL" />
+      <cmmn:humanTask id="HumanTask_1an0icq" camunda:formKey="embedded:app:forms/antr/bookcarrental.html" camunda:candidateGroups="ANTR_BOOKCARRENTAL" />
+    </cmmn:casePlanModel>
+  </cmmn:case>
+  <cmmndi:CMMNDI>
+    <cmmndi:CMMNDiagram id="_5a66685b-5f57-4e2f-b1d1-acca4fae04b2">
+      <cmmndi:Size xsi:type="dc:Dimension" width="500" height="500" />
+      <cmmndi:CMMNShape id="DI_CasePlanModel_1" cmmnElementRef="ANTR_BOOKING_CASE">
+        <dc:Bounds x="114" y="63" width="534" height="389" />
+        <cmmndi:CMMNLabel />
+      </cmmndi:CMMNShape>
+      <cmmndi:CMMNShape id="PlanItem_1t5rwi3_di" cmmnElementRef="BOOKTICKET">
+        <dc:Bounds x="150" y="96" width="100" height="80" />
+        <cmmndi:CMMNLabel />
+      </cmmndi:CMMNShape>
+      <cmmndi:CMMNShape id="PlanItem_0urtrvc_di" cmmnElementRef="BOOKHOTEL">
+        <dc:Bounds x="150" y="201" width="100" height="80" />
+        <cmmndi:CMMNLabel />
+      </cmmndi:CMMNShape>
+      <cmmndi:CMMNShape id="PlanItem_0e5nzaa_di" cmmnElementRef="BOOKCARRENTAL">
+        <dc:Bounds x="150" y="320" width="100" height="80" />
+        <cmmndi:CMMNLabel />
+      </cmmndi:CMMNShape>
+      <cmmndi:CMMNShape id="EntryCriterion_17f7ylt_di" cmmnElementRef="EntryCriterion_0xtxf8h">
+        <dc:Bounds x="140" y="351" width="20" height="28" />
+        <cmmndi:CMMNLabel />
+      </cmmndi:CMMNShape>
+      <cmmndi:CMMNShape id="EntryCriterion_0o45aaq_di" cmmnElementRef="EntryCriterion_142aiel">
+        <dc:Bounds x="140" y="228" width="20" height="28" />
+        <cmmndi:CMMNLabel />
+      </cmmndi:CMMNShape>
+      <cmmndi:CMMNShape id="EntryCriterion_0h4iegw_di" cmmnElementRef="EntryCriterion_1iyxi2m">
+        <dc:Bounds x="140" y="120" width="20" height="28" />
+        <cmmndi:CMMNLabel />
+      </cmmndi:CMMNShape>
+    </cmmndi:CMMNDiagram>
+  </cmmndi:CMMNDI>
+</cmmn:definitions>

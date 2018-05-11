@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Employee List</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+  <style>
+
+  @media screen and (min-width: 768px) {
+        .modal-dialog {
+          width: 100%; /* New width for default modal */
+          
+          margin-left:auto;
+          margin-right: auto;
+        }
+        .modal-sm {
+          width: 100%; /* New width for small modal */
+        }
+    }
+    @media screen and (min-width: 992px) {
+        .modal-lg {
+          width: 100%; /* New width for large modal */
+        }
+    }
+
+</style>
+   <!--    <link rel="stylesheet" href="css/style.css"> -->
+  <style>
+ th{
+  cursor: pointer;
+ }
+   
+    body {
+    font-family: 'Varela Round', sans-serif;
+  }
+  .modal-confirm {    
+    color: #636363;
+    width: 400px;
+  }
+  .modal-confirm .modal-content {
+    padding: 20px;
+    border-radius: 5px;
+    border: none;
+        text-align: center;
+    font-size: 14px;
+  }
+  .modal-confirm .modal-header {
+    border-bottom: none;   
+        position: relative;
+  }
+  .modal-confirm h4 {
+    text-align: center;
+    font-size: 26px;
+    margin: 30px 0 -10px;
+  }
+  .modal-confirm .close {
+        position: absolute;
+    top: -5px;
+    right: -2px;
+  }
+  .modal-confirm .modal-body {
+    color: #999;
+  }
+  .modal-confirm .modal-footer {
+    border: none;
+    text-align: center;   
+    border-radius: 5px;
+    font-size: 13px;
+    padding: 10px 15px 25px;
+  }
+  .modal-confirm .modal-footer a {
+    color: #999;
+  }   
+  .modal-confirm .icon-box {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    border-radius: 50%;
+    z-index: 9;
+    text-align: center;
+    border: 3px solid #f15e5e;
+  }
+  .modal-confirm .icon-box i {
+    color: #f15e5e;
+    font-size: 46px;
+    display: inline-block;
+    margin-top: 13px;
+  }
+    .modal-confirm .btn {
+        color: #fff;
+        border-radius: 4px;
+    background: #60c7c1;
+    text-decoration: none;
+    transition: all 0.4s;
+        line-height: normal;
+    min-width: 120px;
+        border: none;
+    min-height: 40px;
+    border-radius: 3px;
+    margin: 0 5px;
+    outline: none !important;
+    }
+  .modal-confirm .btn-info {
+        background: #c1c1c1;
+    }
+    .modal-confirm .btn-info:hover, .modal-confirm .btn-info:focus {
+        background: #a8a8a8;
+    }
+    .modal-confirm .btn-danger {
+        background: #f15e5e;
+    }
+    .modal-confirm .btn-danger:hover, .modal-confirm .btn-danger:focus {
+        background: #ee3535;
+    }
+  .trigger-btn {
+    display: inline-block;
+    margin: 100px auto;
+  }
+</style>
+</head>
+
+
+
+
+<body ng-app="myApp" ng-controller="myControl">
+
+  <div class="container-fluid"><!-- Start of container fluid -->
+
+  <div class="row" style="padding: 10px;background: rgba(230, 241, 247,0.3);border: 0px solid black"><!-- Start of 1st row -->
+
+    <div class="col-sm-1 col-xs-1"><!-- Start of col-1 result -->
+         <span><b ng-show="!key.name"> {{(tempEmpSet | filter:searchData).length}}</b><b>&nbsp;Result</b></span> 
+    </div><!-- End of col-1 result -->
+
+    <div class="col-sm-4 col-xs-4"><!-- Start of button col-3 -->
+      <button class="btn btn-success btn-sm" onclick="selectMenu()">Display Fields</button>
+      <button class="btn btn-info btn-sm" ng-click="insertEmployee()">Add Employee</button>
+      <button class="btn btn-info btn-sm" ng-click="bulkinsertEmployee()">Bulk Employee Entry</button>
+    </div><!-- End of button col-3 -->
+
+
+      <!-- Start of select record -->
+
+      <div class="col-sm-3 col-xs-3">
+        <div class="form-group">
+          <label class="control-label col-sm-7 text-right" >Show Records</label>
+          <div class="col-sm-5 ">
+            <select class="form-control input-sm" ng-model="page" ng-change="changePageSize(page)" ng-init="page='10'">
+              <option value="" disabled="disabled"> Select No</option>
+              <option value="10" class="active">10</option>
+              <option value="15">15</option>
+            </select>
+          </div>
+        </div>
+    </div>
+     <!-- End of select record -->
+
+     <div class="col-sm-4 col-xs-4 text-right"><!-- Start of col-5 paigination -->
+       
+        <ul class="pagination pagination-sm" style="padding: 0px;margin: 0px">
+  <li ng-click="currentPage=currentPage-1" ng-class="{'disabled':currentPage == 0}"><a href="">Previous</a></li>
+  <li ng-repeat="x in totalPageList" ng-class="{'active':$index==currentPage}" ng-click="customPage($index)"><a href="">{{x}}</a></li>
+  <li ng-class="{'disabled':currentPage >= getData().length/pageSize - 1}" ng-click="currentPage=currentPage+1" ><a href="">Next</a></li>
+</ul>
+
+     </div><!-- End of col-5 paigination -->
+
+ </div><!-- End of 1st row for header -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row" id="selectMenu" style="display: none;border-top:1px solid rgb(237, 237, 237)" ><!-- Start of select menu 2nd row -->
+
+  <div class="col-sm-10" ng-init="ch.middleName=false"><!-- Start of col-12 -->
+    <div class="col-sm-2"> 
+    <div class="checkbox" >
+      <label><input type="checkbox" value="" ng-model="ch.firstName">First Name</label>
+    </div>
+    </div>
+
+<div class="col-sm-2"> 
+      <div class="checkbox" >
+      <label><input type="checkbox" value="" ng-model="ch.middleName">Middle Name</label>
+    </div>
+  </div>
+
+
+<div class="col-sm-2"> 
+      <div class="checkbox" >
+      <label><input type="checkbox" value="" ng-model="ch.lastName">Last Name</label>
+    </div>
+</div>
+
+<div class="col-sm-2"> 
+    <div class="checkbox" >
+      <label><input type="checkbox" value="" ng-model="ch.emailId">Email</label>
+    </div>
+  </div>
+
+<div class="col-sm-2"> 
+      <div class="checkbox" >
+      <label><input type="checkbox" value="" ng-model="ch.dateOfJoining">DateOfJoining</label>
+    </div>
+  </div>
+
+  <div class="col-sm-2"> 
+      <div class="checkbox" >
+      <label><input type="checkbox" value="" ng-model="ch.dateOfBirth">DateOfBirth</label>
+    </div>
+  </div>
+
+  <div class="col-sm-2"> 
+      <div class="checkbox" >
+      <label><input type="checkbox" value="" ng-model="ch.status">Status</label>
+    </div>
+  </div>
+
+  <div class="col-sm-2"> 
+     <div class="checkbox" >
+      <label><input type="checkbox" value="" ng-model="ch.companyName">Company Name</label>
+    </div>
+  </div>
+
+  <div class="col-sm-2"> 
+      <div class="checkbox" >
+      <label><input type="checkbox" value="" ng-model="ch.businessUnit">Business Unit</label>
+    </div>
+  </div>
+
+  <div class="col-sm-2"> 
+    <div class="checkbox" >
+      <label><input type="checkbox" value="" ng-model="ch.department">Department Name</label>
+    </div>
+  </div>
+
+  <div class="col-sm-2"> 
+    <div class="checkbox" >
+      <label><input type="checkbox" value="" ng-model="ch.designation">Designation</label>
+    </div>
+  </div>
+
+  <div class="col-sm-2"> 
+    <div class="checkbox" >
+      <label><input type="checkbox" value="" ng-model="ch.reportTo">Report to</label>
+    </div>
+  </div>
+
+ 
+
+  </div><!-- end of col 10 -->
+  
+   <div class="col-sm-2 ">
+    <br>
+     <button type="button" class="btn btn-default"  ng-click="saveColoum(ch)">Save</button>
+      <button type="button" class=" btn btn-default " id="cloDisplay" >Cancel</button>
+  </div>
+ 
+</div><!-- End of select menu -->
+
+
+<script type="text/javascript">
+  function selectMenu(){
+   
+   $("#selectMenu").toggle();
+  }
+
+  $("#cloDisplay").click(function(){
+    $("#selectMenu").hide();
+  })
+
+
+</script>
+
+
+
+<div class="row"><!-- Start of 3rd row -->
+      <div class="col-sm-12" style="border-top:1px solid rgb(237, 237, 237) ">
+      <table class="table table-striped">
+    <thead>
+      <tr>
+        <th ng-click="sort('firstName')" ng-show="ch.firstName">Firstname &nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='firstName' && sortBool==false,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='firstName' && sortBool==true} " ></span>
+          <br> </th>
+
+          <th ng-show="ch.middleName" ng-click="sort('middleName')">Middle Name&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='middleName' && sortBool==false,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='middleName' && sortBool==true} " ></span></th>
+
+        <th ng-show="ch.lastName" ng-click="sort('lastName')">Lastname&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='lastName' && sortBool==false,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='lastName' && sortBool==true} " ng-style=""></span>
+         <br> </th>
+
+        <th ng-show="ch.emailId" ng-click="sort('emailId')">Email&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='emailId' && sortBool==false,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='emailId' && sortBool==true} " ng-style=""></span>
+         <br> </th>
+
+
+
+        <th ng-show="ch.designation" ng-click="sort('designation')">Designation&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='designation' && sortBool==false,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='designation' && sortBool==true} " ng-style=""></span>
+         <br></th>
+
+        <th  ng-show="ch.department" ng-click="sort('deptId')">Department&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='deptId' && sortBool==false ,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='deptId' && sortBool==true} " ng-style=""></span>
+         <br> </th>
+
+
+        
+        <th  ng-show="ch.dateOfJoining" ng-click="sort('dateOfJoining')">DateOfJoining&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='dateOfJoining' && sortBool==false ,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='dateOfJoining' && sortBool==true} " ng-style=""></span>
+         <br> </th>
+
+          <th ng-show="ch.dateOfBirth" ng-click="sort('dateOfBirth')">DateOfBirth&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='dateOfBirth' && sortBool==false ,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='DateOfBirth' && sortBool==true} " ng-style=""></th>
+
+         <th ng-show="ch.status" ng-click="sort('status')">Status&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='status' && sortBool==false ,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='status' && sortBool==true} " ng-style=""></th>
+
+         <th ng-show="ch.companyName" ng-click="sort('cmpnyId')">Company&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='cmpnyId' && sortBool==false ,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='cmpnyId' && sortBool==true} " ng-style=""></th>
+
+         <th ng-show="ch.businessUnit" ng-click="sort('businessUnit')">Business Unit&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='businessUnit' && sortBool==false ,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='businessUnit' && sortBool==true} " ng-style=""></th>
+
+         <th ng-show="ch.reportTo" ng-click="sort('reportTo')">Report To&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='reportTo' && sortBool==false ,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='reportTo' && sortBool==true} " ng-style=""></th>
+
+
+        <th>Action
+          <br></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td ng-show="ch.firstName"><input type="text" class="form-control" placeholder="Search firstname" ng-model="searchData.firstName" ng-style="customSearchCss" ng-keyup="searchDataFilter()"></td>
+        <td ng-show="ch.middleName"><input type="text" class="form-control" placeholder="Search By Middle Name"  ng-model="searchData.middleName" ng-keyup="searchDataFilter()"></td>
+        <td ng-show="ch.lastName"><input type="text" class="form-control" placeholder="Search By Lastname" ng-model="searchData.lastName" ng-keyup="searchDataFilter()"></td>
+        <td ng-show="ch.emailId"><input type="text" class="form-control" placeholder="Search By Email" ng-model="searchData.emailId" ng-keyup="searchDataFilter()"></td>
+        <td ng-show="ch.designation"> <input type="text" class="form-control" placeholder="Search By Designation." ng-model="searchData.designation" ng-keyup="searchDataFilter()"></td>
+        <td ng-show="ch.department"> <input type="text" class="form-control" placeholder="Search By Department." ng-model="searchData.deptId" ng-keyup="searchDataFilter()"></td>
+        <td ng-show="ch.dateOfJoining"><input type="text" class="form-control" placeholder="Search By Date" ng-model="searchData.dateOfJoining" ng-keyup="searchDataFilter()"></td>
+
+    <td ng-show="ch.dateOfBirth"><input type="text" class="form-control" placeholder="Search By DateOfBirth"  ng-model="searchData.dateOfBirth" ng-keyup="searchDataFilter()"></td>
+
+        <td ng-show="ch.status"><input type="text" class="form-control" placeholder="Search By Status"  ng-model="searchData.status" ng-keyup="searchDataFilter()"></td>
+            <td ng-show="ch.companyName"><input type="text" class="form-control" placeholder="Search By Company Name"  ng-model="searchData.cmpnyId" ng-keyup="searchDataFilter()"></td>
+                <td ng-show="ch.businessUnit"><input type="text" class="form-control" placeholder="Search By Business Unit"  ng-model="searchData.buId" ng-keyup="searchDataFilter()"></td>
+                    <td ng-show="ch.reportTo"><input type="text" class="form-control" placeholder="Search By Report To"  ng-model="searchData.reportTo" ng-keyup="searchDataFilter()"></td>
+
+
+        <td><button class="btn btn-default" ng-click="searchData={}">clear</button></td>
+
+      </tr>
+
+
+      <tr ng-repeat="x in tempEmpSet | orderBy:selection:sortBool | filter:searchData | startFrom:currentPage*pageSize    |limitTo :pageSize" >
+         <td ng-show="ch.firstName" ng-click="editForm(x)">{{x.firstName}}</td>
+          <td ng-show="ch.middleName" ng-click="editForm(x)">{{x.middleName}}</td>
+        <td ng-show="ch.lastName" ng-click="editForm(x)">{{x.lastName}}</td>
+        <td ng-show="ch.emailId" ng-click="editForm(x)">{{x.emailId}}</td>
+        <td ng-show="ch.designation"  ng-click="editForm(x)">{{x.designation}}</td>
+      <td ng-show="ch.department" ng-click="editForm(x)"> {{x.deptId}} </td>
+        <td ng-show="ch.dateOfJoining" ng-click="editForm(x)">{{x.dateOfJoining | date:'yyyy-MM-dd'}}</td>
+        <td ng-show="ch.dateOfBirth" ng-click="editForm(x)"> {{x.dateOfBirth}}</td>
+         <td ng-show="ch.status" ng-click="editForm(x)">{{x.status}}</td>
+         <td ng-show="ch.companyName" ng-click="editForm(x)">{{x.cmpnyId}}</td>
+          <td ng-show="ch.businessUnit" ng-click="editForm(x)">{{x.buId}}</td>    
+         <td ng-show="ch.reportTo" ng-click="editForm(x)">{{x.reportTo}}</td>
+       <!--  <td ng-repeat="y in depData | dep:x.depId">{{y.name}}</td> -->
+        <td><button class="btn btn-info btn-xs" ng-click="editForm(x)"><span class="glyphicon glyphicon-edit"></span></button>
+        <button class="btn btn-warning btn-xs" data-toggle="modal"  ng-click="deleteAlert(x)"><span class="glyphicon glyphicon-trash"></span></button></td>
+      </tr>
+      
+    </tbody>
+  </table>
+      </div><!-- End of col 12 -->
+
+
+<!-- Strat of vertical table -->
+     <!--  <div class="row">
+        <div class="col-sm-12 table-responsive" >
+          <table class=" table table-bordered">
+
+            <tr ng-show="ch.firstName">
+               <th ng-click="sort('firstName')" ng-show="ch.firstName">Firstname &nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='firstName' && sortBool==true,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='firstName' && sortBool==false} " ></span>
+          <br> </th>
+
+              <td class="col-sm-1" ng-show="ch.firstName"><input type="text" class="form-control" placeholder="Search firstname" ng-model="searchData.firstName" ng-style="customSearchCss" ng-keyup="searchDataFilter()"></td>
+              <td  ng-repeat="x in tempEmpSet | orderBy:selection:sortBool  | filter:searchData  | startFrom:currentPage*pageSize |limitTo :pageSize ">
+                {{x.firstName}}
+              </td>
+            </tr>
+
+            <tr ng-show="ch.middleName">
+
+              <th  ng-click="sort('middleName')">Middle Name&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='middleName' && sortBool==true,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='middleName' && sortBool==false} " ></span></th>
+
+               <td ng-show="ch.middleName"><input type="text" class="form-control" placeholder="Search by Middle Name"  ng-model="searchData.middleName" ng-keyup="searchDataFilter()"></td>
+
+               <td  ng-repeat="x in tempEmpSet | orderBy:selection:sortBool  | filter:searchData  | startFrom:currentPage*pageSize |limitTo :pageSize ">
+                {{x.middleName}}
+              </td>
+            </tr>
+
+
+            <tr ng-show="ch.lastName">
+              <th ng-show="ch.lastName" ng-click="sort('lastName')">Lastname&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='lastName' && sortBool==true,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='lastName' && sortBool==false} " ng-style=""></span>
+         <br> </th>
+              <td ng-show="ch.lastName"><input type="text" class="form-control" placeholder="Search firstname" ng-model="searchData.lastName" ng-style="customSearchCss" ng-keyup="searchDataFilter()"></td>
+              <td  ng-repeat="x in tempEmpSet | orderBy:selection:sortBool  | filter:searchData  | startFrom:currentPage*pageSize |limitTo :pageSize ">
+                {{x.lastName}}
+              </td>
+            </tr>
+
+            <tr ng-show="ch.department">
+               <th  ng-show="ch.department" ng-click="sort('deptId')">Department&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='deptId' && sortBool==true ,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='deptId' && sortBool==false} " ng-style=""></span>
+         <br> </th>
+              <td ng-show="ch.department"><input type="text" class="form-control" placeholder="Search firstname" ng-model="searchData.deptId" ng-style="customSearchCss" ng-keyup="searchDataFilter()"></td>
+              <td  ng-repeat="x in tempEmpSet | orderBy:selection:sortBool  | filter:searchData  | startFrom:currentPage*pageSize |limitTo :pageSize ">
+                {{x.deptId}}
+              </td>
+            </tr>
+
+            <tr ng-show="ch.companyName">
+              <th ng-show="ch.companyName" ng-click="sort('cmpnyId')">Company&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='cmpnyId' && sortBool==true ,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='cmpnyId' && sortBool==false} " ng-style=""></th>
+              <td  ng-show="ch.companyName"><input type="text" class="form-control" placeholder="Search firstname" ng-model="searchData.cmpnyId" ng-style="customSearchCss" ng-keyup="searchDataFilter()"></td>
+              <td  ng-repeat="x in tempEmpSet | orderBy:selection:sortBool  | filter:searchData  | startFrom:currentPage*pageSize |limitTo :pageSize ">
+                {{x.cmpnyId}}
+              </td>
+            </tr>
+
+
+            <tr ng-show="ch.emailId">
+                 <th  ng-click="sort('emailId')">Email&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='emailId' && sortBool==true,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='emailId' && sortBool==false} " ng-style=""></span>
+         <br> </th>
+               <td ng-show="ch.emailId"><input type="text" class="form-control" placeholder="Search by email" ng-model="searchData.emailId" ng-keyup="searchDataFilter()"></td>
+                <td  ng-repeat="x in tempEmpSet | orderBy:selection:sortBool  | filter:searchData  | startFrom:currentPage*pageSize |limitTo :pageSize ">
+                {{x.emailId}}
+              </td>
+
+            </tr>
+
+            <tr ng-show="ch.designation">
+               <th  ng-click="sort('designation')">Designation&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='designation' && sortBool==true,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='designation' && sortBool==false} " ng-style=""></span>
+         <br></th>
+
+            <td ng-show="ch.designation"> <input type="text" class="form-control" placeholder="Search by designation." ng-model="searchData.designation" ng-keyup="searchDataFilter()"></td>
+
+             <td  ng-repeat="x in tempEmpSet | orderBy:selection:sortBool  | filter:searchData  | startFrom:currentPage*pageSize |limitTo :pageSize ">
+                {{x.designation}}
+              </td>
+
+            </tr>
+
+            <tr>
+              
+            </tr>
+
+
+          </table>
+        </div>
+      </div> --><!-- End of vertical table -->
+
+
+
+      <div class="col-sm-12 text-right" style="border: 0px solid black;padding-right: 35px">
+        <ul class="pagination pagination-sm" style="border: 0px solid black">
+ <li ng-click="currentPage=currentPage-1" ng-class="{'disabled':currentPage == 0}"><a href="">Previous</a></li>
+  <li ng-repeat="x in totalPageList" ng-class="{'active':$index==currentPage}" ng-click="customPage($index)"><a href="">{{x}}</a></li>
+  <li ng-class="{'disabled':currentPage >= getData().length/pageSize - 1}" ng-click="currentPage=currentPage+1" ><a href="">Next</a></li>
+</ul>
+      </div>
+
+    </div>    <!-- End of nd row -->
+  </div><!-- End contaier fluid -->
+
+<!-- Start of modal -->
+<div id="myModalDel" class="modal fade">
+  <div class="modal-dialog modal-confirm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="icon-box">
+          <i class="material-icons">&#xE5CD;</i>
+        </div>        
+        <h4 class="modal-title">Are you sure?</h4>  
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Do you really want to delete these records? This process cannot be undone.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger" ng-click="deleteRecord()">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>     
+
+<!-- End of modal -->
+
+
+<!-- start modal -->
+ 
+    <div id="myModalEntry" class="modal fade" role="dialog" style="margin-top: -30px;margin-left: -15px">
+      <div class="modal-dialog">
+
+        <!--     Modal content -->
+        <!-- <div class="modal-content"> -->
+          <!-- <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">x</button>
+            <h4 class="modal-title">Modal Header</h4>
+          </div> -->
+          <div class="modal-body" style="margin:0px;padding:0px;" >
+          
+          <div  class="embed-responsive embed-responsive-16by9"  >
+              <iframe src="" id="frame" class="embed-responsive-item" name="iframe_a"  ></iframe>
+          </div>
+            <!-- style="height: 560px;"<iframe src="" id="frame" style="z-index:-10;width: 1204px;height: 480px;margin-left:-50px;margin-top:0px;padding:0px;margin-bottom:0px;"></iframe> -->
+          </div>
+        <!--  <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div> -->
+        <!-- </div> -->
+
+      </div>
+    </div>
+    <!-- ENd of model -->
+    <!-- ENd of model -->
+
+     <script type="text/javascript">
+    window.closeModal = function(){
+        
+    $('#myModal').modal('hide');
+   location.reload();
+}
+
+
+  </script>
+  <script type="text/javascript">
+    window.moveTop = function(){
+        
+    window.parent.topScroll();
+}
+
+  </script>
+
+<div class="message"></div>
+
+    <!-- start modal -->
+    <style>
+
+    
+    </style>
+    <div id="myModalPage" class="modal fade" role="dialog" style="margin-top: -30px;margin-left: -10px"  >
+      <div class="modal-dialog">
+
+       
+          <div class="modal-body" style="margin:0px;padding:0px;" >
+          
+          <div  class="embed-responsive embed-responsive-16by9"  >
+              <iframe src="" id="iframe" class="embed-responsive-item" name="iframe_a"  ></iframe>
+          </div>
+            <!-- style="height: 560px;"<iframe src="" id="frame" style="z-index:-10;width: 1204px;height: 480px;margin-left:-50px;margin-top:0px;padding:0px;margin-bottom:0px;"></iframe> -->
+          </div>
+ 
+
+      </div>
+    </div>
+    <!-- ENd of model -->
+
+  <script src="js/employeelist.js"></script>
+</body>
+</html>

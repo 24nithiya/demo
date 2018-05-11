@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"> -->
+<head>
+  <title>Login Page</title>
+  <meta charset="utf-8"></meta>
+  <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style type="text/css">
+  	.center-div
+{
+  position: absolute;
+  margin: auto;
+ 
+ z-index: 999;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 400px;
+  height: 320px;
+  border: 2px solid rgb(216, 216, 216);
+  /*background-color: #ffffff;*/
+ background: -moz-linear-gradient(315deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.5) 49%, rgba(216,216,216,0.5) 100%); /* ff3.6+ */
+background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, rgba(255,255,255,0.5)), color-stop(49%, rgba(255,255,255,0.5)), color-stop(100%, rgba(216,216,216,0.5))); /* safari4+,chrome */
+background: -webkit-linear-gradient(315deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.5) 49%, rgba(216,216,216,0.5) 100%); /* safari5.1+,chrome10+ */
+background: -o-linear-gradient(315deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.5) 49%, rgba(216,216,216,0.5) 100%); /* opera 11.10+ */
+background: -ms-linear-gradient(315deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.5) 49%, rgba(216,216,216,0.5) 100%); /* ie10+ */
+background: linear-gradient(135deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,1) 49%, rgba(216,216,216,0.5) 100%); /* w3c */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFFFFF', endColorstr='#d8d8d8',GradientType=1 ); /* ie6-9 */
+  border-radius: 3px;
+-webkit-box-shadow: 0px 0px 14px -4px rgba(0,0,0,1);
+-moz-box-shadow: 0px 0px 14px -4px rgba(0,0,0,1);
+box-shadow: 0px 0px 14px -4px rgba(0,0,0,1);
+}
+  </style>
+</head>
+<body>
+<div class="container-fluid" style="padding: 0px;margin: 0px">
+	<div class="row" style="border-bottom:0px solid rgb(216, 216, 216) ;margin-top: 5px">
+		<div class="col-sm-6" style="padding: 0px;margin-left: 25px">
+			
+			<img src="img/entoss.png"  width="250" height="70"/>
+		</div>
+		<div class="col-sm-6 text-right" >
+			
+		</div>
+	</div><!--End of 1st row-->
+	<div class="row" >
+		<div class=" center-div">
+			
+			
+			<div class="row" style="padding-left: 25px;padding-right: 25px">
+				<div class="col-sm-12" style="padding: 0px"><!--start of heading-->
+					<div class="col-sm-7" style="background: ">
+						
+					</div>
+					<div class="col-sm-5" style="background: ;margin-top: 15px;">
+						<img src="img/pomfret_logo.jpg" width="120" height="50"/>
+					</div>
+					
+				</div><!--End of heading-->
+				<div class="col-sm-12" style="margin-top: 35px">
+							<form method="POST" action="j_security_check">
+  								<div class="input-group form-group">
+    									<span class="input-group-addon" ><i class="glyphicon glyphicon-user"></i></span>
+   										 <input id="userName" type="text" name="j_username" class="form-control" onkeyup="sub()" placeholder="user name"/>
+  								</div>
+  								
+  								<div class="input-group form-group">
+    								<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+
+    								<input id="password" type="password" name="j_password" class="form-control" placeholder="Password" onkeyup="sub()"/>
+    								<span class="input-group-btn">
+                                 <button class="btn btn-default btn-md"  type="button" id="showhide" data-val='1'><span id='eye' class="glyphicon glyphicon-eye-open"></span></button>
+                              </span>
+  								</div>
+
+  								<div class="form-group text-right">
+									<input type="submit" name="login" value="Login" class="btn btn-success" id="submit"/>
+    								 <!-- <button type="submit" name="login" value="Login" class="btn btn-success" id="submit" disabled>Login</button> -->
+  								</div>
+  										
+							</form>
+				</div>
+
+			</div><!--End of ROW-->
+		</div><!--End of Center div-->
+		<div class="row" style="padding: 0px;margin: 0px">
+				<div class="col-sm-12" style="z-index:  border: 1px solid black"><img src="img/1.jpg" width="100%"/></div>
+			</div>
+	</div><!--End of 2nd row-->
+	
+</div><!--End of main continer fluid-->
+
+
+
+<script type="text/javascript">
+
+ $("#showhide").click(function() 
+         {
+            if ($(this).data('val') == "1") 
+            {
+               $("#password").prop('type','text');
+               $("#eye").attr("class","glyphicon glyphicon-eye-close");
+               $(this).data('val','0');
+            }
+            else
+            {
+               $("#password").prop('type', 'password');
+               $("#eye").attr("class","glyphicon glyphicon-eye-open");
+               $(this).data('val','1');
+            }
+         });
+      
+
+
+	
+function sub(){
+	if($("#userName").val()!="" && $("#password").val()!="")
+	{
+		$("#submit").attr("disabled",false);
+	}
+	else{
+		$("#submit").attr("disabled",true);
+	}
+}
+
+
+
+</script>
+</body>
+</html>

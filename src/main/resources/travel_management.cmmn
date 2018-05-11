@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cmmn:definitions xmlns:dc="http://www.omg.org/spec/CMMN/20151109/DC" xmlns:di="http://www.omg.org/spec/CMMN/20151109/DI" xmlns:cmmndi="http://www.omg.org/spec/CMMN/20151109/CMMNDI" xmlns:cmmn="http://www.omg.org/spec/CMMN/20151109/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/cmmn" id="Test" targetNamespace="http://bpmn.io/schema/cmmn" exporter="Camunda Modeler" exporterVersion="1.7.2">
+  <cmmn:case id="travel_expense_management" name="Travel Expense Management">
+    <cmmn:casePlanModel id="CasePlanModel_1" name="Travel Expense Management" autoComplete="true">
+      <cmmn:planItem id="PlanItem_0r4jg6n" name="Travel Approved" definitionRef="Milestone_17z4egq">
+        <cmmn:entryCriterion id="EntryCriterion_00g9l3i" sentryRef="Sentry_1o0vtvx" />
+      </cmmn:planItem>
+      <cmmn:planItem id="APPROVAL" name="Approve Travel Request" definitionRef="HumanTask_0y8czbo">
+        <cmmn:itemControl id="PlanItemControl_1i3ao9k">
+          <cmmn:repetitionRule id="RepetitionRule_0d6wl4f">
+            <cmmn:condition id="Expression_0uxahe6"><![CDATA[${applicationStatus == "NEEDAPPROVAL"}]]></cmmn:condition>
+          </cmmn:repetitionRule>
+          <cmmn:manualActivationRule id="ManualActivationRule_167km8y">
+            <cmmn:condition id="Expression_1t5yrq4">${false}</cmmn:condition>
+          </cmmn:manualActivationRule>
+        </cmmn:itemControl>
+      </cmmn:planItem>
+      <cmmn:planItem id="PlanItem_190lve4" name="Travel Booking" definitionRef="CaseTask_1c4pg49">
+        <cmmn:entryCriterion id="EntryCriterion_1q5gbkk" sentryRef="Sentry_0n17bkw" />
+      </cmmn:planItem>
+      <cmmn:planItem id="PlanItem_0xttvm2" definitionRef="Milestone_1mwhqdj">
+        <cmmn:entryCriterion id="EntryCriterion_14qp2m8" sentryRef="Sentry_0zhhuef" />
+      </cmmn:planItem>
+      <cmmn:planItem id="PlanItem_07w6fgq" definitionRef="Milestone_14dduie">
+        <cmmn:entryCriterion id="EntryCriterion_0nipvn9" sentryRef="Sentry_1xp6lcq" />
+      </cmmn:planItem>
+      <cmmn:sentry id="Sentry_1o0vtvx">
+        <cmmn:planItemOnPart id="PlanItemOnPart_1n05qyx" sourceRef="APPROVAL">        <cmmn:standardEvent>complete</cmmn:standardEvent>
+</cmmn:planItemOnPart>
+        <cmmn:ifPart id="IfPart_0suhnk7">
+          <cmmn:condition id="Expression_1ed39ag"><![CDATA[${applicationStatus == "APPROVED"}]]></cmmn:condition>
+        </cmmn:ifPart>
+      </cmmn:sentry>
+      <cmmn:sentry id="Sentry_0n17bkw">
+        <cmmn:planItemOnPart id="PlanItemOnPart_0v4nnrb" sourceRef="PlanItem_0r4jg6n">        <cmmn:standardEvent>occur</cmmn:standardEvent>
+</cmmn:planItemOnPart>
+        <cmmn:ifPart id="IfPart_03x04qx">
+          <cmmn:condition id="Expression_0pajat8"><![CDATA[${"REQUESTED".equals(ticketBookingStatus) || "REQUESTED".equals(hotelBookingStatus) || "REQUESTED".equals(carRentalBookingStatus) }]]></cmmn:condition>
+        </cmmn:ifPart>
+      </cmmn:sentry>
+      <cmmn:sentry id="Sentry_0zhhuef">
+        <cmmn:planItemOnPart id="PlanItemOnPart_0a20xnw" sourceRef="APPROVAL">        <cmmn:standardEvent>complete</cmmn:standardEvent>
+</cmmn:planItemOnPart>
+        <cmmn:ifPart id="IfPart_1sd6a0b">
+          <cmmn:condition id="Expression_0wjv5c2"><![CDATA[${applicationStatus == "EMPLOYEEREVIEW"}]]></cmmn:condition>
+        </cmmn:ifPart>
+      </cmmn:sentry>
+      <cmmn:sentry id="Sentry_1xp6lcq">
+        <cmmn:planItemOnPart id="PlanItemOnPart_11duh07" sourceRef="APPROVAL">        <cmmn:standardEvent>complete</cmmn:standardEvent>
+</cmmn:planItemOnPart>
+        <cmmn:ifPart id="IfPart_0rlt2ka">
+          <cmmn:condition id="Expression_0oalnz2"><![CDATA[${applicationStatus == "REJECTED"}]]></cmmn:condition>
+        </cmmn:ifPart>
+      </cmmn:sentry>
+      <cmmn:milestone id="Milestone_17z4egq" />
+      <cmmn:humanTask id="HumanTask_0y8czbo" camunda:formKey="embedded:app:forms/antr/approval.html" camunda:assignee="${actNowTask.assignee}" />
+      <cmmn:caseTask id="CaseTask_1c4pg49" caseRef="travel_booking_case">
+        <cmmn:extensionElements>
+          <camunda:in source="ticketBookingStatus" target="ticketBookingStatus" />
+          <camunda:in source="hotelBookingStatus" target="hotelBookingStatus" />
+          <camunda:in source="carRentalBookingStatus" target="carRentalBookingStatus" />
+          <camunda:in businessKey="#{caseExecution.caseBusinessKey}" />
+          <camunda:in source="applicationId" target="applicationId" />
+        </cmmn:extensionElements>
+      </cmmn:caseTask>
+      <cmmn:milestone id="Milestone_1mwhqdj" name="Employee Review" />
+      <cmmn:milestone id="Milestone_14dduie" name="Rejected" />
+    </cmmn:casePlanModel>
+  </cmmn:case>
+  <cmmndi:CMMNDI>
+    <cmmndi:CMMNDiagram id="_5a66685b-5f57-4e2f-b1d1-acca4fae04b2" name="Update Travel Budget">
+      <cmmndi:Size xsi:type="dc:Dimension" width="500" height="500" />
+      <cmmndi:CMMNShape id="DI_CasePlanModel_1" cmmnElementRef="CasePlanModel_1">
+        <dc:Bounds x="-308" y="0" width="897" height="593" />
+        <cmmndi:CMMNLabel />
+      </cmmndi:CMMNShape>
+      <cmmndi:CMMNShape id="PlanItem_0r4jg6n_di" cmmnElementRef="PlanItem_0r4jg6n">
+        <dc:Bounds x="18" y="214" width="100" height="40" />
+        <cmmndi:CMMNLabel />
+      </cmmndi:CMMNShape>
+      <cmmndi:CMMNShape id="PlanItem_0dp0q19_di" cmmnElementRef="APPROVAL">
+        <dc:Bounds x="-200" y="194" width="100" height="80" />
+        <cmmndi:CMMNLabel />
+      </cmmndi:CMMNShape>
+      <cmmndi:CMMNShape id="EntryCriterion_00g9l3i_di" cmmnElementRef="EntryCriterion_00g9l3i">
+        <dc:Bounds x="8" y="221" width="20" height="28" />
+        <cmmndi:CMMNLabel />
+      </cmmndi:CMMNShape>
+      <cmmndi:CMMNEdge id="PlanItemOnPart_1n05qyx_di" cmmnElementRef="PlanItemOnPart_1n05qyx" targetCMMNElementRef="EntryCriterion_00g9l3i" isStandardEventVisible="true">
+        <di:waypoint xsi:type="dc:Point" x="-100" y="234" />
+        <di:waypoint xsi:type="dc:Point" x="8" y="235" />
+        <cmmndi:CMMNLabel>
+          <dc:Bounds x="-69" y="253" width="51" height="14" />
+        </cmmndi:CMMNLabel>
+      </cmmndi:CMMNEdge>
+      <cmmndi:CMMNShape id="PlanItem_05qmp3z_di" cmmnElementRef="PlanItem_190lve4">
+        <dc:Bounds x="218" y="194" width="100" height="80" />
+        <cmmndi:CMMNLabel />
+      </cmmndi:CMMNShape>
+      <cmmndi:CMMNShape id="EntryCriterion_1q5gbkk_di" cmmnElementRef="EntryCriterion_1q5gbkk">
+        <dc:Bounds x="208" y="221" width="20" height="28" />
+        <cmmndi:CMMNLabel />
+      </cmmndi:CMMNShape>
+      <cmmndi:CMMNEdge id="PlanItemOnPart_0v4nnrb_di" cmmnElementRef="PlanItemOnPart_0v4nnrb" targetCMMNElementRef="EntryCriterion_1q5gbkk" isStandardEventVisible="true">
+        <di:waypoint xsi:type="dc:Point" x="118" y="234" />
+        <di:waypoint xsi:type="dc:Point" x="163" y="234" />
+        <di:waypoint xsi:type="dc:Point" x="163" y="235" />
+        <di:waypoint xsi:type="dc:Point" x="208" y="235" />
+        <cmmndi:CMMNLabel>
+          <dc:Bounds x="146" y="274" width="33" height="14" />
+        </cmmndi:CMMNLabel>
+      </cmmndi:CMMNEdge>
+      <cmmndi:CMMNShape id="PlanItem_0xttvm2_di" cmmnElementRef="PlanItem_0xttvm2">
+        <dc:Bounds x="19.75898203592817" y="328.4715568862275" width="100" height="40" />
+        <cmmndi:CMMNLabel />
+      </cmmndi:CMMNShape>
+      <cmmndi:CMMNShape id="EntryCriterion_14qp2m8_di" cmmnElementRef="EntryCriterion_14qp2m8">
+        <dc:Bounds x="9.75898203592817" y="332.4715568862275" width="20" height="28" />
+        <cmmndi:CMMNLabel />
+      </cmmndi:CMMNShape>
+      <cmmndi:CMMNEdge id="PlanItemOnPart_0a20xnw_di" cmmnElementRef="PlanItemOnPart_0a20xnw" targetCMMNElementRef="EntryCriterion_14qp2m8" isStandardEventVisible="true">
+        <di:waypoint xsi:type="dc:Point" x="-100" y="234" />
+        <di:waypoint xsi:type="dc:Point" x="-51" y="234" />
+        <di:waypoint xsi:type="dc:Point" x="-51" y="346" />
+        <di:waypoint xsi:type="dc:Point" x="10" y="346" />
+        <cmmndi:CMMNLabel>
+          <dc:Bounds x="-77" y="280" width="51" height="14" />
+        </cmmndi:CMMNLabel>
+      </cmmndi:CMMNEdge>
+      <cmmndi:CMMNShape id="PlanItem_07w6fgq_di" cmmnElementRef="PlanItem_07w6fgq">
+        <dc:Bounds x="18" y="426.4715568862275" width="100" height="40" />
+        <cmmndi:CMMNLabel />
+      </cmmndi:CMMNShape>
+      <cmmndi:CMMNShape id="EntryCriterion_0nipvn9_di" cmmnElementRef="EntryCriterion_0nipvn9">
+        <dc:Bounds x="8" y="434.4715568862275" width="20" height="28" />
+        <cmmndi:CMMNLabel />
+      </cmmndi:CMMNShape>
+      <cmmndi:CMMNEdge id="PlanItemOnPart_11duh07_di" cmmnElementRef="PlanItemOnPart_11duh07" targetCMMNElementRef="EntryCriterion_0nipvn9" isStandardEventVisible="true">
+        <di:waypoint xsi:type="dc:Point" x="-100" y="234" />
+        <di:waypoint xsi:type="dc:Point" x="-46" y="234" />
+        <di:waypoint xsi:type="dc:Point" x="-46" y="448" />
+        <di:waypoint xsi:type="dc:Point" x="8" y="448" />
+        <cmmndi:CMMNLabel>
+          <dc:Bounds x="-72" y="331" width="51" height="14" />
+        </cmmndi:CMMNLabel>
+      </cmmndi:CMMNEdge>
+    </cmmndi:CMMNDiagram>
+  </cmmndi:CMMNDI>
+</cmmn:definitions>

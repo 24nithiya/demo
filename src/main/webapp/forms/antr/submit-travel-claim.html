@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Submit travell claim</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      
+      <link rel="stylesheet" href="css/style.css">
+  <style>
+  @media screen and (min-width: 768px) {
+        .modal-dialog {
+          width: 90%; /* New width for default modal */
+          
+          margin-left:auto;
+          margin-right: auto;
+        }
+        .modal-sm {
+          width: 80%; /* New width for small modal */
+        }
+    }
+    @media screen and (min-width: 992px) {
+        .modal-lg {
+          width: 80%; /* New width for large modal */
+        }
+    }
+
+
+</style>
+ 
+</head>
+<body>
+
+
+  <div style="background:rgba(225,225,225,0.5);position:absolute; width: 100%;height: 100%;z-index: 99;display: none" id="loading" >
+  
+    <img src="loading.gif" width="100%" style="position: absolute;z-index: 999;top: 0;right: 0;bottom: 0;left: 0;">
+</div>
+
+<form id="form">
+<div class="tabs">
+  
+  <input type="radio" id="tab1" name="tab-control" checked>
+  <input type="radio" id="tab2" name="tab-control">
+  <input type="radio" id="tab3" name="tab-control">  
+  <input type="radio" id="tab4" name="tab-control">
+  <ul style="/*width:500px*/; background-color:#222; line-height: 40px;">
+    <li><label for="tab1" role="button"></svg><br><span>Main</span></label></li>
+    <li><label for="tab2" role="button"></svg><br><span>Documents</span></label></li>
+    <li><label for="tab3" role="button"></svg><br><span>Notes</span></label></li>    
+  <li><label for="tab4" role="button"></svg><br><span style="margin-right: 20px;">History</span></label></li>
+  <li><label for="tab1" role="button"></svg><br><span></span></label></li>
+    <li><label for="tab2" role="button"></svg><br><span></span></label></li>
+    <li><label for="tab3" role="button"></svg><br><span></span></label></li>    
+  <li><label for="tab4" role="button"></svg><br><span></span></label></li>
+  <li><label for="tab1" role="button"></svg><br><span></span></label></li>
+    <li><label for="tab2" role="button"></svg><br><span></span></label></li>
+    <li><label for="tab3" role="button"></svg><br><span></span></label></li>    
+  <li><label for="tab4" role="button"></svg><br><span></span></label></li> 
+   <li > <button type="button" class="close clo " data-dismiss="modal" style="color: #ffff;margin-right: 20px;margin-bottom:10px ;font-size:35px " >&times;</button></li>
+  </ul>
+  
+  <div class="slider"><div class="indicator"></div></div>
+  <div class="content">
+    <section>
+    
+  <div class="container-fluid jumbotron mappfull" style="margin-top: -40px;padding-left:20px;padding-right: 20px">
+     <div class="row" id="flip" style="background: #cfdff9;margin-top: -10px" >
+          <div class="col-sm-12 text-right" style="border-bottom:1px solid rgba(20,20,20,0.3);">
+                   <span class="glyphicon glyphicon-align-justify" style="padding: 0px;margin: 0px"></span>
+              </div>
+              </div>
+
+
+              <div style="padding-top:0px" id="panel"><!--Start of 1st slide-->
+            <div class="row ">
+              <div class="col-sm-3">
+                <label class="">Name</label>
+                  <input style="background-color:white; color:black;" class="form-control" name="firstName" value="" type="text" Id="fname" readonly/>
+              </div>
+              <div class="col-sm-3">
+                <label class="">Employee Id</label>
+                  <input class="form-control" placeholder="enter number" type="text" Id="number" name="employeeId" readonly/>
+              </div>
+               <div class="col-sm-3">
+                <label class="">Contact No</label>
+                  <input class="form-control" placeholder="enter your contact no" type="text" Id="contactNo" name="contactNo" readonly/>
+              </div>
+              <div class="col-sm-3">
+                <label class="">Manager</label>
+                  <input class="form-control" placeholder="enter your manager name" type="text" Id="manager" name="managerName" readonly/>
+              </div>
+              
+            </div>
+            <!-- <br/> -->
+            <div class="row">
+              <div class="col-sm-3">
+                <label class="">Department Name</label>
+                  <input class="form-control" placeholder="Enter Your Department" type="text" Id="department" name="department" readonly/>
+              </div>
+                <div class="col-sm-3">
+                <label class="">Travel Request Id</label>
+                  <input class="form-control" placeholder="Enter Your TravelRequest Id" type="text" Id="trId" name="trId"/>
+                </div>
+                <div class="col-sm-3">
+                <label class="">Place Of Visit</label>
+                  <input class="form-control" placeholder="Place Of Visit" type="text" Id="place_visit" name="place_visit" />
+                </div>
+                <div class="col-sm-3">
+                <label class="">Purpose Of visit</label>
+                  <select class="form-control" placeholder="Purpose of visit" type="text" Id="purpose_visit" name="purpose_visit">
+                     <option value="">Select Purpose Of Visit</option>
+                    <option value="Business">Business</option>
+                     <option value="Entertainment">Entertainment</option>
+                      <option value="Confrence">Conference</option>
+                       <option value="Business">Customer Engagement</option>
+                  </select>
+                </div>
+                
+
+            </div>
+          </div>
+        </div><!-- End of flip -->
+                
+
+                 <div class="row" id="flip1" style="background: #cfdff9" >
+          <div class="col-sm-12 text-right" style="border-bottom:1px solid rgba(20,20,20,0.3);">
+                   <span class="glyphicon glyphicon-align-justify" style="padding: 0px;margin: 0px"></span>
+              </div>
+              </div>
+
+
+              <div style="padding-top:0px" id="panel1"><!--Start of 2nd slide-->    
+                    <!--Start of 2nd row-->
+        <div class="container-fluid">
+          <div class="container-fluid jumbotron mappfull" >
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="checkbox">
+                  <label><input type="checkbox" id="adv_check" value=""><b>Advance</b></label>
+                </div>
+              </div>
+              
+              <div class="col-sm-10" id="adv" style="display: none">
+                
+               
+                <!--Start of currency picker-->
+                    <div> <!--start of field-->
+                <div class="col-sm-5">
+                   <label class="">Currency</label>
+<select class="form-control bfh-currencies cur" data-currency="EUR"><option readonly>Select Currency</option><option value="AED">United Arab Emirates dirham</option><option value="AFN">Afghan afghani</option><option value="ALL">Albanian lek</option><option value="AMD">Armenian dram</option><option value="AOA">Angolan kwanza</option><option value="ARS">Argentine peso</option><option value="AUD">Australian dollar</option><option value="AWG">Aruban florin</option><option value="AZN">Azerbaijani manat</option><option value="BAM">Bosnia and Herzegovina convertible mark</option><option value="BBD">Barbadian dollar</option><option value="BDT">Bangladeshi taka</option><option value="BGN">Bulgarian lev</option><option value="BHD">Bahraini dinar</option><option value="BIF">Burundian franc</option><option value="BMD">Bermudian dollar</option><option value="BND">Brunei dollar</option><option value="BOB">Bolivian boliviano</option><option value="BRL">Brazilian real</option><option value="BSD">Bahamian dollar</option><option value="BTN">Bhutanese ngultrum</option><option value="BWP">Botswana pula</option><option value="BYR">Belarusian ruble</option><option value="BZD">Belize dollar</option><option value="CAD">Canadian dollar</option><option value="CDF">Congolese franc</option><option value="CHF">Swiss franc</option><option value="CLP">Chilean peso</option><option value="CNY">Chinese yuan</option><option value="COP">Colombian peso</option><option value="CRC">Costa Rican colón</option><option value="CUP">Cuban convertible peso</option><option value="CVE">Cape Verdean escudo</option><option value="CZK">Czech koruna</option><option value="DJF">Djiboutian franc</option><option value="DKK">Danish krone</option><option value="DOP">Dominican peso</option><option value="DZD">Algerian dinar</option><option value="EGP">Egyptian pound</option><option value="ERN">Eritrean nakfa</option><option value="ETB">Ethiopian birr</option><option value="EUR">Euro</option><option value="FJD">Fijian dollar</option><option value="FKP">Falkland Islands pound</option><option value="GBP">British pound</option><option value="GEL">Georgian lari</option><option value="GHS">Ghana cedi</option><option value="GMD">Gambian dalasi</option><option value="GNF">Guinean franc</option><option value="GTQ">Guatemalan quetzal</option><option value="GYD">Guyanese dollar</option><option value="HKD">Hong Kong dollar</option><option value="HNL">Honduran lempira</option><option value="HRK">Croatian kuna</option><option value="HTG">Haitian gourde</option><option value="HUF">Hungarian forint</option><option value="IDR">Indonesian rupiah</option><option value="ILS">Israeli new shekel</option><option value="IMP">Manx pound</option><option value="INR">Indian rupee</option><option value="IQD">Iraqi dinar</option><option value="IRR">Iranian rial</option><option value="ISK">Icelandic króna</option><option value="JEP">Jersey pound</option><option value="JMD">Jamaican dollar</option><option value="JOD">Jordanian dinar</option><option value="JPY">Japanese yen</option><option value="KES">Kenyan shilling</option><option value="KGS">Kyrgyzstani som</option><option value="KHR">Cambodian riel</option><option value="KMF">Comorian franc</option><option value="KPW">North Korean won</option><option value="KRW">South Korean won</option><option value="KWD">Kuwaiti dinar</option><option value="KYD">Cayman Islands dollar</option><option value="KZT">Kazakhstani tenge</option><option value="LAK">Lao kip</option><option value="LBP">Lebanese pound</option><option value="LKR">Sri Lankan rupee</option><option value="LRD">Liberian dollar</option><option value="LSL">Lesotho loti</option><option value="LTL">Lithuanian litas</option><option value="LVL">Latvian lats</option><option value="LYD">Libyan dinar</option><option value="MAD">Moroccan dirham</option><option value="MDL">Moldovan leu</option><option value="MGA">Malagasy ariary</option><option value="MKD">Macedonian denar</option><option value="MMK">Burmese kyat</option><option value="MNT">Mongolian tögrög</option><option value="MOP">Macanese pataca</option><option value="MRO">Mauritanian ouguiya</option><option value="MUR">Mauritian rupee</option><option value="MVR">Maldivian rufiyaa</option><option value="MWK">Malawian kwacha</option><option value="MXN">Mexican peso</option><option value="MYR">Malaysian ringgit</option><option value="MZN">Mozambican metical</option><option value="NAD">Namibian dollar</option><option value="NGN">Nigerian naira</option><option value="NIO">Nicaraguan córdoba</option><option value="NOK">Norwegian krone</option><option value="NPR">Nepalese rupee</option><option value="NZD">New Zealand dollar</option><option value="OMR">Omani rial</option><option value="PAB">Panamanian balboa</option><option value="PEN">Peruvian nuevo sol</option><option value="PGK">Papua New Guinean kina</option><option value="PHP">Philippine peso</option><option value="PKR">Pakistani rupee</option><option value="PLN">Polish złoty</option><option value="PRB">Transnistrian ruble</option><option value="PYG">Paraguayan guaraní</option><option value="QAR">Qatari riyal</option><option value="RON">Romanian leu</option><option value="RSD">Serbian dinar</option><option value="RUB">Russian ruble</option><option value="RWF">Rwandan franc</option><option value="SAR">Saudi riyal</option><option value="SBD">Solomon Islands dollar</option><option value="SCR">Seychellois rupee</option><option value="SDG">Singapore dollar</option><option value="SEK">Swedish krona</option><option value="SGD">Singapore dollar</option><option value="SHP">Saint Helena pound</option><option value="SLL">Sierra Leonean leone</option><option value="SOS">Somali shilling</option><option value="SRD">Surinamese dollar</option><option value="SSP">South Sudanese pound</option><option value="STD">São Tomé and Príncipe dobra</option><option value="SVC">Salvadoran colón</option><option value="SYP">Syrian pound</option><option value="SZL">Swazi lilangeni</option><option value="THB">Thai baht</option><option value="TJS">Tajikistani somoni</option><option value="TMT">Turkmenistan manat</option><option value="TND">Tunisian dinar</option><option value="TOP">Tongan paʻanga</option><option value="TRY">Turkish lira</option><option value="TTD">Trinidad and Tobago dollar</option><option value="TWD">New Taiwan dollar</option><option value="TZS">Tanzanian shilling</option><option value="UAH">Ukrainian hryvnia</option><option value="UGX">Ugandan shilling</option><option value="USD">United States dollar</option><option value="UYU">Uruguayan peso</option><option value="UZS">Uzbekistani som</option><option value="VEF">Venezuelan bolívar</option><option value="VND">Vietnamese đồng</option><option value="VUV">Vanuatu vatu</option><option value="WST">Samoan tālā</option><option value="XAF">Central African CFA franc</option><option value="XCD">East Caribbean dollar</option><option value="XOF">West African CFA franc</option><option value="XPF">CFP franc</option><option value="YER">Yemeni rial</option><option value="ZAR">South African rand</option><option value="ZMW">Zambian kwacha</option><option value="ZWL">Zimbabwean dollar</option></select>
+</div>
+
+
+
+<!--End of currency picker-->
+
+                <div class="col-sm-5">
+                  <label class="">Amount</label>
+                  <input class="form-control amount " placeholder="Enter Your Amount" type="text" Id="adv0" name=""/>
+                </div>
+
+                <div class="col-sm-1">
+                  <button type="button" class="btn btn-primary add " id="add0" style="margin-top: 25px">+</button>
+                </div>
+                <div class="col-sm-1"><button  type="button" style="margin-top: 25px;margin-left: 1px" class="btn btn-warning remove " id="remove0">X</button>
+                </div>
+              </div><!--End of field-->
+
+              </div>
+            </div>
+          </div><!--End of onatiner-->
+
+          <div class="container-fluid jumbotron mappfull">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="checkbox">
+                  <label><input type="checkbox" id="ticket_check"  value=""><b>Ticket</b></label>
+                </div>
+              </div>
+             
+              <div class="col-sm-10" id="ticket" style="display: none"><!--Start of ticket field  -->
+                 <div  id="ticket_add">
+                <div class="col-sm-4">
+                  <label class="">Mode Of Travel</label>
+                  <select class="form-control  mode_travell" placeholder="Enter Travell Mode " type="text" Id="" name="ticket" required>
+                    <option>Select Mode of travel</option>
+                    <option>Flight</option>
+                     <option>Bus</option>
+                      <option>Train</option>
+                       <option>Car</option>
+                        <option>Ship</option>
+                  </select>
+                </div>
+                 <div class="col-sm-4">
+                  <label class="">Traveling From</label>
+                  <input class="form-control travell_from" placeholder="Enter Travelling From" type="text" Id="adv0" name="ticket"/>
+                </div>
+                 <div class="col-sm-4">
+                  <label class="">Traveling To</label>
+                  <input class="form-control travell_to " placeholder="Enter Travelling To" type="text" Id="adv0" name="ticket"/>
+                </div>
+                 <div class="col-sm-4">
+                  <label class="">Departure Date</label>
+                   <input class="form-control dep_date"  placeholder="Checkin Date" type="date" Id="startdate" name="startDateticket"/>
+                </div>
+                 <div class="col-sm-4">
+                  <label class="">Return Date</label>
+                   <input class="form-control ret_date"  placeholder="CheckOut Date" type="date" Id="startdate" name="startDateticket"/>
+                </div>
+                
+                 <div class="col-sm-2"></div>
+                 <div class="col-sm-1">
+                 	 <button type="button" class="btn btn-primary add_ticket " id="add_ticket0" style="margin-top: 25px;margin-right: 0px">+</button>
+                 </div>
+                 <div class="col-sm-1">
+                  <button  type="button" style="margin-top: 25px;margin-right:0px" class="btn btn-warning remove_ticket " id="remove_ticket0">X</button>
+                </div>
+
+
+
+              </div>
+           
+            </div><!--End of ticket field-->
+
+
+            </div>
+          </div><!--End of onatiner-->
+
+          <div class="container-fluid jumbotron mappfull">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="checkbox">
+                  <label><input type="checkbox" id="hotel_check" value=""><b>Hotel</b></label>
+                </div>
+              </div>
+
+              <div class="col-sm-10" id="hotel" style="display: none" ><!--start field-->
+                <div id="hotel_add">
+                <div class="col-sm-5">
+                <label class="">Select Hotel type</label>
+                  <!-- <input class="form-control" placeholder="select the class" type="text" Id="travelclass" name="travelClass"/> -->
+                   <select class="form-control hotel_type" >
+                        <option selected="true" disabled="disabled">Select Hotel</option>
+                        <option>Any Prefered Hotel</option>
+                        <option>Specifc Hotel</option>
+                </select>
+              </div>
+              <div class="col-sm-5">
+                <div class="form-group">
+                    <label for="comment">Address</label>
+                       <textarea class="form-control hotel_add" rows="2" id="comment" ></textarea>
+                </div>  
+              </div>
+              <div class="col-sm-5">
+                <label class="">Checkin Date</label>
+                  <input class="form-control check_in" onfocus="(this.type='date')" placeholder="Checkin Date" type="text" Id="startdate" name="hotel"/>
+              </div>
+              <div class="col-sm-5">
+                <label class="">Checkout Date</label>
+                  <input class="form-control check_out" onfocus="(this.type='date')" placeholder="CheckOut Date" type="text" Id="startdate" name="hotel"/>
+              </div>
+              <div class="col-sm-1">
+                  <button type="button" class="btn btn-primary add_hotel " id="add_hotel0" style="margin-top: 25px">+</button>
+                </div>
+                <div class="col-sm-1">
+                	 <button  type="button" style="margin-top: 25px;margin-left: 0px" class="btn btn-warning remove_hotel " id="remove_hotel0">X</button>
+                </div>
+                  </div><!--End of field-->
+              </div>
+
+            </div>
+          </div><!--End of onatiner-->
+
+          <div class="container-fluid jumbotron mappfull">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="checkbox">
+                  <label><input type="checkbox" id="car_check" value=""><b>Rent a car</b></label>
+                </div>
+              </div>
+              <div class="col-sm-10" id="car" style="display: none;"><!--Start field-->
+                <div id="car_add">
+                 <div class="col-sm-5">
+                <label class="">Start Date</label>
+                  <input class="form-control start_dat" onfocus="(this.type='date')" placeholder="Start Date" type="text" Id="startdate" name="car"/>
+              </div>
+               <div class="col-sm-5">
+                <label class="">End Date</label>
+                  <input class="form-control end_dat" onfocus="(this.type='date')" placeholder="End Date" type="text" Id="startdate" name="car"/>
+
+              </div>
+               <div class="col-sm-1">
+                  <button type="button" class="btn btn-primary add_car " id="add_car0" style="margin-top: 25px">+</button>
+                </div>
+                <div class="col-sm-1">
+                	<button  type="button" style="margin-top: 25px;margin-left: 5px" class="btn btn-warning remove_car " id="remove_car0">X</button>
+                </div>
+
+
+
+              </div>
+              </div><!--End field-->
+
+            </div>
+          </div><!--End of container-->
+
+        </div>
+        <!--End of 2nd row-->  
+        </div>  
+
+
+         <div class="container-fluid jumbotron fontSize">
+          <div class="row">
+          <div class="col-sm-6"></div>
+          <div class="col-sm-6">
+            
+             <button id="sub" type="button" class="form-control btn-success pull-right" style="margin-top:0px; margin-bottom: 20px; width:100px;margin-right: 30px; " align="center" type="submit">Submit</button>
+            <button  type="button" id="close" class="form-control   pull-right btn btn-primary"  style="margin-top:0px; margin-bottom: 20px; width:100px;margin-right: 40px;  " align="center" >Cancel</button>
+           
+            
+          </div>
+          </div>
+        </div>
+
+ 
+      </section>
+  
+   
+
+        <section>  <!--Documents Tab -->
+          <div class="document">
+        </div>
+        </section>
+
+        <section><!--Notes Tab Start-->
+         <div class="notes">
+        </div>
+        </section>
+        
+        <section>
+        <div class="history">
+        </div>
+        </section><!--End of history-->
+    
+  </div>
+</div>
+
+
+
+<div id="errormsg"  style="color:red; text-align: center; font-size: 25px;"></div>
+</form>
+
+
+
+<div class="message"></div>
+
+
+
+ <script type="text/javascript">
+           
+$(".clo").click(function(){
+//  alert("going to close");
+  window.parent.closeModal();
+});
+         </script>
+
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script type="text/javascript">
+  
+
+$(document).ready(function(){
+    $("#flip").click(function(){
+        $("#panel").slideToggle("slow");
+           
+    });
+
+    $("#flip1").click(function(){
+        $("#panel1").slideToggle("slow");
+    });
+     $("#flip3").click(function(){
+        $("#panel3").slideToggle("slow");
+    });
+
+     $("#flip4").click(function(){
+        $("#panel4").slideToggle("slow");
+    });
+});
+
+</script>
+
+<script src="url/url.js"></script>
+<script src="js/fileshare.js"></script>
+<script src="js/submit-travel-claim.js"></script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+
+
+ 

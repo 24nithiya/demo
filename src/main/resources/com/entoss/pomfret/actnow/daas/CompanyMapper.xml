@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.entoss.pomfret.actnow.daas.CompanyMapper">
+	<resultMap type="Company" id="CompanyResult">
+		<result property="id" column="id" />
+		<result property="parentCompny" column="parent_company" />
+		<result property="company" column="company" />
+		<result property="alias" column="alias" />
+		<result property="leglEntity" column="legal_entity" />
+		<result property="country" column="country" />
+		<result property="state" column="state" />
+		<result property="addressLin1" column="address_line1" />
+		<result property="addressLin2" column="address_line2" />
+		<result property="addressLin3" column="address_line3" />
+		<result property="postCode" column="post_code" />
+		<result property="contact" column="contact" />
+		<result property="uniqueId" column="unique_id" />
+		<result property="fax" column="fax" />
+		<result property="email" column="email" />
+		<result property="website" column="website" />
+		<result property="defaultCurrency" column="default_currency" />
+		<result property="defaultDateFormat" column="default_date_format" />
+		<result property="decimalPoint" column="decimal_point" />
+		<result property="decimalPosition" column="decimal_position" />
+		<result property="defaultTimeZone" column="default_time_zone" />
+		<result property="ficalYrStart" column="fical_yr_start" />
+	</resultMap>
+
+	<select id="getAllCompanies" resultMap="CompanyResult">
+		SELECT ID,
+		PARENT_COMPANY,
+		COMPANY,
+		ALIAS,
+		LEGAL_ENTITY,
+		COUNTRY,
+		STATE,
+		ADDRESS_LINE1,
+		ADDRESS_LINE2,
+		ADDRESS_LINE3,
+		POST_CODE,
+		CONTACT,
+		UNIQUE_ID,
+		FAX,
+		EMAIL,WEBSITE,
+		DEFAULT_CURRENCY,
+		DEFAULT_DATE_FORMAT,
+		DECIMAL_POINT,
+		DECIMAL_POSITION,
+		DEFAULT_TIME_ZONE,
+		FICAL_YR_START
+
+		FROM
+		COMPANY
+	</select>
+
+	<select id="getCompanyById" parameterType="int" resultMap="CompanyResult">
+
+		SELECT *
+		FROM COMPANY
+
+		WHERE ID=#{id}
+	</select>
+
+	<select id="getCompanyOfBusinessUnitByUniqueId" parameterType="java.lang.String"
+		resultMap="CompanyResult">
+
+		SELECT C.ID,
+		C.PARENT_COMPANY,
+		C.COMPANY,
+		C.ALIAS,
+		C.LEGAL_ENTITY,
+		C.COUNTRY,
+		C.STATE,
+		C.ADDRESS_LINE1,
+		C.ADDRESS_LINE2,
+		C.ADDRESS_LINE3,
+		C.POST_CODE,
+		C.CONTACT,
+		C.UNIQUE_ID,
+		C.FAX,
+		C.EMAIL,WEBSITE,
+		C.DEFAULT_CURRENCY,
+		C.DEFAULT_DATE_FORMAT,
+		C.DECIMAL_POINT,
+		C.DECIMAL_POSITION,
+		C.DEFAULT_TIME_ZONE,
+		C.FICAL_YR_START
+
+		FROM COMPANY C WHERE
+		C.UNIQUE_ID IN (SELECT UNIQUE_ID
+		FROM BUSINESS_UNIT) AND UNIQUE_ID=#{uniqueId};
+	</select>
+
+	<select id="getCompanyOfDepartmentByUniqueId" parameterType="java.lang.String"
+		resultMap="CompanyResult">
+
+		SELECT C.ID,
+		C.PARENT_COMPANY,
+		C.COMPANY,
+		C.ALIAS,
+		C.LEGAL_ENTITY,
+		C.COUNTRY,
+		C.STATE,
+		C.ADDRESS_LINE1,
+		C.ADDRESS_LINE2,
+		C.ADDRESS_LINE3,
+		C.POST_CODE,
+		C.CONTACT,
+		C.UNIQUE_ID,
+		C.FAX,
+		C.EMAIL,WEBSITE,
+		C.DEFAULT_CURRENCY,
+		C.DEFAULT_DATE_FORMAT,
+		C.DECIMAL_POINT,
+		C.DECIMAL_POSITION,
+		C.DEFAULT_TIME_ZONE,
+		C.FICAL_YR_START
+
+		FROM COMPANY C WHERE
+		C.UNIQUE_ID IN (SELECT UNIQUE_ID
+		FROM DEPARTMENT) AND UNIQUE_ID=#{uniqueId};
+
+	</select>
+
+
+	<insert id="insertCompany" parameterType="Company">
+		INSERT INTO
+		COMPANY(PARENT_COMPANY,COMPANY,ALIAS,LEGAL_ENTITY,COUNTRY,
+		STATE,ADDRESS_LINE1,ADDRESS_LINE2,ADDRESS_LINE3,POST_CODE,
+		CONTACT,UNIQUE_ID,FAX,EMAIL,WEBSITE,DEFAULT_CURRENCY,
+		DEFAULT_DATE_FORMAT,DECIMAL_POINT,DECIMAL_POSITION,DEFAULT_TIME_ZONE,FICAL_YR_START)
+		VALUES(#{parentCompny},#{company},
+		#{alias},#{leglEntity},#{country},#{state},
+		#{addressLin1},#{addressLin2},#{addressLin3},
+		#{postCode},#{contact},#{uniqueId},#{fax},
+		#{email},#{website},#{defaultCurrency},#{defaultDateFormat},
+		#{decimalPoint},#{decimalPosition},#{defaultTimeZone},#{ficalYrStart})
+
+	</insert>
+
+	<update id="updateCompany" parameterType="Company">
+		UPDATE COMPANY
+		SET
+		PARENT_COMPANY=#{parentCompny},
+		COMPANY=#{company},
+		ALIAS=#{alias},
+		LEGAL_ENTITY=#{leglEntity},
+		COUNTRY=#{country},
+		STATE=#{state},
+		ADDRESS_LINE1=#{addressLin1},
+		ADDRESS_LINE2=#{addressLin2},
+		ADDRESS_LINE3=#{addressLin3},
+		POST_CODE=#{postCode},
+		CONTACT=#{contact},
+		FAX=#{fax},
+		EMAIL=#{email},
+		WEBSITE=#{website},
+		DEFAULT_CURRENCY=#{defaultCurrency},
+		DEFAULT_DATE_FORMAT=#{defaultDateFormat},
+		DECIMAL_POINT=#{decimalPoint},
+		DECIMAL_POSITION=#{decimalPosition},
+		DEFAULT_TIME_ZONE=#{defaultTimeZone},
+		FICAL_YR_START=#{ficalYrStart}
+
+		WHERE ID=#{id}
+	</update>
+	
+	<!-- <delete id="deleteCompany" parameterType="int">
+		DELETE FROM COMPANY
+		WHERE ID=#{id}
+	</delete>
+ -->
+ <delete id="deleteCompany" parameterType="int">
+ WITH TEMP AS (SELECT CMPNY_ID FROM EMPLOYEE WHERE CMPNY_ID=#{id}),
+ UPD AS (UPDATE EMPLOYEE SET CMPNY_ID=NULL WHERE CMPNY_ID IN (SELECT CMPNY_ID FROM TEMP)) DELETE FROM COMPANY WHERE ID=#{id}
+ </delete>
+ 
+</mapper>

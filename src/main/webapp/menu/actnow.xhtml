@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/patterfly-template.xhtml">
+	<ui:define name="content">
+	<body>
+	<!-- <div id="top" class="text-center">Top</div> -->
+	<div  style="margin-left: 57px;margin-top: 0px;border:none;" id="frameborder" >
+  <!-- <iframe class="embed-responsive-item"  name="iframe_a"  id="fram" style="border: none;width:100%;min-height:585px;height:auto;" ></iframe> -->
+
+<div class="embed-responsive embed-responsive-4by3">
+  
+  <iframe class="embed-responsive-item"   name="iframe_a"  id="fram" style="border: 0px solid black;" ></iframe>
+  
+</div>
+
+<!-- 
+<iframe class="embed-responsive-item"   name="iframe_a"  id="fram" frameborder="0" style="width:100%;min-height:100%; overflow-x: hidden; overflow-y: hidden" onload="resizeIframe(this)" />
+ -->
+
+ </div>
+
+<script>
+/* $('iframe').height( $('iframe').contents().outerHeight() );
+function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  }
+ */
+
+
+window.topScroll = function(){
+	//alert("going to top");
+	$("html").scrollTop( 0 );
+   
+}
+</script>
+ 
+ <style>
+ 
+ 
+ </style>
+		<script type="text/javascript">			
+var sessionId=$("#sessionValue").html();
+
+$(document).ready(function(){
+
+/*
+
+                       $.ajax({
+
+            url: '/actnow-claims-1.0.0/actnow/employees/manager?loginId='+sessionValue+'',//need to make generic
+            type: "GET",
+            dataType: "json",
+            async: true,
+            success: function(data)  {
+              //alert("success");}
+sessionId=data.
+
+          }
+      });
+*/
+
+
+/*$("#topNavBar").css("display","none");
+$("#sideNavBar").css("display","none");
+$("#frameborder").css({"margin-left":"0px","margin-top":"0px"});*/
+
+
+
+var fsrc="mytask.html?sessionId="+sessionId+"";
+	$("#fram").attr("src",fsrc);
+
+
+         //Start of getting data and set in the field
+  $.ajax({
+              url: "/actnow-claims-1.0.0/actnow/employees/rolesOfUsers/"+sessionId+"",//need to make generic using login id,should get employeeId and then using empId call employeedetails
+              type: "GET",
+              dataType: "json",
+              async: false,
+              success: function(data)  {
+
+                  console.log("Get roles"+sessionId);
+              	$(data.groups).each(function(key,val){
+
+              			
+			switch(val.id) {
+   					case "EMPLOYEE":
+   					console.log("ENter to case "+val.id);
+       				$("#mytask").css("display","block");
+       				$(".mytask").css("display","block");
+       				$("#claims").css("display","block");
+       				$(".myclaim").css("display","block");	
+       				$(".processIcon").css("display","block");
+       				$(".process").css("display","block");	
+        			break;
+
+        			case "MANAGER":
+        			$("#dashboard").css("display","block");
+       				$(".dashboard").css("display","block");
+        			break;
+
+        			case "ADMIN":
+        			$("#admin").css("display","block");
+       				$(".admin").css("display","block");
+        			break;
+
+        			case "PARTNER":
+        			$("#mytask").css("display","block");
+       				$(".mytask").css("display","block");
+        			break;
+
+              default:
+                $("#mytask").css("display","block");
+              $(".mytask").css("display","block");
+              $("#claims").css("display","block");
+              $(".myclaim").css("display","block"); 
+              $(".processIcon").css("display","block");
+              $(".process").css("display","block"); 
+              $("#dashboard").css("display","block");
+              $(".dashboard").css("display","block");
+                $("#admin").css("display","block");
+              $(".admin").css("display","block");
+
+   				}
+
+
+              	})
+              	
+               
+               //alert(data);
+            },
+             error: function(jqXHR, textStatus, errorThrown)  {
+                        console.log("ERROR IN  getting roles"+sessionId+jqXHR.status+' '+jqXHR.textStatus);  
+                } 
+              });
+
+
+
+
+
+
+
+
+  $.ajax({url: "contexdata.json", success: function(result){
+      
+      
+      var data=result.help;
+      console.log(data);
+
+      $(".tooltipMytask").attr("title",data.menu.myTask);
+       $(".tooltipMytask").attr("data-toggle","tooltip"); 
+
+    }});
+
+
+
+
+
+});
+
+
+		</script>
+</body>
+	</ui:define>
+</ui:composition>
+

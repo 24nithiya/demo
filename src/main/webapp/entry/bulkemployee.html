@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Bulk Employee Entry</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+      <link rel="stylesheet" href="css/style.css">
+  </head>
+<body ng-app="myApp" ng-controller="myControl">
+
+<form id="form">
+<div class="tabs">
+  
+  <input type="radio" id="tab1" name="tab-control" checked>
+  <input type="radio" id="tab2" name="tab-control">
+  <input type="radio" id="tab3" name="tab-control">  
+  <input type="radio" id="tab4" name="tab-control">
+  <ul style="/*width:500px*/; background-color:#222; line-height: 40px;">
+    <li><label for="tab1" role="button"></svg><br><span>Main</span></label></li>
+    <li><label for="tab2" role="button"></svg><br><span>Documents</span></label></li>
+    <li><label for="tab3" role="button"></svg><br><span>Notes</span></label></li>    
+  <li><label for="tab4" role="button"></svg><br><span style="margin-right: 20px;">History</span></label></li>
+  <li><label for="tab1" role="button"></svg><br><span></span></label></li>
+    <li><label for="tab2" role="button"></svg><br><span></span></label></li>
+    <li><label for="tab3" role="button"></svg><br><span></span></label></li>    
+  <li><label for="tab4" role="button"></svg><br><span></span></label></li>
+  <li><label for="tab1" role="button"></svg><br><span></span></label></li>
+    <li><label for="tab2" role="button"></svg><br><span></span></label></li>
+    <li><label for="tab3" role="button"></svg><br><span></span></label></li>    
+  <li><label for="tab4" role="button"></svg><br><span></span></label></li> 
+  <li > <button type="button" class="close clo " data-dismiss="modal" style="color: #ffff;margin-right: 20px;margin-bottom:10px ;font-size:35px " >&times;</button></li>
+  </ul>
+  
+  <div class="slider"><div class="indicator"></div></div>
+  <div class="content">
+    <section>
+        
+ <div class="container-fluid jumbotron mappfull" style="margin-top: -30px;padding-left:20px;padding-right: 20px;padding-top: 0px"><!-- Start of conatiner fluid -->
+ 	
+ 	<div class="row"><!-- Start of 1st row -->
+
+ 		<div class="col-sm-3" style="border: 0px solid black;height: 400px;overflow:scroll;overflow-x: hidden;margin-top: 10px"><!-- Start of col-3 -->
+ 			<div class="col-sm-12 text-center" style="background: #cfdff9;"><label class="">Column Name</label></div>
+ 			<div class="col-sm-12" style="background: #fff;padding: 5px;margin: 2px" ng-repeat="x in getColomn"><span>{{x}}</span><span class="text-right pull-right" ><!-- <input type="checkbox" name="" ng-model="selectColoumnName" ng-change="selectColoumn(selectColoumnName,x)" ng-checked="editColoumnName=selectedItem.includes(x)" > --><button class="btn btn-sm btn-success" ng-click="selectColoumn(x)" ng-disabled="editColoumnName=selectedItem.includes(x)">></button></span></div>
+ 		</div><!-- End of col-3 -->
+
+ 		<div class="col-sm-1"></div>
+
+ 		<div class="col-sm-3" style="border: 0px solid black;height:400px;overflow:scroll;overflow-x: hidden;margin-top: 10px"><!-- Start of col-3 -->
+<div class="col-sm-12 text-center" style="background: #cfdff9;"><label class="">Column Name Order</label></div>
+<span ng-hide="selectedItem.length>0">List is Empty</span>
+
+    <div id="sortable">
+ 			<div class="col-sm-12 item" style="background: #fff;padding: 5px;margin: 2px;cursor: all-scroll;" ng-repeat="x in selectedItem"><span class="text">{{x}}</span><span class="text-right pull-right" ><button class="btn btn-sm btn-warning" ng-click="removeItem(x)" value="{{x}}"><</button></span>
+      </div>
+
+    </div><!-- End of sortable -->
+
+    <div class="col-sm-12 text-right">
+        <br><button class="btn btn-danger btn-sm" ng-click="clearAll()" ng-show="selectedItem.length>0">Clear all</button></div>
+
+ 		</div><!-- End of col-3 -->
+    <div class="col-sm-1"></div>
+    <div class="col-sm-3" style="border: 0px solid black;height: 400px;margin-top: 10px">
+      <div class="col-sm-12 text-center" style="background: #cfdff9;"><label class="">Upload File</label></div>
+          
+      <div class="col-sm-12"></br><input type="file" class="form-control" name="" id="file_doc"></div>
+    </div>
+ 	</div><!-- End of 1st row -->
+ </div><!-- End of container fluid -->       
+
+
+ <div class="container-fluid jumbotron fontSize" style="padding-left:20px;padding-right: 20px">
+          <div class="row">
+          <div class="col-sm-6"></div>
+          <div class="col-sm-6">
+            
+
+              <button id="sub" class="form-control btn-success pull-right" style="margin-top:0px; margin-bottom: 20px; width:100px;margin-right: 30px; " align="center" type="button" ng-click="sub()">Submit</button>
+
+            <button  type="button" id="close" class="form-control clo  pull-right btn btn-primary"  style="margin-top:0px; margin-bottom: 20px; width:100px;margin-right: 40px;  " align="center" >Cancel</button>
+
+          
+            
+          </div>
+          </div>
+        </div>
+       
+
+
+        <section>  <!--Documents Tab -->
+          <div class="document">
+        </div>
+        </section>
+
+        <section><!--Notes Tab Start-->
+         <div class="notes">
+        </div>
+        </section>
+        
+        <section>
+        <div class="history">
+        </div>
+        </section><!--End of history-->
+    
+  </div>
+</div>
+ 
+
+  
+
+<div class="message"></div>
+
+
+
+
+
+<div id="errormsg"  style="color:red; text-align: center; font-size: 25px;"></div>
+</form>
+
+
+
+
+
+</body>
+
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script type="text/javascript">
+    
+      $(".document").load("html/document.html");
+$(".notes").load("html/notes.html");
+$(".history").load("html/history.html");
+$(".message").load("html/messageAlert.html");
+
+
+$(".clo").click(function(){
+//  alert("going to close");
+  window.parent.closeModal();
+});
+       
+
+
+function sort(){
+  $( function() {
+    $( "#sortable" ).sortable();
+   // $( "#sortable" ).disableSelection();
+  } );
+}
+sort();
+
+
+   var myApp= angular.module('myApp', [])
+  myApp.controller('myControl', function($scope,$http,$q) {
+    
+      $http({
+        method : "GET",
+        url : " /actnow-claims-1.0.0/actnow/employees/"
+    }).then(function mySuccess(response) {
+
+    		$scope.getColomn= Object.getOwnPropertyNames(response.data[0]);
+    })
+
+    /*Strat f select Item*/
+$scope.selectedItem=[];
+$scope.selectColoumn=function(j){
+
+//console.log(j);
+
+$scope.selectedItem.push(j);
+
+}
+/*End of select Item*/
+
+
+
+$scope.removeItem=function(x){
+
+console.log("data is "+x);
+
+var temp=[];
+var deferred = $q.defer();
+
+
+function agaainAdd(){
+
+
+
+$("div .item").each(function(key,val){
+
+      var item=$(val).find("span");
+
+      var value=$(item[0]).text()
+    
+    if(value!=x)
+    {
+    
+  console.log(value);
+    temp.push(value);
+  }
+  })
+deferred.resolve(temp);
+
+console.log("first");
+return deferred.promise;
+}
+
+
+var prom=agaainAdd();/*call 1st promises*/
+prom.then(function(greeting) {
+  console.log("Now execute");
+
+var temp=greeting;
+  $scope.selectedItem=[];
+  sort();
+$scope.selectedItem=temp;
+});
+
+
+ 
+/*
+	if($scope.selectedItem.includes(x))
+	{
+    console.log("BEFORE "+$scope.selectedItem);
+ 
+
+		 var index=parseInt($scope.selectedItem.indexOf(x));
+ $scope.selectedItem.splice(index,1);
+  console.log("AFTER "+$scope.selectedItem);
+	}*/
+
+}
+
+
+$scope.clearAll=function(){
+  $scope.selectedItem=[];
+}
+
+
+
+$scope.csvFormat=function(data){
+
+var text="#";
+
+$scope.dat=data;
+
+angular.forEach($scope.dat,function(val,key){
+
+	if(key!=$scope.dat.length-1)
+	text+=val+",";
+else
+	text+=val;
+
+
+
+})
+return text;
+}
+
+
+
+$scope.downloadCSV=function() {  
+       
+       console.log("Enter into create order");
+      
+/*Stat of 1st condition*/
+if($scope.orderval.length>0)
+{
+
+        var csv = $scope.csvFormat($scope.orderval);
+        if (csv == null) return;
+
+          var filesplit=$scope.filenamedata.split(".");
+
+        $scope.filename =  filesplit[0]+'_Header.csv';
+
+        if (!csv.match(/^data:text\/csv/i)) {
+            csv = csv;
+        }
+       // $scope.file = encodeURI(csv);
+       var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+       var formData = new FormData();
+           // formData.append('objectId', parentFolderId);
+            formData.append('cmisaction', 'createDocument');            
+            formData.append('propertyId[0]', 'cmis:objectTypeId');
+            formData.append('propertyValue[0]', 'cmis:document');
+            formData.append('propertyId[1]', 'cmis:name');
+            formData.append('propertyValue[1]',  $scope.filename);
+            formData.append('content',  blob);
+            formData.append('succinct', true);
+            formData.append('_charset_', 'UTF-8');   
+            var rootFolder="/pomfret/fileshare/browser/test/root/";
+            var username ="test";
+            var password = "test";
+            // $.ajax(rootFolder, {
+             $.ajax( {
+                  type: 'POST',
+                  url: "/pomfret/fileshare/browser/test/root/",
+                  data: formData,
+                  contentType: false,
+                  processData: false,
+                
+                  beforeSend: function (xhr) {
+                    xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
+                  }
+                }).done(function(response) {
+                  
+                      $(".modal-body-result").html("<div class='alert alert-success'> <strong> Submission successfully</strong></div>");
+                    $("#myModal3").modal();
+                       $(".clo-message").on("click",function(){
+                         window.parent.closeModal();
+                       })
+                
+                }).fail(function(jqXHR) {
+                 
+                  $(".modal-body-result").html("<div class='alert alert-danger'> <strong>File Upload Failed</div>");
+                    $("#myModal3").modal();
+                     $(".clo-message").on("click",function(){
+                         window.parent.closeModal();
+                       })
+                }); 
+            }/*End of first condition*/   
+
+    }
+
+
+
+
+function uploadFile(){
+
+ console.log("Enter into upload csv data");
+
+var file = document.getElementById("file_doc").files[0];
+      // alert("bye :"+file.name);
+       $scope.filenamedata=file.name;
+ var formData = new FormData();
+     formData.append('cmisaction', 'createDocument');            
+            formData.append('propertyId[0]', 'cmis:objectTypeId');
+            formData.append('propertyValue[0]', 'cmis:document');
+            formData.append('propertyId[1]', 'cmis:name');
+            formData.append('propertyValue[1]', $scope.filenamedata);
+            formData.append('content',  file);
+            formData.append('succinct', true);
+            formData.append('_charset_', 'UTF-8');   
+            var rootFolder="/pomfret/fileshare/browser/test/root/";
+            var username ="test";
+            var password = "test";
+            // $.ajax(rootFolder, {
+             $.ajax( {
+                  type: 'POST',
+                  url: "/pomfret/fileshare/browser/test/root/",
+                  data: formData,
+                  contentType: false,
+                  processData: false,
+                
+                  beforeSend: function (xhr) {
+                    xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
+                  }
+                }).done(function(response) {
+                  
+                    // window.parent.moveTop();
+         console.log("CSV upload success");
+        
+                  if($scope.selectedItem.length>0){
+                 $scope.downloadCSV($scope.selectedItem);
+               }
+
+               if($scope.orderval.length==0)
+               {
+                   $(".modal-body-result").html("<div class='alert alert-success'> <strong> Submission successfully</strong></div>");
+                    $("#myModal3").modal();
+                       $(".clo-message").on("click",function(){
+                       window.parent.closeModal();
+                       })
+               }
+                
+                }).fail(function(jqXHR) {
+                 
+                  $(".modal-body-result").html("<div class='alert alert-danger'> <strong>File Upload Failed</div>");
+                    $("#myModal3").modal();
+                     $(".clo-message").on("click",function(){
+                       window.parent.closeModal();
+                       })
+                });    
+
+
+}
+
+
+
+
+function rep(){
+
+$scope.orderval=[];
+
+  $("div .item").each(function(key,val){
+      var item=$(val).find("span");
+
+      var value=$(item[0]).text()
+    console.log(value);
+    $scope.orderval.push(value)
+  })
+
+  }
+$scope.sub=function(){
+	//var data=$scope.csvFormat($scope.selectedItem);
+	
+	rep();
+//	$scope.downloadCSV($scope.selectedItem);
+
+uploadFile();
+}
+
+             
+
+
+
+
+
+  })
+</script>
+</html>

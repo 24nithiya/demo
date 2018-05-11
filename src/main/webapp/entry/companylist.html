@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>company List</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+<!--     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+   <style>
+
+  @media screen and (min-width: 768px) {
+        .modal-dialog {
+          width: 100%; /* New width for default modal */
+          
+          margin-left:auto;
+          margin-right: auto;
+        }
+        .modal-sm {
+          width: 100%; /* New width for small modal */
+        }
+    }
+    @media screen and (min-width: 992px) {
+        .modal-lg {
+          width: 100%; /* New width for large modal */
+        }
+    }
+
+</style>
+   <!--    <link rel="stylesheet" href="css/style.css"> -->
+  <style>
+ th{
+  cursor: pointer;
+ }
+   
+    body {
+    font-family: 'Varela Round', sans-serif;
+  }
+  .modal-confirm {    
+    color: #636363;
+    width: 400px;
+  }
+  .modal-confirm .modal-content {
+    padding: 20px;
+    border-radius: 5px;
+    border: none;
+        text-align: center;
+    font-size: 14px;
+  }
+  .modal-confirm .modal-header {
+    border-bottom: none;   
+        position: relative;
+  }
+  .modal-confirm h4 {
+    text-align: center;
+    font-size: 26px;
+    margin: 30px 0 -10px;
+  }
+  .modal-confirm .close {
+        position: absolute;
+    top: -5px;
+    right: -2px;
+  }
+  .modal-confirm .modal-body {
+    color: #999;
+  }
+  .modal-confirm .modal-footer {
+    border: none;
+    text-align: center;   
+    border-radius: 5px;
+    font-size: 13px;
+    padding: 10px 15px 25px;
+  }
+  .modal-confirm .modal-footer a {
+    color: #999;
+  }   
+  .modal-confirm .icon-box {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    border-radius: 50%;
+    z-index: 9;
+    text-align: center;
+    border: 3px solid #f15e5e;
+  }
+  .modal-confirm .icon-box i {
+    color: #f15e5e;
+    font-size: 46px;
+    display: inline-block;
+    margin-top: 13px;
+  }
+    .modal-confirm .btn {
+        color: #fff;
+        border-radius: 4px;
+    background: #60c7c1;
+    text-decoration: none;
+    transition: all 0.4s;
+        line-height: normal;
+    min-width: 120px;
+        border: none;
+    min-height: 40px;
+    border-radius: 3px;
+    margin: 0 5px;
+    outline: none !important;
+    }
+  .modal-confirm .btn-info {
+        background: #c1c1c1;
+    }
+    .modal-confirm .btn-info:hover, .modal-confirm .btn-info:focus {
+        background: #a8a8a8;
+    }
+    .modal-confirm .btn-danger {
+        background: #f15e5e;
+    }
+    .modal-confirm .btn-danger:hover, .modal-confirm .btn-danger:focus {
+        background: #ee3535;
+    }
+  .trigger-btn {
+    display: inline-block;
+    margin: 100px auto;
+  }
+</style>
+
+</head>
+<body ng-app="myApp" ng-controller="myControl">
+
+  <div class="container-fluid">
+
+
+
+
+
+  <div class="row" style="padding: 10px;background: rgba(230, 241, 247,0.3);border: 0px solid black"><!-- Start of 1st row -->
+
+    <div class="col-sm-1 col-xs-1"><!-- Start of col-1 result -->
+         <span><b ng-show="!key.name"> {{(companyDataShow | filter:searchData).length}}</b><b>&nbsp;Result</b></span> 
+    </div><!-- End of col-1 result -->
+
+    <div class="col-sm-3 col-xs-3"><!-- Start of button col-3 -->
+      <button class="btn btn-success btn-sm" onclick="selectMenu()">Display Fields</button>&nbsp;&nbsp;&nbsp;
+      <button class="btn btn-info btn-sm" ng-click="insertCompany()">Add Company</button>
+    </div><!-- End of button col-3 -->
+
+
+      <!-- Start of select record -->
+
+      <div class="col-sm-3 col-xs-3">
+        <div class="form-group">
+          <label class="control-label col-sm-7 text-right" >Show Records</label>
+          <div class="col-sm-5 ">
+            <select class="form-control input-sm" ng-model="page" ng-change="changePageSize(page)" ng-init="page='10'">
+              <option value="" disabled="disabled"> Select No</option>
+              <option value="10" class="active">10</option>
+              <option value="15">15</option>
+            </select>
+          </div>
+        </div>
+    </div>
+     <!-- End of select record -->
+
+     <div class="col-sm-5 col-xs-5 text-right"><!-- Start of col-5 paigination -->
+       
+        <ul class="pagination pagination-sm" style="padding: 0px;margin: 0px">
+  <li ng-click="currentPage=currentPage-1" ng-class="{'disabled':currentPage == 0}"><a href="">Previous</a></li>
+  <li ng-repeat="x in totalPageList" ng-class="{'active':$index==currentPage}" ng-click="customPage($index)"><a href="">{{x}}</a></li>
+  <li ng-class="{'disabled':currentPage >= getData().length/pageSize - 1}" ng-click="currentPage=currentPage+1" ><a href="">Next</a></li>
+</ul>
+
+     </div><!-- End of col-5 paigination -->
+
+ </div><!-- End of 1st row for header -->
+
+
+
+
+<div class="row" id="selectMenu" style="display: none;border-top:1px solid rgb(237, 237, 237)" ><!-- Start of select menu -->
+
+   <div class="col-sm-10" ng-init="ch.alias=false"><!-- Start of col-10 -->
+
+     <div class="col-sm-2"> 
+    <div class="checkbox" >
+      <label><input type="checkbox" value="" ng-model="ch.parentCompny">Parent Company</label>
+    </div>
+    </div>
+
+
+     <div class="col-sm-2"> 
+    <div class="checkbox" >
+      <label><input type="checkbox" value="" ng-model="ch.company">Child Company</label>
+    </div>
+    </div>
+
+     <div class="col-sm-2"> 
+    <div class="checkbox" >
+      <label><input type="checkbox" value="" ng-model="ch.alias">Alias</label>
+    </div>
+    </div>
+
+     <div class="col-sm-2"> 
+    <div class="checkbox" >
+      <label><input type="checkbox" value="" ng-model="ch.country">Country</label>
+    </div>
+    </div>
+
+     <div class="col-sm-2"> 
+    <div class="checkbox" >
+      <label><input type="checkbox" value="" ng-model="ch.state">State</label>
+    </div>
+    </div>
+
+     <div class="col-sm-2"> 
+    <div class="checkbox" >
+      <label><input type="checkbox" value="" ng-model="ch.department">Department</label>
+    </div>
+    </div>
+
+     <div class="col-sm-2"> 
+    <div class="checkbox" >
+      <label><input type="checkbox" value="" ng-model="ch.businessUnits">BusinessUnits</label>
+    </div>
+    </div>
+
+     <div class="col-sm-2"> 
+    <div class="checkbox" >
+      <label><input type="checkbox" value="" ng-model="ch.leglEntity">Legal Entity</label>
+    </div>
+    </div>
+
+     <div class="col-sm-2"> 
+    <div class="checkbox" >
+      <label><input type="checkbox" value="" ng-model="ch.addressLin1">AddressLine1</label>
+    </div>
+    </div>
+
+     <div class="col-sm-2"> 
+    <div class="checkbox" >
+      <label><input type="checkbox" value="" ng-model="ch.addressLin2">AddressLine2</label>
+    </div>
+    </div>
+
+     <div class="col-sm-2"> 
+    <div class="checkbox" >
+      <label><input type="checkbox" value="" ng-model="ch.addressLin3">AddressLine3</label>
+    </div>
+    </div>
+
+    <div class="col-sm-2"> 
+    <div class="checkbox" >
+      <label><input type="checkbox" value="" ng-model="ch.postCode">Post Code</label>
+    </div>
+    </div>
+
+    <div class="col-sm-2"> 
+    <div class="checkbox" >
+      <label><input type="checkbox" value="" ng-model="ch.contact">Contact</label>
+    </div>
+    </div>
+
+    <div class="col-sm-2"> 
+    <div class="checkbox" >
+      <label><input type="checkbox" value="" ng-model="ch.fax">Fax</label>
+    </div>
+    </div>
+
+    <div class="col-sm-2"> 
+    <div class="checkbox" >
+      <label><input type="checkbox" value="" ng-model="ch.email">Email</label>
+    </div>
+    </div>
+
+    <div class="col-sm-2"> 
+    <div class="checkbox" >
+      <label><input type="checkbox" value="" ng-model="ch.website">Website</label>
+    </div>
+    </div>
+
+     <div class="col-sm-2"> 
+    <div class="checkbox" >
+      <label><input type="checkbox" value="" ng-model="ch.defaultCurrency">DefaultCurrency</label>
+    </div>
+    </div>
+
+     <div class="col-sm-2"> 
+    <div class="checkbox" >
+      <label><input type="checkbox" value="" ng-model="ch.defaultDateFormat">DefaultDateFormat</label>
+    </div>
+    </div>
+
+     <div class="col-sm-2"> 
+    <div class="checkbox" >
+      <label><input type="checkbox" value="" ng-model="ch.decimalPoint">DecimalPoint</label>
+    </div>
+    </div>
+
+      <div class="col-sm-2"> 
+    <div class="checkbox" >
+      <label><input type="checkbox" value="" ng-model="ch.decimalPosition">DecimalPosition</label>
+    </div>
+    </div>
+
+      <div class="col-sm-2"> 
+    <div class="checkbox" >
+      <label><input type="checkbox" value="" ng-model="ch.defaultTimeZone">DefaultTimeZone</label>
+    </div>
+    </div>
+
+
+      <div class="col-sm-2"> 
+    <div class="checkbox" >
+      <label><input type="checkbox" value="" ng-model="ch.ficalYrStart">Fical Year Start</label>
+    </div>
+    </div>
+
+
+   </div><!-- End of col 10 -->
+    <div class="col-sm-2 "><!-- Start of col-2 -->
+    <br>
+     <button type="button" class="btn btn-default"  ng-click="saveColoum(ch)">Save</button>
+      <button type="button" class=" btn btn-default " id="cloDisplay" >Cancel</button>
+  </div><!-- End of col-2 -->
+</div><!-- End of Select menu -->
+
+
+
+<script type="text/javascript">
+  function selectMenu(){
+   
+   $("#selectMenu").toggle();
+  }
+
+  $("#cloDisplay").click(function(){
+    $("#selectMenu").hide();
+  })
+
+
+</script>
+
+
+
+
+
+<div class="row"><!-- Start of 1st row -->
+      <div class="col-sm-12 table-responsive" style="border-top:1px solid rgb(237, 237, 237) ;overflow-x:auto; ">
+      <table class="table table-striped">
+    <thead>
+      <tr>
+        <th ng-click="sort('parentCompny')" ng-show="ch.parentCompny">Parent Company&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='parentCompny' && sortBool==false,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='parentCompny' && sortBool==true} " ></span>
+          <br> </th>
+        <th ng-click="sort('company')" ng-show="ch.company">Child Company&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='company' && sortBool==false,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='company' && sortBool==true} " ></span>
+          <br> </th>
+
+                <th ng-click="sort('alias')" ng-show="ch.alias">alias&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='alias' && sortBool==false,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='alias' && sortBool==true} " ></span>
+          <br> </th>
+
+        <th ng-click="sort('country')" ng-show="ch.country">Country&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='country' && sortBool==false,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='country' && sortBool==true} " ></span>
+          <br> </th>
+        <th ng-click="sort('state')" ng-show="ch.state">State&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='state' && sortBool==false,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='state' && sortBool==true} " ></span>
+          <br> </th>
+        <th ng-click="sort('department')" ng-show="ch.department">Department&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='department' && sortBool==false,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='department' && sortBool==true} " ></span>
+          <br> </th>
+        <th ng-click="sort('businessUnits')" ng-show="ch.businessUnits">BusinessUnits&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='businessUnits' && sortBool==false,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='businessUnits' && sortBool==true} " ></span>
+          <br> </th>
+      
+            <th ng-click="sort('leglEntity')" ng-show="ch.leglEntity">leglEntity&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='leglEntity' && sortBool==false,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='leglEntity' && sortBool==true} " ></span>
+          <br> </th>
+
+
+            <th ng-click="sort('addressLin1')" ng-show="ch.addressLin1">addressLin1&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='addressLin1' && sortBool==false,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='addressLin1' && sortBool==true} " ></span>
+          <br> </th>
+
+
+            <th ng-click="sort('addressLin2')" ng-show="ch.addressLin2">addressLin2&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='addressLin2' && sortBool==false,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='addressLin2' && sortBool==true} " ></span>
+          <br> </th>
+
+            <th ng-click="sort('addressLin3')" ng-show="ch.addressLin3">addressLin3&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='addressLin3' && sortBool==false,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='addressLin3' && sortBool==true} " ></span>
+          <br> </th>
+
+            <th ng-click="sort('postCode')" ng-show="ch.postCode">postCode&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='postCode' && sortBool==false,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='postCode' && sortBool==true} " ></span>
+          <br> </th>
+
+          <th ng-click="sort('contact')" ng-show="ch.contact">contact&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='contact' && sortBool==false,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='contact' && sortBool==true} " ></span>
+          <br> </th>
+          <th ng-click="sort('fax')" ng-show="ch.fax">fax&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='fax' && sortBool==false,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='fax' && sortBool==true} " ></span>
+          <br> </th>
+
+            <th ng-click="sort('email')" ng-show="ch.email">email&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='email' && sortBool==false,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='email' && sortBool==true} " ></span>
+          <br> </th>
+
+            <th ng-click="sort('website')" ng-show="ch.website">website&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='website' && sortBool==false,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='website' && sortBool==true} " ></span>
+          <br> </th>
+
+            <th ng-click="sort('defaultCurrency')" ng-show="ch.defaultCurrency">defaultCurrency&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='defaultCurrency' && sortBool==false,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='defaultCurrency' && sortBool==true} " ></span>
+          <br> </th>
+
+           <th ng-click="sort('defaultDateFormat')" ng-show="ch.defaultDateFormat">defaultDateFormat&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='defaultDateFormat' && sortBool==false,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='defaultDateFormat' && sortBool==true} " ></span>
+          <br> </th>
+           <th ng-click="sort('decimalPoint')" ng-show="ch.decimalPoint">decimalPoint&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='decimalPoint' && sortBool==false,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='decimalPoint' && sortBool==true} " ></span>
+          <br> </th>
+           <th ng-click="sort('decimalPosition')" ng-show="ch.decimalPosition">decimalPosition&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='decimalPosition' && sortBool==false,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='decimalPosition' && sortBool==true} " ></span>
+          <br> </th>
+
+             <th ng-click="sort('defaultTimeZone')" ng-show="ch.defaultTimeZone">defaultTimeZone&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='defaultTimeZone' && sortBool==false,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='defaultTimeZone' && sortBool==true} " ></span>
+          <br> </th>
+
+             <th ng-click="sort('ficalYrStart')" ng-show="ch.ficalYrStart">ficalYrStart&nbsp;<span ng-class="{'glyphicon glyphicon-sort-by-alphabet':selection=='ficalYrStart' && sortBool==false,'glyphicon glyphicon-sort-by-alphabet-alt':selection=='ficalYrStart' && sortBool==true} " ></span>
+          <br> </th>
+
+            <th>Action
+          <br></th>
+
+        </tr>
+    </thead>
+    <tbody >
+   <!--  <tr  ng-repeat="y in x.department">
+
+    <td rowspan="{{x.department.length}}" ng-hide="$index>0">
+      {{x.parentCompny}}
+    </td>
+     <td rowspan="{{x.department.length}}" ng-hide="$index>0">
+      {{x.company}}
+    </td>
+     <td rowspan="{{x.department.length}}" ng-hide="$index>0">
+      {{x.country}}
+    </td>
+     <td rowspan="{{x.department.length}}" ng-hide="$index>0">
+      {{x.state}}
+    </td>
+    <td>{{y.name}}</td>
+    
+  </tr> -->
+
+<style type="text/css">.odd{background: rgb(249, 249, 249)}
+</style>
+<tr>
+    <td ng-show="ch.parentCompny"><input type="text" class="form-control" placeholder="Search parentCompny" ng-model="searchData.parentCompny" ng-style="customSearchCss" ng-keyup="searchDataFilter()"></td>
+    <td ng-show="ch.company"><input type="text" class="form-control" placeholder="Search Company" ng-model="searchData.company" ng-style="customSearchCss" ng-keyup="searchDataFilter()"></td>
+    <td ng-show="ch.alias"><input type="text" class="form-control" placeholder="Search Alias" ng-model="searchData.alias" ng-style="customSearchCss" ng-keyup="searchDataFilter()"></td>
+    <td ng-show="ch.country"><input type="text" class="form-control" placeholder="Search Country" ng-model="searchData.country" ng-style="customSearchCss" ng-keyup="searchDataFilter()"></td>
+    <td ng-show="ch.state"><input type="text" class="form-control" placeholder="Search state" ng-model="searchData.state" ng-style="customSearchCss" ng-keyup="searchDataFilter()"></td>
+    <td ng-show="ch.department"><input type="text" class="form-control" placeholder="Search Department" ng-model="searchData.department" ng-style="customSearchCss" ng-keyup="searchDataFilter()"></td>
+    <td ng-show="ch.businessUnits"><input type="text" class="form-control" placeholder="Search BusinessUnits" ng-model="searchData.businessUnits" ng-style="customSearchCss" ng-keyup="searchDataFilter()"></td>
+      <td ng-show="ch.leglEntity"><input type="text" class="form-control" placeholder="Search LeglEntity" ng-model="searchData.leglEntity" ng-style="customSearchCss" ng-keyup="searchDataFilter()"></td>
+      <td ng-show="ch.addressLin1"><input type="text" class="form-control" placeholder="Search AddressLin1" ng-model="searchData.addressLin1" ng-style="customSearchCss" ng-keyup="searchDataFilter()"></td>
+      <td ng-show="ch.addressLin2"><input type="text" class="form-control" placeholder="Search AddressLin2" ng-model="searchData.addressLin2" ng-style="customSearchCss" ng-keyup="searchDataFilter()"></td>
+      <td ng-show="ch.addressLin3"><input type="text" class="form-control" placeholder="Search AddressLin3" ng-model="searchData.addressLin3" ng-style="customSearchCss" ng-keyup="searchDataFilter()"></td>
+       <td ng-show="ch.postCode"><input type="text" class="form-control" placeholder="Search PostCode" ng-model="searchData.postCode" ng-style="customSearchCss" ng-keyup="searchDataFilter()"></td>
+        <td ng-show="ch.contact"><input type="text" class="form-control" placeholder="Search Contact" ng-model="searchData.contact" ng-style="customSearchCss" ng-keyup="searchDataFilter()"></td>
+         <td ng-show="ch.fax"><input type="text" class="form-control" placeholder="Search Fax" ng-model="searchData.fax" ng-style="customSearchCss" ng-keyup="searchDataFilter()"></td>
+          <td ng-show="ch.email"><input type="text" class="form-control" placeholder="Search Email" ng-model="searchData.email" ng-style="customSearchCss" ng-keyup="searchDataFilter()"></td>
+        <td ng-show="ch.website"><input type="text" class="form-control" placeholder="Search Website" ng-model="searchData.website" ng-style="customSearchCss" ng-keyup="searchDataFilter()"></td>
+        <td ng-show="ch.defaultCurrency"><input type="text" class="form-control" placeholder="Search DefaultCurrency" ng-model="searchData.defaultCurrency" ng-style="customSearchCss" ng-keyup="searchDataFilter()"></td>
+        <td ng-show="ch.defaultDateFormat"><input type="text" class="form-control" placeholder="Search DefaultDateFormat" ng-model="searchData.defaultDateFormat" ng-style="customSearchCss" ng-keyup="searchDataFilter()"></td>
+         <td ng-show="ch.decimalPoint"><input type="text" class="form-control" placeholder="Search DecimalPoint" ng-model="searchData.decimalPoint" ng-style="customSearchCss" ng-keyup="searchDataFilter()"></td>
+          <td ng-show="ch.decimalPosition"><input type="text" class="form-control" placeholder="Search DecimalPosition" ng-model="searchData.decimalPosition" ng-style="customSearchCss" ng-keyup="searchDataFilter()"></td>
+           <td ng-show="ch.defaultTimeZone"><input type="text" class="form-control" placeholder="Search DefaultTimeZone" ng-model="searchData.defaultTimeZone" ng-style="customSearchCss" ng-keyup="searchDataFilter()"></td>
+            <td ng-show="ch.ficalYrStart"><input type="text" class="form-control" placeholder="Search FicalYrStart" ng-model="searchData.ficalYrStart" ng-style="customSearchCss" ng-keyup="searchDataFilter()"></td>
+              <td><button class="btn btn-default" ng-click="searchData={}">clear</button></td>
+
+</tr>
+  <tr ng-repeat="x in companyDataShow | orderBy:selection:sortBool | filter:searchData | startFrom:currentPage*pageSize |limitTo :pageSize ">
+    <td ng-show="ch.parentCompny" ng-click="editForm(x)">{{x.parentCompny}} </td>
+    <td ng-show="ch.company" ng-click="editForm(x)">{{x.company}}</td>
+    <td ng-show="ch.alias" ng-click="editForm(x)">{{x.alias}}</td>
+    <td ng-show="ch.country" ng-click="editForm(x)">{{x.country}}</td>
+    <td ng-show="ch.state" ng-click="editForm(x)">{{x.state}}</td>
+
+    <td style="padding: 10px" ng-show="ch.department" ng-click="editForm(x)">
+      <ul ng-repeat="y in x.department | filter:searchGroup" style="padding: 0px;margin: 5px">
+        <li style="border: none;margin: 0px;padding: 8px"  ng-class="{'list-group-item list-group-item-light':$index%2==0,'list-group-item list-group-item-secondary':$index%2!=0}">{{y}}</li>
+      </ul>
+    </td>
+    <td style="padding: 10px" ng-show="ch.businessUnits" ng-click="editForm(x)">
+      <ul ng-repeat="z in x.businessUnits | filter:businessGroup " style="padding: 0px;margin: 5px">
+        <li style="border: none;margin: 0px;padding: 8px" ng-class="{'list-group-item list-group-item-light':$index%2!=0,'list-group-item list-group-item-secondary':$index%2==0}">{{z}}</li>
+      </ul>
+    </td>
+    <td ng-show="ch.leglEntity" ng-click="editForm(x)">{{x.leglEntity}}</td>
+    <td ng-show="ch.addressLin1" ng-click="editForm(x)">{{x.addressLin1}}</td>
+     <td ng-show="ch.addressLin2" ng-click="editForm(x)">{{x.addressLin2}}</td>
+      <td ng-show="ch.addressLin3" ng-click="editForm(x)">{{x.addressLin3}}</td>
+      <td ng-show="ch.postCode" ng-click="editForm(x)">{{x.postCode}}</td>
+      <td ng-show="ch.contact" ng-click="editForm(x)">{{x.contact}}</td>
+      <td ng-show="ch.fax" ng-click="editForm(x)">{{x.fax}}</td>
+      <td ng-show="ch.email" ng-click="editForm(x)">{{x.email}}</td>
+      <td ng-show="ch.website" ng-click="editForm(x)">{{x.website}}</td>
+      <td ng-show="ch.defaultCurrency" ng-click="editForm(x)">{{x.defaultCurrency}}</td>
+      <td ng-show="ch.defaultDateFormat" ng-click="editForm(x)">{{x.defaultDateFormat}}</td>
+      <td ng-show="ch.decimalPoint" ng-click="editForm(x)">{{x.decimalPoint}}</td>
+      <td ng-show="ch.decimalPosition" ng-click="editForm(x)">{{x.decimalPosition}}</td>
+      <td ng-show="ch.defaultTimeZone" ng-click="editForm(x)">{{x.defaultTimeZone}}</td>
+      <td ng-show="ch.ficalYrStart" ng-click="editForm(x)">{{x.ficalYrStart}}</td>
+      <td><button class="btn btn-info btn-xs" ng-click="editForm(x)"><span class="glyphicon glyphicon-edit"></span></button>
+        <button class="btn btn-warning btn-xs" data-toggle="modal" ng-click="deleteAlert(x)"><span class="glyphicon glyphicon-trash"></span></button></td>
+  </tr>
+      
+  </tbody>
+  </table>
+      </div><!-- End of col 12 -->
+
+
+   <div class="col-sm-12 text-right" style="border: 0px solid black;padding-right: 35px">
+        <ul class="pagination pagination-sm" style="border: 0px solid black">
+ <li ng-click="currentPage=currentPage-1" ng-class="{'disabled':currentPage == 0}"><a href="">Previous</a></li>
+  <li ng-repeat="x in totalPageList" ng-class="{'active':$index==currentPage}" ng-click="customPage($index)"><a href="">{{x}}</a></li>
+  <li ng-class="{'disabled':currentPage >= getData().length/pageSize - 1}" ng-click="currentPage=currentPage+1" ><a href="">Next</a></li>
+</ul>
+      </div>
+
+
+    </div>    <!-- End of nd row -->
+  </div><!-- End contaier fluid -->
+
+
+
+<!-- Start of modal -->
+<div id="myModalDel" class="modal fade">
+  <div class="modal-dialog modal-confirm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="icon-box">
+          <i class="material-icons">&#xE5CD;</i>
+        </div>        
+        <h4 class="modal-title">Are you sure?</h4>  
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Do you really want to delete these records? This process cannot be undone.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger" ng-click="deleteRecord()">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>     
+
+<!-- End of modal -->
+
+
+<!-- start modal -->
+ 
+    <div id="myModalEntry" class="modal fade" role="dialog" style="margin-top: -30px;margin-left:0px">
+      <div class="modal-dialog">
+
+        <!--     Modal content -->
+        <!-- <div class="modal-content"> -->
+          <!-- <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">x</button>
+            <h4 class="modal-title">Modal Header</h4>
+          </div> -->
+          <div class="modal-body" style="margin:0px;padding:0px;" >
+          
+          <div  class="embed-responsive embed-responsive-16by9"  >
+              <iframe src="" id="frame" class="embed-responsive-item" name="iframe_a"  ></iframe>
+          </div>
+            <!-- style="height: 560px;"<iframe src="" id="frame" style="z-index:-10;width: 1204px;height: 480px;margin-left:-50px;margin-top:0px;padding:0px;margin-bottom:0px;"></iframe> -->
+          </div>
+        <!--  <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div> -->
+        <!-- </div> -->
+
+      </div>
+    </div>
+    <!-- ENd of model -->
+    <!-- ENd of model -->
+
+     <script type="text/javascript">
+    window.closeModal = function(){
+        
+    $('#myModal').modal('hide');
+   location.reload();
+}
+
+
+  </script>
+  <script type="text/javascript">
+    window.moveTop = function(){
+        
+    window.parent.topScroll();
+}
+
+  </script>
+
+<div class="message"></div>
+
+    <!-- start modal -->
+    <style>
+
+    
+    </style>
+    <div id="myModalPage" class="modal fade" role="dialog" style="margin-top: -30px;margin-left: 0px"  >
+      <div class="modal-dialog">
+
+       
+          <div class="modal-body" style="margin:0px;padding:0px;" >
+          
+          <div  class="embed-responsive embed-responsive-16by9"  >
+              <iframe src="" id="iframe" class="embed-responsive-item" name="iframe_a"  ></iframe>
+          </div>
+            <!-- style="height: 560px;"<iframe src="" id="frame" style="z-index:-10;width: 1204px;height: 480px;margin-left:-50px;margin-top:0px;padding:0px;margin-bottom:0px;"></iframe> -->
+          </div>
+ 
+
+      </div>
+    </div>
+    <!-- ENd of model -->
+
+  <script src="js/companylist.js"></script>
+</body>
+</html>

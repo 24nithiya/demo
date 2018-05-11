@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.entoss.pomfret.actnow.daas.EmployeeMapper">
+	<resultMap type="Employee" id="EmployeeResult">
+		<result property="id" column="id" />
+		<result property="gender" column="gender" />
+		<result property="firstName" column="first_name" />
+		<result property="middleName" column="middle_name" />
+		<result property="lastName" column="last_name" />
+		<result property="dateOfJoining" column="date_of_joining" />
+		<result property="dateOfBirth" column="date_of_birth" />
+		<result property="status" column="status" />
+		<result property="cmpnyId" column="cmpny_id" />
+		<result property="buId" column="bu_id" />
+		<result property="deptId" column="dept_id" />
+		<result property="designation" column="designation" />
+		<result property="reportTo" column="report_to" />
+		<result property="employeeId" column="employee_id" />
+		<result property="loginId" column="login_id" />
+		<result property="emailId" column="email_id" />
+	</resultMap>
+	
+	<resultMap type="ProcessRoles" id="processResult">
+	<result property="id" column="id" />
+	<result property="name" column="name" />
+	</resultMap>
+	
+	<resultMap type="Roles" id="rolesResult">
+	<result property="id" column="id" />
+	<result property="name" column="name" />
+	</resultMap>
+	
+	<select id="getAllEmployees" resultMap="EmployeeResult">
+		SELECT * FROM EMPLOYEE
+	</select>
+
+	<select id="getEmployeeById" parameterType="int" resultMap="EmployeeResult">
+		SELECT *
+
+		FROM EMPLOYEE
+
+		WHERE EMPLOYEE_ID = #{employeeId}
+	</select>
+
+	<select id="getEmployeeBycmpnyId" parameterType="int" resultMap="EmployeeResult">
+		SELECT *
+
+		FROM EMPLOYEE
+
+		WHERE CMPNY_ID = #{cmpnyId}
+	</select>
+
+	<select id="getEmployeeByBuId" parameterType="int" resultMap="EmployeeResult">
+		SELECT *
+		FROM EMPLOYEE
+
+		WHERE BU_ID = #{buId}
+	</select>
+
+	<select id="getEmployeeByDeptId" parameterType="int" resultMap="EmployeeResult">
+		SELECT *
+		FROM EMPLOYEE
+
+		WHERE DEPT_ID = #{deptId}
+	</select>
+
+
+	<select id="getEmployeeByLoginId" parameterType="java.lang.String"
+		resultMap="EmployeeResult">
+		SELECT *
+
+		FROM EMPLOYEE
+
+		WHERE LOGIN_ID = #{loginId}
+	</select>
+
+	<insert id="insertEmployee" parameterType="Employee">
+		INSERT INTO
+		EMPLOYEE(ID,GENDER,FIRST_NAME,MIDDLE_NAME,LAST_NAME,DATE_OF_JOINING,DATE_OF_BIRTH,STATUS,
+		CMPNY_ID,BU_ID,DEPT_ID,DESIGNATION,REPORT_TO,LOGIN_ID,EMAIL_ID)
+		VALUES(#{id}, #{gender}, #{firstName}, #{middleName}, #{lastName},
+		#{dateOfJoining}, #{dateOfBirth}, #{status},
+		#{cmpnyId}, #{buId}, #{deptId}, #{designation}, #{reportTo},
+		#{loginId}, #{emailId})
+	</insert>
+	
+	<insert id="insertUserProcessRoles" parameterType="map">
+	     INSERT INTO
+	     PROCESS_ROLES_MEMBERSHIP(USER_ID,PROCESS_ROLES) VALUES(#{user},#{processRole})
+	</insert>
+	
+	<insert id="insertUserRoles" parameterType="map">
+	     INSERT INTO
+	     ROLES_MEMBERSHIP(USER_ID,ROLES) VALUES(#{user},#{role})
+	</insert>
+	
+	<update id="updateEmployee" parameterType="Employee">
+		UPDATE EMPLOYEE
+		SET
+		ID = #{id},
+		GENDER = #{gender},
+		FIRST_NAME = #{firstName},
+		MIDDLE_NAME= #{middleName},
+		LAST_NAME = #{lastName},
+		DATE_OF_JOINING=#{dateOfJoining},
+		DATE_OF_BIRTH=#{dateOfBirth},
+		STATUS=#{status},
+		CMPNY_ID=#{cmpnyId},
+		BU_ID=#{buId},
+		DEPT_ID=#{deptId},
+		DESIGNATION=#{designation},
+		REPORT_TO=#{reportTo},
+		LOGIN_ID=#{loginId},
+		EMAIL_ID = #{emailId}
+
+		WHERE EMPLOYEE_ID = #{employeeId}
+	</update>
+
+	<delete id="deleteEmployee" parameterType="int">
+		DELETE FROM EMPLOYEE WHERE EMPLOYEE_ID = #{employeeId}
+	</delete>
+	
+	
+	<!-- <delete id="deleteEmployeeByLoginId" parameterType="java.lang.String">
+		DELETE FROM EMPLOYEE WHERE LOGIN_ID = #{loginId}
+	</delete> -->
+	
+	<delete id="deleteEmployeeByLoginId" parameterType="java.lang.String">
+		WITH TEMP AS (SELECT EMPLOYEE_ID FROM EMPLOYEE WHERE LOGIN_ID=#{loginId}),
+		UPD AS (UPDATE EMPLOYEE SET REPORT_TO=NULL WHERE REPORT_TO IN (SELECT EMPLOYEE_ID FROM TEMP))
+		 DELETE FROM EMPLOYEE WHERE LOGIN_ID=#{loginId};
+	</delete>
+	
+	<delete id="deleteUserProcessRoles" parameterType="map">
+	     DELETE FROM
+	     PROCESS_ROLES_MEMBERSHIP WHERE USER_ID=#{user} AND PROCESS_ROLES = #{processRole}
+	</delete>
+	
+	<delete id="deleteUserRoles" parameterType="map">
+	     DELETE FROM
+	     ROLES_MEMBERSHIP WHERE USER_ID=#{user} AND ROLES = #{role}
+	</delete>
+	
+
+	<select id="getManagerByEmployeeId" parameterType="int"
+		resultType="java.lang.String">
+		SELECT REPORT_TO FROM EMPLOYEE
+		WHERE EMPLOYEE_ID=#{employeeId}
+	</select>
+
+	<select id="getManagerByLoginId" parameterType="java.lang.String"
+		resultType="java.lang.String">
+		SELECT REPORT_TO FROM EMPLOYEE
+		WHERE LOGIN_ID=#{loginId}
+	</select>
+
+	<!-- <select id="getManagerByEmployeeId" parameterType="int" resultType="java.lang.String"> 
+		SELECT MANAGER_ID FROM EMPLOYEE_MANAGER WHERE EMPLOYEE_ID = #{employeeId} 
+		</select> <select id="getManagerByLoginId" parameterType="java.lang.String" 
+		resultType="java.lang.String"> SELECT EM.MANAGER_ID FROM EMPLOYEE E, EMPLOYEE_MANAGER 
+		EM WHERE E.EMPLOYEE_ID = EM.EMPLOYEE_ID AND E.LOGIN_ID = #{loginId} </select> -->
+
+	<select id="getManagerDetailsByEmployeeId" parameterType="int"
+		resultMap="EmployeeResult">
+		SELECT *
+
+		FROM EMPLOYEE
+
+		WHERE EMPLOYEE_ID = (SELECT REPORT_TO FROM EMPLOYEE WHERE
+		EMPLOYEE_ID=#{employeeId})
+	</select>
+	
+	
+	<select id="getAllProcessRoles" resultMap="processResult">
+	SELECT * FROM ACT_PROCESS_ROLES
+	</select>
+	
+	<select id="getAllRoles" resultMap="rolesResult">
+	SELECT * FROM ACT_ROLES
+	</select>
+
+</mapper>

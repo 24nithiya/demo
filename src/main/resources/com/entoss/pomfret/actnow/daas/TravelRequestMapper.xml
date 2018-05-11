@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.entoss.pomfret.actnow.daas.TravelRequestMapper">
+	<resultMap type="TravelRequest" id="TravelRequestResult">
+		<id property="id" column="id"/>
+		<result property="dateCreated" column="date_created"/>
+		<result property="dateModified" column="date_modified"/>
+		<result property="applicationId" column="application_id"/>
+		<result property="application" column="application"/>
+		<result property="applicationStatus" column="application_status"/>
+		<result property="costCentre" column="cost_centre"/>
+		<result property="employeeId" column="employee_id"/>
+		<result property="processInstanceId" column="process_instance_id"/>
+		<result property="definitionId" column="definition_id"/>
+	</resultMap>
+	<select id="findAllTravelRequests" resultMap="TravelRequestResult">
+		SELECT * FROM TRAVEL_REQUEST
+	</select>
+	<select id="findTravelRequestById" parameterType="java.util.UUID" resultType="TravelRequest">
+		SELECT ID, 
+			DATE_CREATED AS DATECREATED, 
+			DATE_MODIFIED AS DATEMODIFIED, 
+			APPLICATION_ID AS APPLICATIONID,
+			APPLICATION, 
+			APPLICATION_STATUS AS APPLICATIONSTATUS, 
+			COST_CENTRE AS COSTCENTRE,
+			EMPLOYEE_ID AS EMPLOYEEID, 
+			PROCESS_INSTANCE_ID AS PROCESSINSTANCEID,DEFINITION_ID AS DEFINITIONID
+		FROM TRAVEL_REQUEST 
+		WHERE APPLICATION_ID=#{applicationId,javaType=UUID,jdbcType=OTHER,typeHandler=UUIDTypeHandler}
+	</select>
+	
+	<select id="findTravelRequestByEmployeeId" resultMap="TravelRequestResult">
+		SELECT * FROM TRAVEL_REQUEST WHERE EMPLOYEE_ID=#{employeeId}
+	</select>
+	
+  
+	<insert id="createTravelRequest" parameterType="TravelRequest"  useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO TRAVEL_REQUEST(
+		
+		 DATE_CREATED, DATE_MODIFIED, APPLICATION_ID, 
+			APPLICATION, APPLICATION_STATUS, COST_CENTRE, EMPLOYEE_ID,
+			PROCESS_INSTANCE_ID, DEFINITION_ID)
+		VALUES(
+		
+		
+		#{dateCreated},#{dateModified},
+			#{applicationId,javaType=UUID,jdbcType=OTHER,typeHandler=UUIDTypeHandler}, 
+			#{application,javaType=JsonElement,jdbcType=OTHER,typeHandler=JsonElementTypeHandler}, 
+			#{applicationStatus}, #{costCentre},#{employeeId},
+			#{processInstanceId,javaType=UUID,jdbcType=OTHER,typeHandler=UUIDTypeHandler},#{definitionId})
+			RETURNING id
+	</insert>
+	
+	<update id="updateTravelRequest" parameterType="TravelRequest">
+		UPDATE TRAVEL_REQUEST
+		SET 
+		DATE_CREATED = #{dateCreated},
+		DATE_MODIFIED = #{dateModified},
+		APPLICATION = #{application,javaType=JsonElement,jdbcType=OTHER,typeHandler=JsonElementTypeHandler}, 
+		APPLICATION_STATUS = #{applicationStatus},
+		COST_CENTRE = #{costCentre},
+		EMPLOYEE_ID = #{employeeId}
+		WHERE APPLICATION_ID = #{applicationId,javaType=UUID,jdbcType=OTHER,typeHandler=UUIDTypeHandler}
+	</update>
+	
+	<select id="getEmployeeEmailId" parameterType="int" resultType="java.lang.String">
+	   SELECT EMAIL_ID FROM EMPLOYEE WHERE EMPLOYEE_ID=#{employeeId};
+	 </select>
+	
+	<delete id="deleteTravelRequest" parameterType="java.util.UUID">
+		DELETE FROM TRAVEL_REQUEST 
+		WHERE APPLICATION_ID = #{applicationId,javaType=UUID,jdbcType=OTHER,typeHandler=UUIDTypeHandler}
+	</delete>
+
+</mapper>

@@ -1,0 +1,128 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+   <head>
+       <title>Login</title>
+       <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   <style type="text/css">
+  	.center-div
+{
+  position: absolute;
+  margin: auto;
+ 
+ z-index: 999;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 400px;
+  height: 320px;
+  border: 2px solid rgb(216, 216, 216);
+  /*background-color: #ffffff;*/
+ background: -moz-linear-gradient(315deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.5) 49%, rgba(216,216,216,0.5) 100%); /* ff3.6+ */
+background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, rgba(255,255,255,0.5)), color-stop(49%, rgba(255,255,255,0.5)), color-stop(100%, rgba(216,216,216,0.5))); /* safari4+,chrome */
+background: -webkit-linear-gradient(315deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.5) 49%, rgba(216,216,216,0.5) 100%); /* safari5.1+,chrome10+ */
+background: -o-linear-gradient(315deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.5) 49%, rgba(216,216,216,0.5) 100%); /* opera 11.10+ */
+background: -ms-linear-gradient(315deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.5) 49%, rgba(216,216,216,0.5) 100%); /* ie10+ */
+background: linear-gradient(135deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,1) 49%, rgba(216,216,216,0.5) 100%); /* w3c */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFFFFF', endColorstr='#d8d8d8',GradientType=1 ); /* ie6-9 */
+  border-radius: 3px;
+-webkit-box-shadow: 0px 0px 14px -4px rgba(0,0,0,1);
+-moz-box-shadow: 0px 0px 14px -4px rgba(0,0,0,1);
+box-shadow: 0px 0px 14px -4px rgba(0,0,0,1);
+}
+  </style>
+   </head>
+   <body>
+
+
+      
+
+
+<div class="container-fluid" style="padding: 0px;margin: 0px">
+	<div class="row" style="border-bottom:0px solid rgb(216, 216, 216) ;margin-top: 5px">
+		<div class="col-sm-6" style="padding: 0px;margin-left: 25px">
+			
+			<!-- <img src="img/entoss.png"  width="250" height="70"/> -->
+			<h:graphicImage value="http://localhost:8080/actnow-claims-1.0.0/img/entoss.png"  width="250" height="70" />
+		</div>
+		<div class="col-sm-6 text-right" >
+			
+		</div>
+	</div><!--End of 1st row-->
+	<div class="row" >
+		<div class=" center-div">
+			
+			
+			<div class="row" style="padding-left: 25px;padding-right: 25px">
+				<div class="col-sm-12" style="padding: 0px"><!--start of heading-->
+					<div class="col-sm-7" >
+						
+					</div>
+					<div class="col-sm-5" style="background: ;margin-top: 15px;">
+					<!-- 	<img src="img/pomfret_logo.jpg" width="120" height="50"/> -->
+					<h:graphicImage value="http://localhost:8080/actnow-claims-1.0.0/img/pomfret_logo.jpg" width="120" height="50" />
+					</div>
+					
+				</div><!--End of heading-->
+				<div class="col-sm-12" style="margin-top: 35px">
+							
+
+
+					 <form method="post" action="j_security_check" name="loginForm">
+  								<div class="input-group form-group">
+    									<span class="input-group-addon" ><i class="glyphicon glyphicon-user"></i></span>
+   										 
+               <h:inputText id="j_username" autocomplete="off" class="form-control" a:placeholder="user name"/>
+  								</div>
+  								
+  								<div class="input-group form-group">
+    								<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+    										
+    										   <h:inputSecret id="j_password" autocomplete="off" class="form-control" a:placeholder="Password" />
+    							
+  								</div>
+
+  								<div class="form-group text-right">
+									 <h:commandButton type="submit" class="btn btn-success" value="Login"/>
+                  
+  								</div>
+  										
+							</form>
+
+
+
+
+
+
+
+
+
+
+							
+          
+         
+ 
+
+				</div>
+
+			</div><!--End of ROW-->
+		</div><!--End of Center div-->
+		<div class="row" style="padding: 0px;margin: 0px">
+				<div class="col-sm-12" style="z-index:  border: 1px solid black">
+					<h:graphicImage value="http://localhost:8080/actnow-claims-1.0.0/img/1.jpg"  width="100%" />
+				</div>
+			</div>
+	</div><!--End of 2nd row-->
+	
+</div><!--End of main continer fluid-->
+
+
+
+
+   </body>
+</html>

@@ -1,0 +1,404 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	class="layout-pf layout-pf-fixed" xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Pomfret ActNow</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	 <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style type="text/css">
+	body,html,.main-display-area,.col-md-12 {
+   height:100%;
+}
+#logo{
+	width:140px;
+	border:0px solid black;	
+	height:50px;
+	padding-top:0px;
+	padding-bottom:0px;
+	margin-left: 58px;
+	margin-top: -14px;
+	
+	
+	}
+   
+</style>
+</h:head>
+
+<h:body>
+
+ <div class="main-display-area">
+   
+
+    <div class="col-md-12 frameTag" >
+      <iframe src="http://localhost:8080/actnow-claims-1.0.0/forms/antr/submit-travel-claim.html?sessionId=admin" id="fram" class="iframe" name="info" width="100%" height="99%" seamless=""></iframe>
+    </div>
+ </div>
+
+ <!-- Post Info -->
+<div style='position:fixed;top:0;left:0;    
+            background:#fff;width:100%;height: 50px;border:0px solid black;
+		-webkit-box-shadow: 2px 2px 24px -5px rgba(0,0,0,0.75);
+-moz-box-shadow: 2px 2px 24px -5px rgba(0,0,0,0.75);
+box-shadow: 2px 2px 24px -5px rgba(0,0,0,0.75);'><!-- Start of top nav -->
+
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+       <a class="navbar-brand" href="#">
+      	<img src="images/pomfret_logo.jpg"  style="border:0px solid black" id="logo" />
+
+      </a>
+       <span class="name pull-left" style="padding-top: 20px;margin-left: -10px">ActNow</span>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Page 1-1</a></li>
+            <li><a href="#">Page 1-2</a></li>
+            <li><a href="#">Page 1-3</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Page 2</a></li>
+        <li><a href="#">Page 3</a></li>
+      </ul>
+       <ul class="nav navbar-nav navbar-right" style="background: none;border: none">
+          <li class="dropdown" id="menuLogin">
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="navLogin"><img
+							src="images/profile.png"  style="width: 35px;height:40px"  class="helpdownicon"></img></a>
+
+            <div class="dropdown-menu" style="padding:0px;margin: 0px">
+            	<ul class="list-group" style="border: none;padding: 0px">
+            		<li class="list-group-item text-center"><h:outputText value="#{helloWorld.getSession()}"></h:outputText></li>
+            		<li class="list-group-item text-center">
+            		 <h:form id="homeForm">
+            				<h:commandLink value="Logout" action="#{login.logout}" style="text-decoration:none"/>
+   					 </h:form>
+            	</li>
+            </ul>
+            
+            </div>
+          </li>
+
+        </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+
+            
+</div><!-- End of nav -->
+
+<div style=' height: 100%; /*Start of side nav*/
+  
+    position: fixed; 
+    z-index: 1; 
+    top: 0; 
+    left: 0;
+    background-color: #111; 
+    overflow-x: hidden;
+    transition: 0.5s; 
+    width: 61px' class="sideNav">          
+    <ul class="list-group menuSide" style="background: none;border:none">
+  			<li class="list-group-item menu" style=""><img src="images/menu.png" height="25px" width="25px" ></img></li>
+  			<li class="list-group-item mytask" ><img src="images/mytask.png" height="25px" width="25px"></img></li>
+  			<li class="list-group-item process"><img src="images/process.png" height="25px" width="25px"></img></li>
+  			<li class="list-group-item myclaim" ><img src="images/task.png" height="25px" width="25px"></img></li>
+  			<li class="list-group-item dashboard" ><img src="images/dashboard.png" height="25px" width="25px"></img></li>
+  			<li class="list-group-item manage"><img src="images/admin.png" height="25px" width="25px"></img></li>
+		</ul>
+</div><!-- End of side nav -->
+
+<div style=' height: 100%; /*Start of sub menu slide*/
+   
+    position: fixed; 
+    z-index: 1; 
+    top: 0; 
+    left: 0;
+    background-color: #111; 
+    overflow-x: hidden; 
+    padding-top: 0px; 
+    transition: 0.5s;
+    width: 164px;  
+    margin-left: 61px' class="mainMenuList">
+
+     <ul class="list-group menuList" style="background: none;margin-top:5px">
+     	<li class="list-group-item mytask-list text-center" style="background:none;border:none;">&nbsp;</li>
+
+     	<li class="list-group-item mytask-list text-center tooltipMytask contex" onclick="requestTask()" data-toggle="tooltip" title="" >myTask</li>
+
+     	<li class="list-group-item process-list text-center tooltipProcess contex" data-toggle="tooltip" title="" >Process</li>
+
+		<li  class="list-group-item processSub-list text-right tooltipSubmitClaim contex" style="display:none" onclick="requestclaims()" data-toggle="tooltip" title="" >Submit Claim</li>
+
+     	<li  class="list-group-item processSub-list text-right tooltipSubmittravelClaim contex" style="display:none" onclick="request()" data-toggle="tooltip" title="" >Submit Travel Claim</li>
+
+     	<li class="list-group-item myclaim-list text-center tooltipMyClaim contex" onclick="requestmyclaim()" data-toggle="tooltip" title="" >MyClaim</li>
+
+     	<li class="list-group-item dashboard-list text-center tooltipDashboard contex" onclick="requesdash()" data-toggle="tooltip" title="" >Dashboard</li>
+
+     	<li class="list-group-item manage-list text-center tooltipmanage contex">manage</li>
+     	<li class="list-group-item manageSub-list text-right tooltipCompanyEntry contex" onclick="requestemp()" >Employee Entry</li>
+     	<li class="list-group-item manageSub-list text-right contex" onclick="requestcom()" >Company Entry</li>
+     </ul>
+            
+</div><!-- End of submenu slide -->
+
+<span style="margin-top: 70px;margin-left:70px;color: black;width: 100%;background: black;display: none" id="sessionValue" > <h:outputText value="#{helloWorld.getSession()}" ></h:outputText></span> 
+</h:body>
+<style>  
+.menuList li{
+	background:none;color: #fff;padding:15px;border:none;border-bottom:1px solid #fff;
+}
+
+.menuSide li{
+
+	background: none;padding-top: 14px;padding-bottom:14px;border:none;
+}
+
+</style>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+});
+
+
+
+function requestTask(){
+				var link="mytask.html?sessionId="+sessionId+"";
+				$("#fram").attr("src",link);
+				
+			}
+
+			function requestclaims(){
+				var link="/actnow-claims-1.0.0/forms/submit-claim.html?sessionId="+sessionId+"";
+				$("#fram").attr("src",link);
+				
+			}
+
+			function request(){
+				var link="/actnow-claims-1.0.0/forms/antr/submit-travel-claim.html?sessionId="+sessionId+"";
+				$("#fram").attr("src",link);
+				
+			}
+
+
+			function requestmyclaim(){
+				var link="myclaim.html?sessionId="+sessionId+"";
+				$("#fram").attr("src",link);
+				
+			}
+
+
+
+			function requesdash(){
+				//var link="/actnow-claims-1.0.0/entry/employee.html?sessionId="+sessionId+"";
+				var tempUrl="/pomfret-dashboard";
+				var dbool=false;
+				try {
+   if(tempUrl==dashUrl)
+				{
+				  $("#fram").attr("src",dashUrl);
+				  dbool=true;
+				}
+}
+catch(err) {
+    console.log( err.message);
+}
+				
+				if(!dbool){
+				$("#fram").attr("src","/actnow-claims-1.0.0/security/authorization.xhtml");
+				}
+				
+				
+				}
+
+
+function requestemp(){
+				var link="/actnow-claims-1.0.0/entry/employeelist.html?sessionId="+sessionId+"";
+				$("#fram").attr("src",link);
+			
+			}
+
+function requestcom(){
+				var link="/actnow-claims-1.0.0/entry/companylist.html?sessionId="+sessionId+"";
+				$("#fram").attr("src",link);
+				
+			}
+
+
+
+
+
+
+	$(".mainMenuList").css("display","none");
+	$(".menuList li").css("visibility","hidden");
+
+	
+	$(".menuSide li").hover(function(){
+		$(".mainMenuList").css("display","block");
+		var className=$(this).attr("class");
+		var dat=className.split(" ");
+		var list=$(".menuList li");		
+		$.each(list,function(val,key){
+			var listClass=$(this).attr("class");
+			var datsec=listClass.split(" ");
+		if(datsec[1].includes(dat[1]+""))
+		{
+			console.log(listClass);
+			$("."+datsec[1]).css("visibility","visible");
+			$(".processSub-list").css("display","none");
+			$(".manageSub-list").css("display","none");
+		}
+		else{
+			$("."+datsec[1]).css("visibility","hidden");
+			$(".processSub-list").css("display","none");
+			$(".manageSub-list").css("display","none");
+		}
+		
+		})
+
+	})
+
+
+
+	$(".menu").hover(function(){
+		console.log("aaj");
+		$(".menuList li").css("visibility","visible");
+	})
+
+	$(".process-list").hover(function(){
+$(".processSub-list").css("display","block");
+})
+	$(".manage-list").hover(function(){
+$(".manageSub-list").css("display","block");
+})
+
+/*	$(".mainMenuList").mouseout(function(){
+		$(".mainMenuList").css("display","none");
+	})
+	*/
+$(".main-display-area").hover(function(){
+
+	$(".mainMenuList").css("display","none");
+})
+$("body").hover(function(){
+
+	$(".mainMenuList").css("display","none");
+})
+
+
+
+
+
+/*Start of contex*/
+$.ajax({
+ 
+            url : "/actnow-claims-1.0.0/menu/contexdata.json",//need to make generic
+             type: "GET",
+            // dataType: "json",
+             async: true,
+             success: function(data)  {
+             	console.log(data);
+
+var contex=data;
+ $(".tooltipMytask").attr("title",contex.help.mainMenu.mytask);
+ $(".tooltipProcess").attr("title",contex.help.mainMenu.process);
+ $(".tooltipSubmitClaim").attr("title",contex.help.mainMenu.submitClaimRequest);
+ $(".tooltipSubmittravelClaim").attr("title",contex.help.mainMenu.submitTravelRequest);
+ $(".tooltipMyClaim").attr("title",contex.help.mainMenu.myClaim);
+
+
+              },
+             error: function(jqXHR, textStatus, errorThrown)  {
+             	console.log(textStatus);
+             }
+
+                     })
+
+
+/*End of contex*/
+
+
+
+
+
+
+
+
+</script>
+
+
+
+<style type="text/css">
+  /* Tooltip */
+  .contex + .tooltip > .tooltip-inner {
+      background-color: #fff; 
+      color: #111; 
+ 
+  }
+  /* Tooltip on top */
+  .contex + .tooltip.top > .tooltip-arrow {
+      border-top: 5px solid green;
+  }
+  /* Tooltip on bottom */
+  .contex + .tooltip.bottom > .tooltip-arrow {
+      border-bottom: 5px solid blue;
+  }
+  /* Tooltip on left */
+  .contex + .tooltip.left > .tooltip-arrow {
+      border-left: 5px solid red;
+  }
+  /* Tooltip on right */
+  .contex + .tooltip.right > .tooltip-arrow {
+      border-right: 5px solid black;
+  }
+
+
+
+	
+	.frameTag{
+		padding-left: 61px;padding-top: 61px;padding-right:0px;margin: 0px
+	}
+	.mnavbar{
+    	display: none;
+    }
+	@media screen and (max-width: 760px) {
+    
+    .mainMenuList{
+    	display: none;
+    }
+    .sideNav{
+    	display: none;
+    }
+    .frameTag{
+    	padding: 0px;
+    }
+    .mnavbar{
+    	display: block;
+    }
+    #logo{
+    	margin-left:0px;
+    }
+}
+</style>
+</html>

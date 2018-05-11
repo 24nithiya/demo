@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Claim employee review1</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="css/style.css">
+  <style>
+  @media screen and (min-width: 768px) {
+        .modal-dialog {
+          width: 90%; /* New width for default modal */
+          
+          margin-left:auto;
+          margin-right: auto;
+        }
+        .modal-sm {
+          width: 80%; /* New width for small modal */
+        }
+    }
+    @media screen and (min-width: 992px) {
+        .modal-lg {
+          width: 80%; /* New width for large modal */
+        }
+    }
+
+
+
+</style>
+ 
+</head>
+<body ng-app="myApp" ng-controller="ngCntrl">
+  <div style="background:rgba(225,225,225,0.5);position:absolute; width: 100%;height: 100%;z-index: 99;display: none" id="loading" >
+  
+    <img src="loading.gif" width="100%" style="position: absolute;z-index: 999;top: 0;right: 0;bottom: 0;left: 0;">
+</div>
+
+<form id="form">
+<div class="tabs">
+  
+  <input type="radio" id="tab1" name="tab-control" checked>
+  <input type="radio" id="tab2" name="tab-control">
+  <input type="radio" id="tab3" name="tab-control">  
+  <input type="radio" id="tab4" name="tab-control">
+  <ul style="/*width:500px*/; background-color:#222; line-height: 40px;">
+    <li><label for="tab1" role="button"></svg><br><span>Main</span></label></li>
+    <li><label for="tab2" role="button"></svg><br><span>Documents</span></label></li>
+    <li><label for="tab3" role="button"></svg><br><span>Notes</span></label></li>    
+  <li><label for="tab4" role="button"></svg><br><span style="margin-right: 20px;">History</span></label></li>
+  <li><label for="tab1" role="button"></svg><br><span></span></label></li>
+    <li><label for="tab2" role="button"></svg><br><span></span></label></li>
+    <li><label for="tab3" role="button"></svg><br><span></span></label></li>    
+  <li><label for="tab4" role="button"></svg><br><span></span></label></li>
+  <li><label for="tab1" role="button"></svg><br><span></span></label></li>
+    <li><label for="tab2" role="button"></svg><br><span></span></label></li>
+    <li><label for="tab3" role="button"></svg><br><span></span></label></li>    
+  <li><label for="tab4" role="button"></svg><br><span></span></label></li> 
+  </ul>
+  
+  <div class="slider"><div class="indicator"></div></div>
+  <div class="content">
+    <section>
+    
+      <div class="container-fluid jumbotron mappfull" style="margin-top: -30px;padding:5px;padding-left: 20px;padding-right: 20px">
+            <div class="row">
+              <div class="col-xs-3">
+                <label class="">Name</label>
+                  <input style="background-color:white; color:black;" class="form-control" name="firstName" value="" type="text" Id="fname" ng-model="fname" readonly/>
+              </div>
+              <div class="col-xs-3">
+                <label class="">Employee Id</label>
+                  <input class="form-control" placeholder="enter number" type="text" Id="number" name="employeeId" ng-model="emp_id" readonly/>
+              </div>
+              <div class="col-xs-3">
+                <label class="">Manager</label>
+                  <input class="form-control" placeholder="enter your manager name" type="text" Id="manager" name="managerName" ng-model="managerName" readonly/>
+              </div>
+              <div class="col-xs-3">
+                <label class="">Department No</label>
+                  <input class="form-control" placeholder="enter your department" type="text" Id="department" name="department" ng-model="department" readonly/>
+              </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-xs-3">
+                <label class="">Travel Request Id</label>
+                  <input class="form-control" placeholder="enter your TravelRequest No" type="text" Id="trId" name="trId" ng-model="travelRequestId" readonly/>
+                </div>
+            </div>
+          </div>
+                    
+          <div class="container-fluid jumbotron" style="padding:5px;padding-left: 20px;padding-right: 20px">
+            <div class="row">
+              <div class="col-xs-4">
+                <label class="">Claim Type</label>
+               <!--    <input class="form-control" placeholder="select claim type" type="text" Id="claimtype"/> -->
+                  <select class="form-control" name="claimType" ng-model="claimType">
+                        <option selected="true" disabled="disabled">Select claim type</option>
+                        <option>Travel Expense</option>
+                    </select>
+
+
+              </div>
+              <div class="col-xs-4">
+                <label class="">Mode Of Travel</label>
+    
+                  <input type="text" name="claimType" ng-model="travelMode" class="form-control">
+                  
+              </div>
+
+              <div class="col-xs-4">
+                <label class="">Class Of Travel</label>
+                  
+                   <input type="text" name="claimType" ng-model="travelClass" class="form-control">
+              </div>
+            </div>
+          
+            <div class="row">
+                <div class="col-xs-4">
+                <label class="">Start Date</label>
+         
+          <input type="date" class="form-control" ng-model="startDate" name="startDate">
+
+                </div>
+                <div class="col-xs-4">
+                <label class="">End Date</label>
+                  
+                 
+                    <input type="date" class="form-control" ng-model="endDate" name="endDate">
+                      
+
+                </div>
+
+
+
+
+
+
+                <script type="text/javascript">
+               function todayDate() {
+    var today = new Date(); // get the current date
+    var dd = today.getDate(); //get the day from today.
+    var mm = today.getMonth()+1; //get the month from today +1 because january is 0!
+    var yyyy = today.getFullYear(); //get the year from today
+    //if day is below 10, add a zero before (ex: 9 -> 09)
+    if(dd<10) {
+        dd='0'+dd
+    }
+    //like the day, do the same to month (3->03)
+    if(mm<10) {
+        mm='0'+mm
+    }
+    //finally join yyyy mm and dd with a "-" between then
+    return yyyy+'-'+mm+'-'+dd;
+}
+
+$("#startdate").attr("min",todayDate());
+$("#startdate").change(function(){
+
+  var sdate=$(this).val();
+  if(sdate<todayDate()){
+    $(this).val(todayDate());
+  }
+ // console.log("njdsjdh"+sdate);
+  $("#enddate").attr("min",sdate);
+})
+$("#enddate").change(function(){
+
+  var sdate=$(this).val();
+ // console.log("njdsjdh"+sdate);
+  $("#startdate").attr("max",sdate);
+   $("#startdate").attr("min",todayDate());
+})
+  
+
+               
+                  
+                </script>
+
+                <!--start of Bank-->
+            <div class="col-xs-3" >
+                    <label class="">Select Bank</label>
+               <select class="bank_op form-control">
+    <option>Empty</option>
+      <option>Emptysxsxs</option>
+  </select>
+            </div>
+
+            <div class="col-xs-1">  
+             <label class="">Add Bank</label>           
+            <button type="button" class="btn btn-success " data-toggle="modal" data-target="#myModal1">+</button>
+            </div>
+                 <!--End of bank-->
+
+              </div>
+          </div>
+                    
+       <!-- dynamically added form element -->
+        <div class="container-fluid jumbotron fontSize" style="padding:5px;padding-left: 20px;padding-right: 20px" >
+          <div class="row">
+            <div class="col-sm-10">
+            <table class="table table-striped">
+              <thead>
+                <th>Expense Type</th>
+                <th>Payment Type</th>
+                <th>Amount</th>
+                <th>Receipt</th>
+                <th>&nbsp;</th>
+                 <th>&nbsp;</th>
+                  <th>&nbsp;</th>
+               
+                
+              </thead>
+              <tbody>
+                
+                <tr ng-repeat="x in expanse track by $index">
+                  <td><input type="text" name=""  class="form-control" ng-model="x.expenseType"></td>
+                   <td><input type="text" name=""  class="form-control" ng-model="x.paymantType"></td>
+                   <td><input type="text" name=""  class="form-control" ng-model="x.amount" ng-change="totalData()"></td>
+                    <td><input type="text" name=""  class="form-control" ng-model="x.receipt.locationUri"></td>
+                    <td><button class="btn btn-default">u</button></td>
+                    <td><button class="btn btn-default" ng-click="rowAdd()">+</button></td>
+                   <!--  <td><button class="btn btn-default" ng-click="rowRemove($index)">-</button></td> -->
+                </tr>
+
+
+                <tr ng-repeat="x in expanseData">
+                  <td><input type="text" name=""  class="form-control" ng-model="x.expenseType" placeholder="Enter Expence Type"></td>
+                   <td><input type="text" name=""  class="form-control" ng-model="x.paymantType" placeholder="Enter pament type"></td>
+                   <td ><input type="text" name=""  class="form-control" ng-model="x.amount" placeholder="Enter amount" ng-change="totalData()"></td>
+                    <td ><input type="file" name="" id="file{{$index}}" class="form-control"  file-model="x.receipt.locationUri"></td>
+                   <td>
+
+                      <button type="button" class="btn btn-default btn-xs fileuploadbutton" id="0" ng-click="fileUpload($index,x)" style="color: red" style="border: 0px solid black"><span class="glyphicon glyphicon-cloud-upload" ></span></button>
+                    </td>
+                    <td><button class="btn btn-default" ng-click="rowAdd()">+</button></td>
+                    <td><button class="btn btn-default" ng-click="rowRemove($index)">-</button></td>
+                </tr>
+                
+              </tbody>
+            </table>
+            </div>
+            <div class="col-sm-2">
+              <table class="table table-striped">
+              <thead>
+                
+                <th>Total</th>
+                
+              </thead>
+              <tbody>
+               <tr><td>
+              <input type="text" class="form-control" name="" ng-model="total">
+              </td></tr> 
+            </tbody>
+          </table>
+            </div>
+          </div>
+        </div>
+        
+        
+
+        <div class="container-fluid jumbotron" style="padding-left:20px;padding-right: 20px;padding-top: 0">
+
+ <div class="row" id="flip4" style="background: #cfdff9" >
+          <div class="col-sm-12 text-right" style="border-bottom:1px solid rgba(20,20,20,0.3);">
+                  <span class="glyphicon glyphicon-align-justify" style="padding: 0px;margin: 0px"></span>
+              </div>
+              </div>
+      
+        <div class="container-fluid jumbotron" id="panel4"> 
+          <div  class="col-sm-6">
+            <div class="form-group" style="padding:20px;">
+  <label for="sel1">Action</label>
+  <select class="form-control" id="sel1" name="action">
+    <option selected="true" disabled="disabled">Select</option>
+
+    <option value="CLAIMAPPROVAL">Resubmit</option>
+    <option value="CLAIMCANCELLED">Cancel</option>
+
+  
+    
+  </select>
+</div>
+  
+          </div>
+
+
+        <div class="col-sm-6">
+
+              <div class="form-group" style="padding-left:20px;">
+  <label for="comment">Remarks:</label>
+  <textarea class="form-control" rows="3" id="comment" name="comment"></textarea>
+</div>
+          </div>
+
+        </div>
+
+        </div>
+        <!-- dynamically added form element -->
+
+         <div class="container-fluid jumbotron fontSize">
+
+          <div class="row">
+          <div class="col-sm-6"></div>
+          <div class="col-sm-6">
+            
+
+
+              <button id="sub" class="form-control btn-success pull-right" style="margin-top:0px; margin-bottom: 20px; width:100px;margin-right: 30px; " align="center" type="button" ng-click="sub()">Submit</button>
+            
+            <button  type="button" id="close" class="form-control  clo pull-right btn btn-primary"  style="margin-top:0px; margin-bottom: 20px; width:100px;margin-right: 40px;  " align="center" >Cancel</button>
+
+            
+          </div>
+          </div>
+        </div>
+
+
+          <!--   <script type="text/javascript">$('#close').click(function(){
+    $('#myModal').modal('hide');
+  });</script>
+ -->
+
+      </section>
+
+     <section>  <!--Documents Tab -->
+           <div class="container-fluid">
+            <div class="row">
+              <div class="col-xs-3">
+                <input type="file" id="file_doc" class="form-control">
+              </div>
+              <div class="col-xs-2">
+
+                <button type="button" class="form-control btn btn-info"  ng-click="claimFileUpload()">upload</button>
+
+              </div>
+            </div>
+           </div>
+           <br/>
+          
+           <div class="container-fluid">
+        <div class="row">
+          <div class="col-xs-12">
+            <!-- <div class="table-responsive"> -->
+        <table style="text-align:center" class=" table table-condensed " id= "userdata">
+        <thead style="background-color:#D7DBDD;">
+          <tr>
+            <th style="text-align:center;">Name</th>
+            <th style="text-align:center;">Created Date</th>
+            <th style="text-align:center;">Created By</th>
+            <th style="text-align:center;">Last Modified</th>
+            <th style="text-align:center;">Modified By</th>
+            <!-- <th style="text-align:center;">Request Id</th> -->
+            <th style="text-align:center;"></th>
+            <th style="text-align:center;"></th>
+          </tr>
+        </thead>
+            <tbody style="">
+
+             </tbody>
+         </table>
+            <!-- </div> -->
+          </div>
+         </div>
+      </div>
+
+      
+   
+  <!-- Modal -->
+        </section>
+
+        <section><!--Notes Tab Start-->
+             <div style="margin-left:15px; margin-right:15px; " class="container-fluid jumbotron">
+        <div class="row">
+          <div class="col-xs-4">
+            <label class="">User Id</label>
+            <input class="form-control" placeholder="enter user id" type="text" Id="userId" name="userid" ng-model="note.userId"/>
+          </div>
+          <div class="col-xs-4">
+            <label class="">User Name</label>
+            <input class="form-control" placeholder="enter your name" type="text" Id="userName" name="username" ng-model="note.userName"/>
+          </div>
+          <div class="col-xs-4">
+            <label class="">Queue Name</label>
+            <input class="form-control" placeholder="enter queue number" type="text" Id="queueName" name="queuename" ng-model="note.queueName" readonly /> 
+          </div>
+          
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <label class="">Description</label>
+            <input class="form-control" placeholder="enter description" type="text" Id="description" name="description" ng-model="note.description"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <label class="">Remarks</label>
+            
+            <textarea class="form-control" placeholder="enter remarks" id="remarks" name="remarks" ng-model="note.remarks"/>
+            </textarea>
+          
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-offset-10">
+          <button style="margin-bottom:5px; margin-left:0px; width:90px;" type="button" class="btn btn-info" ng-click="addNotes()">Save</button>
+        </div>
+      </div>
+
+
+
+
+
+
+      
+          <table style="text-align:center" class=" table table-condensed " id="notes">
+          <col width="100">
+          <col width="100">
+          <col width="100">
+          <col width="100">
+          <col width="100">
+          <col width="20">
+          <col width="10">
+          <thead>
+            <tr style="background-color:#D7DBDD; " >
+              <th style="text-align:center;">User Id</th>
+              <th style="text-align:center;">User Name</th>
+              <th style="text-align:center;">Queue Name</th>
+              <th style="text-align:center;">Description</th>
+              <th style="text-align:center;">Remarks</th>
+              <th style="text-align:center;">&nbsp; </th>
+             
+          </thead>
+          <tbody>
+            <tr ng-repeat="x in notes">
+              <td>{{x.userId}}</td>
+              <td>{{x.userName}}</td>
+              <td>{{x.queueName}}</td>
+              <td>{{x.description}}</td>
+              <td>{{x.remarks}}</td>
+            </tr>
+   
+          </tbody>
+            
+          </table>
+        
+ 
+
+         
+        </section>
+        
+        <section>
+         <table style="text-align:center" class=" table table-condensed" id="history">
+          <col width="100">
+          <col width="100">
+          <col width="100">
+          <col width="100">
+          <col width="100">
+          <col width="20">
+          <col width="10">
+          <thead>
+            <tr style="background-color:#D7DBDD; " >
+              <th style="text-align:center;">Event Id</th>
+              <th style="text-align:center;">Created By</th>
+              <th style="text-align:center;">Created at</th>
+              <th style="text-align:center;">EventDescritption</th>
+              <th style="text-align:center;">Remarks</th>
+              <th style="text-align:center;">&nbsp </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="x in history">
+              <td>{{x.eventId}}</td>
+              <td>{{x.createdBy}}</td>
+              <td>{{x.createdAt}}</td>
+              <td>{{x.eventDescritption}}</td>
+              <td>{{x.remarks}}</td>
+            </tr>
+   
+          </tbody>
+            
+          </table>
+
+        </section><!--End of history-->
+    
+  </div>
+</div>
+
+
+
+<div id="errormsg"  style="color:red; text-align: center; font-size: 25px;"></div>
+</form>
+
+
+<!-- Modal -->
+<div id="myModal1" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+     
+      <div class="modal-body">
+      
+
+        <div class="container "><!--Start of Bank-->
+
+  <div class="panel panel-success">
+    
+  <div class="panel-heading">Bank Form<button type="button" class="close" data-dismiss="modal">&times;</button></div>
+  <div class="panel-body">
+
+ 
+  <form >
+    <div class="row">
+
+      <div class="col-sm-12"><!--Start of 1st row-->
+
+        <div class="col-sm-6">
+          
+          <div class="form-group">
+      <label for="email">Employee Id</label>
+      <input type="email" class="form-control" id="emp_id" placeholder="Employee Id" name="emp_id" readonly >
+    </div>
+
+        </div>
+        <div class="col-sm-6">
+          
+
+          <div class="form-group">
+      <label for="email">Account Name</label>
+      <input type="email" class="form-control" id="acc_name" placeholder="Account Name" name="acc_name">
+    </div>
+        </div>
+        
+      </div><!--End of 1st row-->
+
+
+      <div class="col-sm-12"><!--Start of 2nd row-->
+
+        <div class="col-sm-6">
+          
+          <div class="form-group">
+      <label for="email">Account Number</label>
+      <input type="email" class="form-control" id="acc_no" placeholder="Account Number" name="acc_no">
+    </div>
+
+        </div>
+        <div class="col-sm-6">
+          
+
+          <div class="form-group">
+      <label for="email">Bank Name</label>
+      <input type="email" class="form-control" id="bank_name" placeholder="Bank Name" name="bank_name">
+    </div>
+        </div>
+        
+      </div><!--End of 2nd row-->
+
+      <div class="col-sm-12"><!--Start of 3rd row-->
+
+        <div class="col-sm-6">
+          
+          <div class="form-group">
+      <label for="email">Branch Code</label>
+      <input type="email" class="form-control" id="branch_code" placeholder="Branch Code" name="branch_code">
+    </div>
+
+        </div>
+        <div class="col-sm-6">
+          
+
+          <div class="form-group">
+      <label for="email">Branch Name</label>
+      <input type="email" class="form-control" id="branch_name" placeholder="Enter Branch Name" name="branch_name">
+    </div>
+        </div>
+        
+      </div><!--End of 3rd row-->
+
+      <div class="col-sm-12"><!--Start of 4th row-->
+
+        <div class="col-sm-6">
+          
+          <div class="form-group">
+      <label for="email">IFSC</label>
+      <input type="email" class="form-control" id="ifsc_code" placeholder="Enter ifsc_code" name="ifsc_code">
+    </div>
+
+        </div>
+        <div class="col-sm-6">
+          
+
+          <div class="form-group">
+      <label for="email">Address</label>
+      <textarea class="form-control" id="address" placeholder="Enter Adress Here" name="address"></textarea>
+    </div>
+        </div>
+        
+      </div><!--End of 4th row-->
+
+
+
+          
+
+    </div>
+    
+   <div class="col-sm-12 text-right">
+            <button type="button" id="bank_sub" class="btn btn-primary">Submit</button>
+         </div>
+   
+  </form>
+</div><!--End oof panel body-->
+
+</div><!--End of panel-->
+</div><!--End of Bank-->
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+<div class="message"></div>
+<!-- <div id="bottom" class="text-center">bottom</div> -->
+
+<script>
+
+$("#bottom").click(function(){
+
+   window.parent.topScroll();
+})
+
+</script>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<div class="message"></div>
+
+
+
+
+
+
+
+
+<script src="url/url.js"></script>
+<script>
+
+
+  
+
+$(".message").load("html/messageAlert.html");
+ 
+var d = new Date();
+ 
+ var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+];
+
+var date = new Date();
+date = monthNames[date.getMonth()]+" "+date.getDate()+", "+date.getFullYear();
+//
+console.log(date);
+
+
+ var dat=date+" "+DisplayCurrentTime();
+    
+   // console.log(dat);
+
+  var popupDiv = document.getElementById("popup_bg1");
+
+  function DisplayCurrentTime() {
+        var date = new Date();
+        var hours = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
+        var am_pm = date.getHours() >= 12 ? "PM" : "AM";
+        hours = hours < 10 ? "0" + hours : hours;
+        var minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+        var seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+        time = hours + ":" + minutes + ":" + seconds + " " + am_pm;
+        return time;
+    };
+
+
+function split_key(key)
+{
+  var arr=[];
+  var temp=key.split("&");
+  for(var i=0;i<temp.length;i++)
+    {
+     var key=temp[i].split("=");
+     arr.push(key[1]);
+    }
+ 
+  return arr;
+}
+var url_loc=decodeURIComponent(window.location.search);
+var arr=split_key(url_loc);
+var key=arr[0];
+var task_id=arr[1];
+var sessionId=arr[2];
+//alert("key="+key+" "+"task_id="+task_id);
+/*alert(arr[2]);*/
+
+var deleteFiles=[];
+
+function deleteFile(button_id){
+          //alert("button_id : "+button_id);
+          var filename=document.getElementById("filename"+button_id+"").innerHTML;
+          //alert(filename);
+          deleteFiles.push(filename);
+          var formData = new FormData();
+          var username ="test";
+          var password = "test";
+         formData.append('cmisaction', 'delete');
+          $.ajax( {
+                  type: 'POST',
+                  url: url.fileShare+filename,
+                  data: formData,
+                  contentType: false,
+                  processData: false,
+                 // dataType: "jsonp",
+                  beforeSend: function (xhr) {
+                    xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
+                   // xhr.setRequestHeader('Authorization', "Basic dGVzdDp0ZXN0");
+                  }
+                }).done(function(response) {
+                  //alert("file deleted successfully");
+                 //console.log("New File ID: " + response.properties["cmis:objectId"].value);
+                  $(".modal-body-result").html("<div class='alert alert-success'> <strong>File delete successfully</div>");
+                    $("#myModal3").modal();
+                }).fail(function(jqXHR) {
+                  /*alert("error deleting file");
+                  console.log(jqXHR.responseJSON.message);*/
+                   $(".modal-body-result").html("<div class='alert alert-danger'> <strong>file deleted Failed</div>");
+                    $("#myModal3").modal();
+                }); 
+                $('#del'+button_id+'').remove();
+    }
+
+     function viewFile(button_id){
+        var filename=document.getElementById("filename"+button_id).innerHTML;
+        //alert(filename);
+        /*if(filename.endsWith(".jpg") || filename.endsWith(".jpeg") || filename.endsWith(".png")){
+           var image = document.getElementById("images");
+               image.src = "/pomfret/fileshare/browser/test/root/tmp/claims/"+filename;
+               openPopUpMenu();*/
+        //}else{
+           var iframefile = document.getElementById("iframed");
+            iframefile.src=url.fileShare+filename;
+            //window.open("/pomfret/fileshare/browser/test/root/tmp/claims/"+filename);
+             $("#myModal").modal();
+       // } 
+      }
+
+           function viewFileInput(button_id){
+        var filename=document.getElementById("filename"+button_id).value;
+        //alert(filename);
+        /*if(filename.endsWith(".jpg") || filename.endsWith(".jpeg") || filename.endsWith(".png")){
+           var image = document.getElementById("images");
+               image.src = "/pomfret/fileshare/browser/test/root/tmp/claims/"+filename;
+               openPopUpMenu();*/
+        //}else{
+           var iframefile = document.getElementById("iframed");
+            iframefile.src=url.fileShare+filename;
+            //window.open("/pomfret/fileshare/browser/test/root/tmp/claims/"+filename);
+             $("#myModal").modal();
+       // } 
+      }
+
+
+
+
+
+
+
+          var data;
+
+angular.module('myApp', [])
+  .controller('ngCntrl', function($scope,$http) {
+
+/*Start of gettin gexpence claim*///
+   $http({
+        method : "GET",
+        url : url.expanseClaim+key
+    }).then(function mySuccess(response) {
+
+        console.log(response.data);
+
+         data=response.data;
+        $scope.employeeData=data.application.employee;
+        $scope.uuid=data.application.applicationUuid;
+        $scope.applicationId=data.application.applicationId;
+
+              $scope.travelRequestId=data.application.travelActual.travelRequestId;
+               $scope.startDate=new Date(data.application.travelActual.startDate);
+               $scope.endDate=new Date(data.application.travelActual.endDate);
+              $scope.travelMode=data.application.travelActual.travelMode;
+               $scope.travelClass=data.application.travelActual.travelClass;
+              $scope.claimType=data.claimType;
+               $scope.getBank=data.application.travelActual.bankAcId;
+               $scope.emp_id=data.employeeId;
+               console.log($scope.endDate);
+               $scope.managerId=data.managerId;
+                $scope.expanse=data.application.expenses;
+                $scope.notes=data.application.notes;
+                $scope.history=data.application.history;
+
+
+                $(data.application.referenceDocuments).each(function(i){
+
+              
+
+                  filelist(data.application.referenceDocuments[i].locationUri);
+
+               
+            });
+                
+
+
+
+               
+
+/*Start of bank data get*/
+                $http({
+        method : "GET",
+        url : url.bankAccount+$scope.emp_id,
+    }).then(function mySuccess(response) {
+
+     // console.log(response.data);
+    })
+    /*End of bank data get*/
+
+
+
+    /*Start of getting employee data*/
+    $http({
+        method : "GET",
+        url : url.empData+$scope.emp_id,
+    }).then(function mySuccess(response) {
+      var data=response.data;
+       // console.log(response.data);
+        $scope.fname=data.firstName;
+        $scope.number=data.employeeId;
+        $scope.department=data.buId;
+
+        
+/*Start of grt manager id*/
+        $http({
+        method : "GET",
+        url : url.managerId+$scope.number,
+    }).then(function mySuccess(response) {
+         // console.log(response.data);
+          /*Start of getting manager data*/
+          $scope.managerId=response.data.managerId;
+
+    $http({
+        method : "GET",
+        url : url.empData+$scope.managerId,
+    }).then(function mySuccess(response) {
+      $scope.managerName=response.data.firstName;
+      $scope.managerLoginId=response.data.loginId;
+     // console.log($scope.managerName+" "+$scope.managerLoginId);
+     $scope.note={"queueName":"Employee Review",
+     "userName":$scope.fname};
+     
+  
+$scope.totalData();
+    })
+    /*End of get manager data*/
+        
+    })
+    /*End of get manager id*/
+
+    })
+    /*End of getting employee data*/
+
+$scope.expanseData=[];
+$scope.rowAdd=function(){
+
+var dat={
+  "expenseType": "",
+        "paymantType": "",
+        "amount": "",
+        "receipt":{
+          "locationUri": $scope.uuid
+        } 
+}
+  $scope.expanseData.push({});
+}//
+console.log($scope.expanse);  
+
+  $scope.rowRemove=function(i)
+    {
+     $scope.expanseData.splice(i,1);
+    }
+
+ })
+    
+    /*End of getting expence claim*/
+
+
+
+
+$scope.fileUpload=function(i,x)
+{
+   var file = document.getElementById("file"+i).files[0];
+ 
+       var filename=$scope.uuid+"_"+file.name;
+       
+var dat={
+  "expenseType":x.expenseType,
+        "paymantType": x.paymantType,
+        "amount": x.amount,
+        "receipt":{
+          "locationUri":filename
+        } 
+      }
+       x=dat;
+ // console.log(x);
+  forDynamicFileUpload(i);
+}
+
+ function forDynamicFileUpload(fileid){//
+       
+       
+
+   
+    var file = document.getElementById("file"+fileid).files[0];
+ 
+       var filename=$scope.uuid+"_"+file.name;
+      
+        
+        var formData = new FormData();
+        
+            formData.append('cmisaction', 'createDocument');            
+            formData.append('propertyId[0]', 'cmis:objectTypeId');
+            formData.append('propertyValue[0]', 'cmis:document');
+            formData.append('propertyId[1]', 'cmis:name');
+            formData.append('propertyValue[1]', filename);
+            formData.append('content', file);
+            formData.append('succinct', true);
+            formData.append('_charset_', 'UTF-8');
+            
+            var rootFolder=url.fileShare;
+            var username ="test";
+            var password = "test";
+            // $.ajax(rootFolder, {
+             $.ajax( {
+                  type: 'POST',
+                  url: url.fileShare,
+                  data: formData,
+                  contentType: false,
+                  processData: false,
+                 // dataType: "jsonp",
+                  beforeSend: function (xhr) {
+                    xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
+                   // xhr.setRequestHeader('Authorization', "Basic dGVzdDp0ZXN0");
+                  }
+                }).done(function(response) {
+                 // alert("file uploaded successfully");   
+                 var butIcon= $(".fileuploadbutton");
+                // alert(butIcon.length);
+
+                $(butIcon[fileid]).css("color","green");
+                 $(butIcon[fileid]).attr("disabled", "disabled");
+                       filelist(filename);
+                 /*window.parent.topScroll();
+                    $(".modal-body-result").html("<div class='alert alert-success'> <strong>File Upload successfully</div>");
+                    $("#myModal3").modal();
+            */
+                 //console.log("New File ID: " + response.properties["cmis:objectId"].value);
+                 //callBack();
+                }).fail(function(jqXHR) {
+                 // alert("file upload failed");
+                  //console.log(jqXHR.responseJSON.message);
+                 /* window.parent.topScroll();
+                   $(".modal-body-result").html("<div class='alert alert-danger'> <strong>File Upload Failed</div>");
+                    $("#myModal3").modal();*/
+                });    
+           
+      }
+
+      /*End of static file upload*/
+
+
+
+
+
+var file={
+              "name":[],
+              "date":[],
+              "createdBy":[],
+              "lastModificationDate":[],
+              "lastModifiedBy":[]
+            };
+            var claim_file={
+              "cname":[],
+              "cdate":[],
+              "ccreatedBy":[],
+              "clastModificationDate":[],
+              "clastModifiedBy":[]
+            };
+
+var ind=0;
+            var knd=0;
+
+ function filelist(nam)
+    {
+ // travelRequestId=$("[name=trId]").val(); 
+  //alert(travelRequestId); //
+       $.ajax({
+        url: url.fileShare,
+        type: "GET",
+        //dataType: "jsonp",
+        async: true,
+        username: "test", // remove username and password if it doesn't works.
+        password: "test",
+       // jsonpCallback: "localJsonpCallback",
+        success: function(data)  {
+      
+           // alert(data.objects.length);
+            //catchlength=data.objects.length;
+           
+
+       $.each(data.objects, function(i, f) {
+
+          if(f.object.properties['cmis:name'].value.includes(nam))
+          {
+           // alert("file present"+travelRequestId);
+          var tblRow = "<tr id="+'del'+i+">" +  
+
+           "<td style ='word-break:break-all; text-align:left;'><span id="+'filename'+i+">" + f.object.properties['cmis:name'].value + "</span></td>"+
+           "<td style ='word-break:break-all;'>" + f.object.properties['cmis:creationDate'].value + "</td>" +
+           "<td style ='word-break:break-all;'>" + f.object.properties['cmis:createdBy'].value + "</td>" +
+           "<td style ='word-break:break-all;'>" + f.object.properties['cmis:lastModificationDate'].value + "</td>" +
+           "<td style ='word-break:break-all;'>" + f.object.properties['cmis:lastModifiedBy'].value + "</td>" +
+          /* "<td style ='word-break:break-all;'>" + f.object.properties['cmis:objectId'].value + "</td>" +*/
+           '<td><button type="button" style="margin-left:0px" class="btn btn-info viewFile" id="'+ i +'" onclick="viewFile(this.id)">View</button></td>'+
+            '<td><button type="button" style=" width:40px; height:px; margin-top:px; margin-left:0px;  padding:px px px px; font-size:px;" class="btn btn-warning deleteFile" id="'+i+'" onclick="deleteFile(this.id)">Delete</button></td>'+
+           "</tr>"
+           $(tblRow).appendTo("#userdata tbody"); 
+
+
+      
+              if(nam.includes("Claim_Document_"))
+              {
+                 claim_file.cname.push( f.object.properties['cmis:name'].value);
+           claim_file.cdate.push(f.object.properties['cmis:creationDate'].value);
+           claim_file.ccreatedBy.push(f.object.properties['cmis:createdBy'].value);
+           claim_file.clastModificationDate.push(f.object.properties['cmis:lastModificationDate'].value);
+           claim_file.clastModifiedBy.push(f.object.properties['cmis:lastModifiedBy'].value);
+           console.log("      CLAIM REQUEST DATA        "+claim_file.cname.length);
+          
+
+              }
+              else{
+
+           file.name[knd]= f.object.properties['cmis:name'].value;
+           file.date[knd]=f.object.properties['cmis:creationDate'].value;
+           file.createdBy[knd]=f.object.properties['cmis:createdBy'].value;
+           file.lastModificationDate[knd]=f.object.properties['cmis:lastModificationDate'].value;
+           file.lastModifiedBy[knd]=f.object.properties['cmis:lastModifiedBy'].value;
+           console.log(file.name[knd]+" "+file.date[knd]+file.createdBy[knd]+file.lastModificationDate[knd]+file.lastModifiedBy[knd]+"    RECEIPT DATA  "+file.name.length);
+           knd=knd+1;
+
+              }
+            }
+         
+          });    
+        },
+        error: function(jqXHR, textStatus, errorThrown)  {
+         // alert(jqXHR.status+' '+jqXHR.textStatus); 
+         $(".modal-body-result").html("<div class='alert alert-danger'> <strong>Error Geting Data</div>");
+                    $("#myModal3").modal();
+        }
+    });    
+  }
+
+
+
+$scope.addNotes=function(){
+//
+console.log($scope.note);
+
+
+$scope.notes.push($scope.note);
+$scope.note={
+  "userId":"",
+  "description":"",
+  "remarks":"",
+ "queueName":"Employee Review",
+"userName":$scope.fname
+};
+}
+$scope.claimFileUpload=function(){
+ forStaticFileUpload();
+}
+
+
+$scope.totalData=function(){
+$scope.total=0;
+//$scope.total+=parseInt(i);
+angular.forEach($scope.expanse,function(val,key){
+  console.log(val.amount);
+  $scope.total+=parseInt(val.amount);
+})
+
+angular.forEach($scope.expanseData,function(val,key){
+   $scope.total+=parseInt(val.amount);
+})
+
+}
+ 
+
+
+
+
+
+/*Start of sub*/
+$scope.expanseSub=[];
+
+
+$("input[type=text]").css("background","white");
+$("input[type=text]").css("color","black");
+
+
+  var actionHolderFirstName="";
+
+ $.ajax({
+
+            url: url.empData+sessionId,//need to make generic
+            type: "GET",
+            dataType: "json",
+            async: true,
+            success: function(data)  {
+
+                   // alert(data.firstName);
+                    /*empLoginId=data.loginId;*/
+                    actionHolderFirstName=data.firstName;
+                   // alert(empLoginId);
+                }
+    
+                });
+
+
+ 
+
+$scope.sub=function(){
+  
+
+          var act_id=$("#sel1").val();
+var remarks=$("#comment").val();
+
+//alert(act_id+"gcdg "+remarks);
+var actions=[];
+
+    var res={};
+    res.selectAction=act_id;
+    res.remarks=remarks;
+    res.userId="12354";
+    res.queueName="ClaimApprove";
+
+    actions.push(res);
+    
+
+ // console.log(file);
+  /*Start of condition*/
+  if($scope.expanseData.length>0){
+  angular.forEach($scope.expanseData,function(val,key){
+    var name=$scope.uuid+"_"+val.receipt.locationUri;
+
+    $scope.expanseData[key].receipt.locationUri=name;
+
+
+
+      var temp={
+            "expenseType" : val.expenseType,
+            "paymentType" : val.paymentType,
+            "amount" : val.amount,
+            "receipt" : {
+                    "locationUri" :file.name[key],
+                    "applicationNo" : file.date[key],
+                    "createdBy" : file.createdBy[key],
+                    "modifiedBy" : file.lastModifiedBy[key],
+                    "approvedBy" : "somePerson",
+                    "approvedOn" : "Jun 11, 2017 12:00:00 AM"
+                  }
+          }
+
+
+    $scope.expanseSub.push(temp);
+  })
+}
+if($scope.expanse.length>0){
+  angular.forEach($scope.expanse,function(val,key){
+    /*var name=$scope.uuid+"_"+val.receipt.locationUri;
+
+    $scope.expanseData[key].receipt.locationUri=name;
+*/
+
+
+      var temp={
+            "expenseType" : val.expenseType,
+            "paymentType" : val.paymentType,
+            "amount" : val.amount,
+            "receipt" : {
+                    "locationUri" :val.receipt.locationUri,
+                    "applicationNo" : val.receipt.applicationNo,
+                    "createdBy" : val.receipt.createdBy,
+                    "modifiedBy" : val.receipt.modifiedBy,
+                    "approvedBy" : "somePerson",
+                    "approvedOn" : "Jun 11, 2017 12:00:00 AM"
+                  }
+          }
+
+
+    $scope.expanseSub.push(temp);
+  })
+}
+/*End of conditin*/
+
+/*angular.forEach($scope.expanse,function(val,key){
+
+  $scope.expanseSub.push(val);
+})*/
+
+
+
+
+
+                var referenceDocument = [];
+                    
+                    var clength=claim_file.cname.length;
+                   // console.log("CLAIM_LENGTH IS"+clength);
+                    for(var p=0;p<clength;p++)
+                    {
+                        var documents = {};
+
+                        if(!deleteFiles.includes(claim_file.cname[p])){
+
+                        documents.locationUri = claim_file.cname[p];
+                        documents.applicationNo = claim_file.cdate[p];
+                        documents.createdBy = claim_file.ccreatedBy[p];
+                        documents.modifiedBy = claim_file.clastModifiedBy[p];
+                        documents.approvedBy = "somePerson";
+                        documents.approvedOn = dat;
+
+                        referenceDocument.push(documents);
+                      }
+                      }
+
+                     // console.log(referenceDocument);
+
+
+
+
+
+
+var history_arr=[];
+history_arr=$scope.history;
+
+
+
+  var his={};
+
+his.eventId=data.application.history[0].eventId;
+his.createdBy=data.application.history[0].createdBy;
+his.createdAt=data.application.history[0].createdAt;
+his.isAlarm=data.application.history[0].isAlarm;//
+console.log(his.eventId+"   "+data.application.history[0].eventId);
+his.eventDescritption="Employee Review Claim";
+his.remarks="<b>"+ act_id+"</b> -by-<b>"+actionHolderFirstName+"</b><br><b>Remarks:-</b>"+remarks+"" ;
+history_arr.push(his);//
+console.log(his);
+
+
+
+  var interval={};
+                          if(act_id=="CLAIMAPPROVAL")
+                          {
+                             interval.assignee=$scope.managerLoginId;
+                          }
+                          else 
+                          {
+                            interval.assignee="";
+                          }
+
+
+var json={
+  "employee" : $scope.employeeData,
+  "applicationUuid" : $scope.uuid ,
+  "applicationId" : $scope.applicationId,
+  "applicationStatus" : act_id,
+  "createdAt": data.application.createdAt,
+  "modifiedAt": data.application.modifiedAt,
+  "claimTotalAmount" :$scope.totalData,
+  "currency" : "US Dollar",
+  "claimType" : $scope.claimType,
+  "travelActual" : {
+            "travelRequestId" : $scope.travelRequestId,
+            "travelMode" : $scope.travelMode,
+            "travelClass" : $scope.travelClass,
+            "startDate" : $scope.startDate,
+            "endDate" : $scope.endDate
+          },
+  "expenses" : $scope.expanseSub,
+  "referenceDocuments" :referenceDocument,
+  "action":actions,
+  "notes" :$scope.notes,
+  "history" : history_arr,
+  "interval":interval
+}
+
+
+console.log(deleteFiles);
+
+   var html=JSON.stringify(json, null, "\t");
+   console.log(html);
+    $("#loading").css("display","block");
+ $("#sub").attr("disabled","disabled")
+ $.ajax({
+                    url: url.expanseClaim,
+                    type: "PUT",
+                    dataType: "json",
+                    async: true,
+                    contentType:'application/json',
+                    data: html,
+                   success: function()  {
+                     // alert("data successfully stored");
+                      $("#loading").css("display","none");
+                      window.parent.moveTop();
+                        $(".modal-body-result").html("<div class='alert alert-success'> <strong>Data Submission successfully</strong></div>");
+                    $("#myModal3").modal();
+
+                       $(".clo-message").on("click",function(){
+                         window.parent.closeModal();
+                       })
+                       
+                    },
+                     error: function(jqXHR, textStatus, errorThrown)  {
+                       $("#loading").css("display","none");
+                        window.parent.moveTop();
+                      //alert("error storing data: "+jqXHR.status+' '+jqXHR.textStatus);  
+                      $(".modal-body-result").html("<div class='alert alert-danger'> <strong>Data Submission Failed</div>");
+                    $("#myModal3").modal();
+                     $(".clo-message").on("click",function(){
+                         window.parent.closeModal();
+                       })
+                      } 
+                    });
+
+                      
+}
+/*End of sub*/
+
+
+  function forStaticFileUpload()
+     {
+     
+        travelRequestId=$("[name=trId]").val(); 
+          // $(".fileuploadbutton").on("click", function () {          
+      // alert("hai");
+       
+
+var file = document.getElementById("file_doc").files[0];
+      // alert("bye :"+file.name);
+       var filename=$scope.uuid+"_"+"Claim_Document_"+file.name;
+      
+      
+        //var parentFolderId = "L2NsYWltcy9wb21mcmV0";
+        var formData = new FormData();
+           // formData.append('objectId', parentFolderId);
+            formData.append('cmisaction', 'createDocument');            
+            formData.append('propertyId[0]', 'cmis:objectTypeId');
+            formData.append('propertyValue[0]', 'cmis:document');
+            formData.append('propertyId[1]', 'cmis:name');
+            formData.append('propertyValue[1]', filename);
+            formData.append('content', file);
+            formData.append('succinct', true);
+            formData.append('_charset_', 'UTF-8');
+            
+
+            var rootFolder=url.fileShare;
+            var username ="test";
+            var password = "test";
+            // $.ajax(rootFolder, {
+             $.ajax( {
+                  type: 'POST',
+                  url: url.fileShare,
+                  data: formData,
+                  contentType: false,
+                  processData: false,
+                 // dataType: "jsonp",
+                  beforeSend: function (xhr) {
+                    xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
+                   // xhr.setRequestHeader('Authorization', "Basic dGVzdDp0ZXN0");
+                  }
+                }).done(function(response) {
+                  //alert("file uploaded successfully");   
+                 /* window.parent.topScroll();
+                     $(".modal-body-result").html("<div class='alert alert-success'> <strong>File Upload successfully</div>");
+                    $("#myModal3").modal();*/
+                  filelist(filename);
+                 ////console.log("New File ID: " + response.properties["cmis:objectId"].value);
+                 //callBack();
+                }).fail(function(jqXHR) {
+                 // alert("file upload failed");
+                  ////console.log(jqXHR.responseJSON.message);
+                  /*window.parent.topScroll();
+                  $(".modal-body-result").html("<div class='alert alert-danger'> <strong>File Upload Failed</div>");
+                    $("#myModal3").modal();*/
+                });    
+            
+      }
+
+
+})
+ .directive('fileModel', ['$parse', function ($parse) {
+            return {
+               restrict: 'A',
+               link: function(scope, element, attrs) {
+                  var model = $parse(attrs.fileModel);
+                  var modelSetter = model.assign;
+                  
+                  element.bind('change', function(){
+                     scope.$apply(function(){
+                        modelSetter(scope, element[0].files[0]);
+                     });
+                  });
+               }
+            };
+         }])
+  /*End of controller*/
+</script>
+
+
+
+<script >
+
+
+
+  </script>
+</body>
+</html>
+
+

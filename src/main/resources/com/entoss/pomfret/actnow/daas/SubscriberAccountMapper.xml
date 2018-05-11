@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="com.entoss.pomfret.actnow.daas.SubscriberAccountMapper"> 
+   <resultMap type="SubscriberAccount" id="SubscriberAccountResult">
+    <result property="subscriberId" column="subscriber_id"/>
+    <result property="activatedOn" column="activated_on"/>
+    <result property="status" column="status"/>
+    <result property="domainName" column="domain_name"/>
+   </resultMap>
+   
+  <select id="getAllSubscriberAccounts" resultMap="SubscriberAccountResult">
+   SELECT * FROM SUBSCRIBER_ACCOUNT
+  </select>
+  
+  <select id="getSubscriberAccountById" parameterType="int" resultMap="SubscriberAccountResult">
+     SELECT SUBSCRIBER_ID, ACTIVATED_ON, STATUS, DOMAIN_NAME
+     FROM SUBSCRIBER_ACCOUNT 
+     WHERE SUBSCRIBER_ID = #{subscriberId}     
+  </select>
+  
+  <insert id="insertSubscriberAccount" parameterType="SubscriberAccount">
+   INSERT INTO SUBSCRIBER_ACCOUNT(SUBSCRIBER_ID, ACTIVATED_ON, STATUS, DOMAIN_NAME)
+    VALUES(#{subscriberId}, #{activatedOn}, #{status}, #{domainName})
+  </insert>
+   
+  <update id="updateSubscriberAccount" parameterType="SubscriberAccount">
+    UPDATE SUBSCRIBER_ACCOUNT 
+    SET
+     ACTIVATED_ON = #{activatedOn},
+     STATUS = #{status},
+     DOMAIN_NAME = #{domainName}
+      
+    WHERE SUBSCRIBER_ID = #{subscriberId}
+  </update>
+   
+  <delete id="deleteSubscriberAccount" parameterType="int">
+    DELETE FROM SUBSCRIBER_ACCOUNT WHERE SUBSCRIBER_ID = #{subscriberId}
+  </delete>
+   
+</mapper>
